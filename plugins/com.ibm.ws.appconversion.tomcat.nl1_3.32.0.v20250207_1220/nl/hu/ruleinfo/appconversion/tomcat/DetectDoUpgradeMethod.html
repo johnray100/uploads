@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2015, 2016.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script> 
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Ne használja az Apache Tomcat WsServerContainer doUpgrade módszerét</span>
+<p>
+A Liberty V8.5.5.7 és a hagyományos WebSphere Application Server V9.0
+kiadásokban került bevezetésre a
+<code>com.ibm.websphere.wsoc.WsWsocServerContainer doUpgrade</code> WebSocket
+módszer, ami lehetővé teszi a szervlet vagy szűrő számára, hogy kérje az
+aktuális HTTP kérés frissítését WebSocket munkamenetre.
+Az Apache Tomcat a
+<code>org.apache.tomcat.websocket.server.WsServerContainer doUpgrade</code>
+módszeren keresztül ad hasonló képességet. 
+</p>
+<p>
+Ez a szabály megjelöli a Tomcat <code>WsServerContainer doUpgrade</code>
+módszerét, hogy átállíthassa azt a <code>WsWsocServerContainer doUpgrade</code>
+módszerre.
+</p>
+<p>
+A WebSphere Application Server módszer meghatározása a következő:
+</p>
+<div class="container">
+<pre class="JavaType">
+
+com.ibm.websphere.wsoc.WsWsocServerContainer
+
+<span class="JavaKeyword">Nyilvános hézag</span> doUpgrade(HttpServletRequest request, 
+                      HttpServletResponse response,
+                      ServerEndpointConfig sec, 
+                      java.util.Map&lt;java.lang.String,
+                      java.lang.String&gt; pathParams) 
+                        <span class="JavaKeyword">Dob</span> ServletException, java.io.IOException
+
+}
+</pre>
+</div>
+<p>
+További információkat és a Java dokumentáció hivatkozását a következő helyen találja:
+</p>
+<ul>
+<li><a href="https://www.ibm.com/docs/en/was-liberty/nd?topic=environment-developing-websocket-applications-in-liberty" 
+	title="Új ablakban nyílik meg" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-liberty/nd?topic=environment-developing-websocket-applications-in-liberty'); return false;">
+	WebSocket alkalmazások fejlesztése Liberty rendszerben</a>.</li>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/tweb_websocket_apps.html" 
+	title="Új ablakban nyílik meg" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/tweb_websocket_apps.html'); return false;">
+	WebSocket alkalmazások fejlesztése</a> hagyományos WebSphere kiszolgálón.</li>	
+</ul> 
+</div>
+</body>
+</html>

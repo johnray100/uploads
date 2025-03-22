@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Apache Tomcat の org.apache.juli.logging を使用しない</span>
+ 
+<p>この規則は、以下のものの使用を検出します。  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.Log</span>
+<!-- END NON-TRANSLATABLE --> および 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.LogFactory</span>
+<!-- END NON-TRANSLATABLE --> クラスおよびメソッド。
+こうしたロギング・メソッドは WebSphere traditional および Liberty では使用できないため、マイグレーションする必要があります。
+</p>
+<p>         
+ソース・スキャナーでクイック・フィックスが使用可能です。 これは、 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.LogFactory</span>
+<!-- END NON-TRANSLATABLE --> 
+使う <!-- START NON-TRANSLATABLE -->
+<span class="Code">java.util.logging.Logger</span>
+<!-- END NON-TRANSLATABLE -->。 
+また、 Apache Tomcat ロギング・メソッドを Java に置き換えます。 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Logger.log(Level, message)</span>
+<!-- END NON-TRANSLATABLE --> メソッド。
+</p>
+<p>
+一部の Apache Tomcat メソッドは、定義されたものに直接マップされます。 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">java.util.logging.Level</span>
+<!-- END NON-TRANSLATABLE -->. 直接マップされないレベルについては、「分析構成」ダイアログでログ・レベルをカスタマイズできます。
+さらに、クイック・フィックスがクラス・インポート・ステートメントを更新します。
+</p>
+<p>
+クイック・フィックスによる置き換えは、以下のマッピング・テーブルに示されています。
+2 番目のパラメーターとして Throwable を渡すロギング・メソッドは、以下のテーブルではその対応するものと同様にマップされます。</p>
+<table border="1" cellpadding="1px">
+<thead>
+<tr>
+<th><b>org.apache.juli.logging method</b></th>
+<th><b>java.util.logging method</b></th>
+<th><b>構成可能</b></th>
+</tr>
+</thead>   
+<tr>
+<td>LogFactory.getLog(Class.class)</td>
+<td>Logger.getLogger(Class.class.getName())</td>
+<td>いいえ</td>
+</tr>
+<tr>
+<td>LogFactory.getLog("log name")</td>
+<td>Logger.getLogger("log name")</td>
+<td>いいえ</td>
+</tr>
+<tr>
+<td>LogFactory.getInstance(Class.class)</td>
+<td>Logger.getLogger(Class.class.getName())</td>
+<td>いいえ</td>
+</tr>
+<tr>
+<td>LogFactory.getInstance("log name")</td>
+<td>Logger.getLogger("log name")</td>
+<td>いいえ</td>
+</tr>
+<tr>
+<td>Log.fatal("mgs")</td>
+<td>Logger.log(WsLevel.FATAL, "msg")</td>
+<td>はい</td>
+</tr>
+<tr>
+<td>Log.error("msg")</td>
+<td>Logger.log(Level.SEVERE, "msg")</td>
+<td>はい</td>
+</tr>
+<tr>
+<td>Log.warn("msg")</td>
+<td>Logger.log(Level.WARNING, "msg")</td>
+<td>いいえ</td>
+</tr>
+<tr>
+<td>Log.info("msg")</td>
+<td>Logger.log(Level.INFO, "msg")</td>
+<td>いいえ</td>
+</tr>
+<tr>
+<td>Log.debug("msg")</td>
+<td>Logger.log(WsLevel.DETAIL, "msg")</td>
+<td>はい</td>
+</tr>
+<tr>
+<td>Log.trace("msg")</td>
+<td>Logger.log(Level.FINE, "msg")</td>
+<td>はい</td>
+</tr>
+</table>
+<p>
+例えば、ログ・クラス・インスタンスの作成の場合:
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+Log log = LogFactory.getLog(MyClass.class);
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<br>これは、以下にマイグレーションされます。
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+Logger log = Logger.getLogger(MyClass.class.getName());
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+この例は、以下の呼び出しを示しています。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.Log.error()</span>
+<!-- END NON-TRANSLATABLE -->
+を使用して <!-- START NON-TRANSLATABLE -->
+<span class="Code">Throwable</span>
+<!-- END NON-TRANSLATABLE --> 2 番目のパラメーターとして。
+<div class="container">
+<span class="Code">
+catch (Exception e) {<br>
+<span class="indent2"></span>log.error("Some error message", e);<br>  
+}
+</span>
+</div>
+<br>この例は、以下のコードにマイグレーションされます。<div class="container">
+<span class="Code">
+catch (Exception e) {<br>       
+<span class="indent2"></span>log.log(Level.SEVERE, "Some error message", e);<br>  
+} 
+</span>
+</div>
+<br>
+<br>注:
+<ol>
+<li>ロギング・メソッドの一部のマイグレーションは構成可能です。 例えば、以下のようにしたいとします。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Log.trace</span>
+<!-- END NON-TRANSLATABLE --> 以外のレベルにマイグレーションされるメソッド <!-- START NON-TRANSLATABLE -->
+<span class="Code">WsLevel.DETAIL</span>
+<!-- END NON-TRANSLATABLE -->これは、「分析構成」ダイアログ・ボックスで変更できます。
+</li>
+<li><!-- START NON-TRANSLATABLE -->
+<span class="Code">WsLevel</span>
+<!-- END NON-TRANSLATABLE --> IBM(R) クラスで定義されている。
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">com.ibm.websphere.logging.WsLevel</span>
+<!-- END NON-TRANSLATABLE -->。
+拡張されます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">java.util.logging.Level</span>
+<!-- END NON-TRANSLATABLE --> 追加のログ・レベルを提供します。  以下を使用しない場合: <!-- START NON-TRANSLATABLE -->
+<span class="Code">WsLevel</span>
+<!-- END NON-TRANSLATABLE -->
+定義されたレベルの場合、この Tomcat Java 規則の下の「分析の構成」ダイアログ・ボックスでそれらのマッピングを構成することもできます。
+</li>
+<li>
+すべてではない <!-- START NON-TRANSLATABLE -->
+<span class="Code">LogFactory</span>
+<!-- END NON-TRANSLATABLE --> メソッドがマイグレーションされます。 
+場合によっては、基本ロギング・メソッドのマイグレーション後に、追加の手動マイグレーションを行う必要があります。 以下の追加使用を評価します。 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">LogFactory</span>
+<!-- END NON-TRANSLATABLE --> アプリケーション内のメソッド。
+</li>
+<li><code>org.apache.juli.logging.Log</code> クラス内のメソッドには、タイプ <code>java.lang.Object</code> のパラメーターがあります。<code>java.util.logging.Logger</code> クラス内のメソッドには、タイプ <code>java.lang.String</code> のパラメーターがあります。<code>java.lang.String</code> 以外のタイプのパラメーターを使用する場合は、クイック・フィックスを実行して <code>org.apache.juli.logging.Log</code> から <code>java.util.logging.Logger</code> にマイグレーションした後に、追加の手動マイグレーションを行って、そのパラメーターに <code>toString()</code> を追加する必要がある場合があります。
+</li>
+</ol>
+<p>
+追加情報については、以下の Java に関する資料を参照してください。
+<ul>
+<li>
+<a href="http://download.oracle.com/javase/8/docs/api/java/util/logging/Logger.html" 
+title="新しいウィンドウを開く" onclick="javascript:helpWindow('http://download.oracle.com/javase/8/docs/api/java/util/logging/Logger.html'); return false;">java.util.logging.Logger</a>
+</li>
+<li>
+<a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/logging/WsLevel.html" 
+title="新しいウィンドウを開く" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/logging/WsLevel.html'); return false;">com.ibm.websphere.logging.WsLevel</a>
+</li>
+<li>
+<a href="http://tomcat.apache.org/tomcat-9.0-doc/api/org/apache/juli/logging/package-summary.html" 
+title="新しいウィンドウを開く" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/api/org/apache/juli/logging/package-summary.html'); return false;">org.apache.juli.logging</a> パッケージ
+</li>
+
+</ul>
+</div>
+</body>
+</html>

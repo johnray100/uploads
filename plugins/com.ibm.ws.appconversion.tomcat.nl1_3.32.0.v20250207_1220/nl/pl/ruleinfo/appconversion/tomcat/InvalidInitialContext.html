@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Unikaj używania niepoprawnego kontekstu początkowego java:/comp</span>
+<p>
+Ta reguła oznacza dowolny literał łańcuchowy rozpoczynający się od <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:/comp</span>
+<!-- END NON-TRANSLATABLE --> w plikach Java lub plikach XML.
+Ten łańcuch zwykle
+reprezentuje wyszukiwanie kontekstu nazewnictwa.  
+Specyfikacja Java EE definiuje łańcuch wyszukiwania jako <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:comp</span>
+<!-- END NON-TRANSLATABLE --> bez ukośnika (/) poprzedzającego <!-- START NON-TRANSLATABLE -->
+<span class="Code">comp</span>
+<!-- END NON-TRANSLATABLE -->.
+Jednak serwer Apache Tomcat zezwala na niezgodny łańcuch.
+</p>
+<p>
+Szybka poprawka Java dla tej reguły jest dostępna w skanerze źródła. Szybka
+poprawka dla tej reguły usuwa znak / z łańcucha.
+</p>
+<p>
+Jako przykładu można użyć następującego fragmentu kodu, który zawiera dodatkowy
+ukośnik.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:/comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --><br> 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:/comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Szybka poprawka usuwa znak ukośnika i aktualizuje kod do następującej postaci:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+
+<p>
+Reguła XML oznacza flagą tylko pierwszą instancję łańcucha w pliku, jeśli
+istnieje ich wiele. Szybka poprawka XML jest dostępna w skanerze źródła. Szybka
+poprawka XML umożliwia zmianę wszystkich instancji problematycznego łańcucha w
+pliku.</p>
+<p>
+Jako przykład można rozważyć poniższy fragment kodu XML.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:/comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Szybka poprawka usuwa znak ukośnika i aktualizuje kod do następującej postaci:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

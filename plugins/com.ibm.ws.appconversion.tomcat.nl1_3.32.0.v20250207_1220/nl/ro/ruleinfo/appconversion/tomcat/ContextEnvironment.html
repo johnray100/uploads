@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utilizaţi descriptori de implementare Java EE pentru a defini referinţe de mediu</span>
+<p>
+Această regulă semnalează <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente găsite în fișierul <span class="FilePath">META-INF/context.xml</span> care trebuie să fie transformate în <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente în 
+<span class="FilePath">WEB-INF/web.xml</span> .
+</p>
+<p>
+Apache Tomcat permite <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente care trebuie definite în aceste locații: 
+<ul>
+<li>Fişierul <span class="FilePath">META-INF/context.xml</span></li>
+<li>Fişierul de configuraţie XML al aplicaţiei din directorul Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> element în <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Deoarece instrumentul de migrare s-ar putea să nu aibă acces la Tomcat de configurare a modelului <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> în 
+<span class="FilePath">META-INF/context.xml</span> .
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> informații definite în celelalte locații pot fi copiate în fișierul <span class="FilePath">META-INF/context.xml</span> pentru ca acesta să fie procesat de instrument.
+</p>
+<p>
+Dacă există un fişier <span class="FilePath">WEB-INF/web.xml</span> în proiectul web:
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+elementele vor fi marcate în oricare dintre următoarele condiții:
+</p>
+<ul>
+<li>Intrarea nu are o intrare care să se potrivească în fişierul <span class="FilePath">web.xml</span>.</li>
+<li>Intrarea are un alt tip decât intrarea care se potriveşte în fişierul <span class="FilePath">web.xml</span>.</li>
+<li>Intrarea are o valoare diferită decât cea care se potriveşte în fişierul <span class="FilePath">web.xml</span> şi steguleţul de înlocuire setat la false.</li>
+</ul>
+<p class="indent2">
+O corecţie rapidă pentru această regulă este disponibilă în scanerul de sursă. Remedierea rapidă va adăuga un nou <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+element în fișierul de tip " <span class="FilePath">web.xml</span> <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> element în cazul în care nu există deja în 
+<span class="FilePath">web.xml</span> . 
+Dacă intrarea există, aceasta va fi actualizată. 
+</p>
+<p>
+Dacă nu există fişierul <span class="FilePath">WEB-INF/web.xml</span>:</p>
+<p class="indent2">
+Toate <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elementele vor fi marcate.
+</p>
+<p class="indent2">
+Remedierea rapidă va crea un fișier <span class="FilePath">WEB-INF/web.xml</span> care include cele adecvate <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente în cazul în care proiectul web este la Java EE 5 sau mai mare. Corecţia rapidă va raporta o eroare dacă proiectul web este la
+versiunea J2EE 1.4 sau una anterioară.
+</p>
+De exemplu, luaţi în considerare un fişier <span class="FilePath">META-INF/context.xml</span>
+cu următorul conţinut:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Mediu <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>"java.lang.String" valoare = "abc123"/&gt;<br>	
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="contextEnvString_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.String"<br> 
+<span class="indent2"></span>= "valoare nouă " /&gt;<br>                                     
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different type" <br>
+<span class="indent2"></span>name="contextEnvString_2"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.Integer"<br> 
+<span class="indent2"></span>/&gt;<br>
+&lt;Environment <br>
+<span class="indent2"></span>description="will not Trigger because of override set to true." <br>
+<span class="indent2"></span>name="contextEnvString_3"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>type="java.lang.Integer" <br>
+<span class="indent2"></span>/&gt;<br>
+</span>
+</div>
+<p>
+cu următorul fişier <span class="FilePath">web.xml</span> în aplicaţie: </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Declanșator din cauza valorii diferite&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;oldValue&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Declanșator din cauza tipului diferit&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;nu va declanșa din cauza suprascrierii setat la adevărat.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+<p>
+După ce este aplicată corecţia rapidă, fişierul <span class="FilePath">web.xml</span> va fi actualizat
+să conţină:</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Declanșator din cauza valorii diferite&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;New Value&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Declanșator din cauza tipului diferit&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;nu va declanșa din cauza suprascrierii setat la adevărat.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Declanșatorul becasue nu există&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;newEntry&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;abc123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

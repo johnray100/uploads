@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Не рекомендуется использовать недопустимый начальный контекст java:/comp</span>
+<p>
+Это правило помечает любой строковый литерал, начинающийся с <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:/comp</span>
+<!-- END NON-TRANSLATABLE --> в файлах Java или в файлах XML.
+Эта строка обычно представляет контекстный поиск именования.  
+Спецификация Java EE определяет строку поиска как <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:comp</span>
+<!-- END NON-TRANSLATABLE --> без прямой косой черты (/), предшествующей <!-- START NON-TRANSLATABLE -->
+<span class="Code">comp</span>
+<!-- END NON-TRANSLATABLE -->.
+Однако Apache Tomcat позволяет использовать несовместимую строку.
+</p>
+<p>
+В сканере исходного кода доступно быстрое исправление Java для этого правила. Процедура быстрого исправления для этого правила удаляет символ / из строки.
+</p>
+<p>
+В следующем фрагменте кода приведен пример, содержащий лишнюю прямую косую черту в начале.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:/comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --><br> 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:/comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Процедура быстрого исправления удаляет косую черту и изменяет код следующим образом:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+
+<p>
+Правило XML помечает только первый экземпляр строки в файле (если их несколько). В сканере исходного кода доступно быстрое исправление XML. Процедура быстрого исправления XML изменяет все экземпляры строк с ошибкой в файле.</p>
+<p>
+Пример: задан следующий фрагмент кода XML.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:/comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Процедура быстрого исправления удаляет косую черту и изменяет код следующим образом:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

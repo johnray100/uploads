@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Použít deskriptory implementace Java EE k definování chybějících rolí zabezpečení</span>
+<p>
+Toto pravidlo označí <!-- START NON-TRANSLATABLE -->
+<span class="Code">auth-constraint</span>
+<!-- END NON-TRANSLATABLE -->, <!-- START NON-TRANSLATABLE -->
+<span class="Code">role-name</span>
+<!-- END NON-TRANSLATABLE --> prvky nalezené v 
+<span class="FilePath">WEB-INF/web.xml</span> soubor, kterému chybí odpovídající <!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE --> prvek.  
+Apache Tomcat nevyžaduje, aby  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE --> prvek být definován, ale
+Specifikace Java EE označuje, že musí být definována.
+</p>	
+Toto je příklad <!-- START NON-TRANSLATABLE -->
+<span class="Code">auth-constraint</span>
+<!-- END NON-TRANSLATABLE -->,
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">role-name</span>
+<!-- END NON-TRANSLATABLE --> prvky, které by byly označeny:
+<div class="container">
+&lt; span class="Code"&gt; &lt; web-app&gt;<br>
+<span class="indent"></span>...<br>
+&lt; span class="indent"&gt; &lt; /span&gt; &lt; security-constraint&gt;<br>
+<span class="indent2"></span>&lt;display-name&gt;ThisConstraint&lt;/display-name&gt;<br>
+&lt; span class= "indent2"&gt; &lt; /span&gt; &lt; kolekce-webových-prostředků &gt;<br>
+<span class="indent4"></span>&lt;web-resource-name&gt;adminResources&lt;/web-resource-name&gt;<br>
+<span class="indent4"></span>&lt;url-pattern&gt;/*&lt;/url-pattern&gt;<br>
+<span class="indent4"></span>&lt;http-method&gt;GET&lt;/http-method&gt;<br>
+<span class="indent2"></span>&lt;/web-resource-collection&gt;<br>
+&lt; span class= "indent2"&gt; &lt; /span&gt; &lt; auth-constraint&gt;<br>
+<span class="indent4"></span>&lt;description&gt;Administrativní administrátoři&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;role-name&gt;admin&lt;/role-name&gt;<br>
+<span class="indent4"></span>&lt;role-name&gt;superuživatel&lt;/role-name&gt;<br>
+<span class="indent2"></span>&lt;/auth-constraint&gt;<br>
+<span class="indent"></span>&lt;/security-constraint&gt;<br>
+&lt;/web-app&gt;<br>
+</span>
+</div>
+<p>
+Obě možnosti <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;role-name&gt;admin&lt;/role-name&gt;</span>
+<!-- END NON-TRANSLATABLE --> a také 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;role-name&gt;superuser&lt;/role-name&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+Řádky by byly označeny.
+</p>
+<p>
+Zdrojový skener obsahuje rychlou opravu, která přidá chybějící <!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE -->
+prvky.
+</p>
+V tomto příkladu by rychlá oprava přidala do souboru <span class="FilePath">web.xml </span> následující prvky:
+<div class="container">
+&lt; span class="Code"&gt; &lt; span class="indent"&gt; &lt; /span&gt; &lt; security-role&gt;<br>
+<span class="indent2"></span>&lt;role-name&gt;admin&lt;/role-name&gt;<br>
+<span class="indent"></span>&lt;/security-role&gt;<br>
+&lt; span class="indent"&gt; &lt; /span&gt; &lt; security-role&gt;<br>
+<span class="indent2"></span>&lt;role-name&gt;superuživatel&lt;/role-name&gt;<br>
+<span class="indent"></span>&lt;/security-role&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

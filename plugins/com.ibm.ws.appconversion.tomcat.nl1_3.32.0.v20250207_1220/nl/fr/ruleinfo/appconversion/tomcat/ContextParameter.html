@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utiliser des descripteurs de déploiement Java EE pour définir les paramètres de contexte</span>
+<p>
+Cette règle marque <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> dans le fichier <span class="FilePath">META-INF/context.xml</span> .
+</p>
+<p>
+Apache Tomcat autorise <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> éléments à définir dans ces emplacements: 
+<ul>
+<li>dans le fichier <span class="FilePath">META-INF/context.xml</span>,</li>
+<li>dans le fichier XML d'application dans le répertoire <span class="FilePath">conf</span> de Tomcat,</li>
+<li>:NONE. <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> dans le fichier <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+L'outil de migration ne migre les éléments de paramètre que vers le fichier <span class="FilePath">META-INF/context.xml</span>.
+Vous pouvez copier les informations de paramètre définies à d'autres emplacements dans le fichier <span class="FilePath">META-INF/context.xml</span> en vue de leur traitement.
+</p>
+
+<p>
+Si un fichier <span class="FilePath">WEB-INF/web.xml</span> existe dans le projet Web :
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+les éléments seront marqués dans l'une des conditions suivantes:
+</p>
+<ul>
+<li>l'entrée ne correspond pas à une entrée dans le fichier <span class="FilePath">web.xml</span>,</li>
+<li>l'entrée possède une valeur différente de celle de l'entrée correspondant dans le fichier <span class="FilePath">web.xml</span> et son indicateur de remplacement a pour valeur false.</li>
+</ul>
+<p class="indent2">
+Un correctif rapide pour cette règle est disponible dans le scanner de source. Le correctif rapide va ajouter un nouveau 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> dans le fichier web.xml qui représente le <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> s'il n'existe pas déjà dans l'élément 
+Fichier <span class="FilePath">web.xml</span> . 
+Si l'entrée existe, elle est mise à jour. 
+</p>
+<p>
+Si le fichier <span class="FilePath">WEB-INF/web.xml</span> n'existe pas :</p>
+<p class="indent2">
+Tous <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> Les éléments seront marqués.
+</p>
+<p class="indent2">
+Le correctif rapide crée un fichier <span class="FilePath">WEB-INF/web.xml</span> qui inclut les <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> éléments si le projet Web est au niveau Java EE 5 ou supérieur. Il signale une erreur si la version du projet Web est J2EE 1.4 ou une version ultérieure.
+</p>
+<p>
+Par exemple, prenez un fichier <span class="FilePath">META-INF/context.xml</span> dont le contenu est le suivant :
+<div class="container">
+&lt; span class="Code"&gt; &lt; Paramètre <br>
+<span class="indent2"></span>description="Déclenchement car il n'existe pas"<br> 
+<span class="indent2"></span>name="nouvelleEntrée" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>value= "abc123" /&gt;<br>	
+&lt;Parameter <br>
+<span class="indent2"></span>description="Déclenchement car la valeur est différente"<br> 
+<span class="indent2"></span>name="paramètre_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>value = "nouvelle valeur " /&gt;<br>                                     
+&lt;Parameter <br>
+<span class="indent2"></span>description="Pas de déclenchement car le remplacement a pour valeur true" <br>
+<span class="indent2"></span>name="paramètre_2"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>value="123 " /&gt;<br>
+</span>
+</div>
+<p>
+et le fichier <span class="FilePath">web.xml</span> suivant dans l'application : </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; param-contexte&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Déclencheur en raison d'une valeur différente&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;oldValue&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Ne se déclenchera pas en raison d'une substitution définie sur true&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br>
+</span>
+</div>
+<p>
+Une fois le correctif appliqué, le fichier <span class="FilePath">web.xml</span> est mis à jour et son contenu est le suivant :</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; param-contexte&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Déclencheur car il n'existe pas&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;newEntry&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;abc123&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Déclencheur en raison d'une valeur différente&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;nouvelle valeur&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Ne se déclenchera pas en raison d'une substitution définie sur true&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+</span>
+</div>
+
+<p>
+Pour plus d'informations sur le paramètre de contexte dans Tomcat, voir :
+</p>
+
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters" 
+	title="Ouverture dans une nouvelle fenêtre" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters'); return false;">
+		   Apache Tomcat Configuration Reference - Context Parameters</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

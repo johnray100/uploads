@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">無効な初期コンテキスト java:/comp を使用しない</span>
+<p>
+この規則は、以下で始まるすべてのストリング・リテラルにフラグを立てます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:/comp</span>
+<!-- END NON-TRANSLATABLE --> Java ファイルまたは XML ファイル内。
+このストリングは通常、ネーミング・コンテキスト・ルックアップを表します。  
+Java EE 仕様では、ルックアップ・ストリングが以下のように定義されています。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:comp</span>
+<!-- END NON-TRANSLATABLE --> 前にスラッシュ (/) を付けない <!-- START NON-TRANSLATABLE -->
+<span class="Code">comp</span>
+<!-- END NON-TRANSLATABLE -->。
+ただし、 Apache Tomcat では、非準拠ストリングが許可されています。
+</p>
+<p>
+この規則の Java クイック・フィックスがソース・スキャナーで使用可能です。この規則のクイック・フィックスは、ストリングから / を削除します。
+</p>
+<p>
+例えば、追加のスラッシュを含む以下のコード・スニペットがあるとします。
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:/comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --><br> 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:/comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+クイック・フィックスはスラッシュを除去し、コードを以下のように更新します。
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+
+<p>
+XML 規則では、ファイル内にストリングのインスタンスが複数ある場合、最初のインスタンスのみにフラグを立てます。XML クイック・フィックスがソース・スキャナーで使用可能です。XML クイック・フィックスでは、ファイル内の問題ストリングのすべてのインスタンスを変更します。</p>
+<p>
+例えば、以下の XML コード・スニペットがあるとします。
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:/comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+クイック・フィックスはスラッシュを除去し、コードを以下のように更新します。
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

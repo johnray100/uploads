@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="./rsaz_styles.css" >
+
+	<script language="JavaScript">
+		var openImg = new Image();
+		openImg.src = "images/open.gif";
+		var closedImg = new Image();
+		closedImg.src = "images/close.gif";
+   
+		function showBranch(branch) {
+			var objBranch = document.getElementById(branch).style;
+			if(objBranch.display=="block")
+				objBranch.display="none";
+			else
+				objBranch.display="block";
+		}
+   
+		function swapFolder(img) {
+			objImg = document.getElementById(img);
+			if(objImg.src.indexOf('images/close.gif')>-1)
+				objImg.src = openImg.src;
+			else
+				objImg.src = closedImg.src;
+		}
+	</script>
+</head>
+	
+<body bgcolor="#CCCCCC" TEXT="#000000" LINK="#000000" VLINK="#000000" ALINK="#000000">
+<div class="TitleText">Rapports Software Analyzer</div>
+<br>
+
+%insertReports%
+
+</body>
+</html>

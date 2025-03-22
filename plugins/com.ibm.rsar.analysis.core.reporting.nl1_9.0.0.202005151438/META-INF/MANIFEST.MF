@@ -1,0 +1,364 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.ibm.rsar.analysis.core.reporting.nl1
+Bundle-SymbolicName: com.ibm.rsar.analysis.core.reporting.nl1
+Archiver-Version: Plexus Archiver
+Built-By: jenkins
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-Vendor: %bundle.vendor
+Fragment-Host: com.ibm.rsar.analysis.core.reporting
+Bundle-Name: %bundle.name
+Bundle-Version: 9.0.0.202005151438
+Bundle-Localization: fragment
+Created-By: Apache Maven 3.5.4
+Build-Jdk: 1.8.0
+
+Name: nl/de/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/zh/TW/report_html/menu.html
+SHA-256-Digest: 0MB/tca4SXirDJc4GC40UTuBPAiaPD95ST8YLL7QFU4=
+
+Name: nl/es/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: nl/pt/BR/report_html/menu.html
+SHA-256-Digest: UCOvLBIKNzSfNfDjYHkg9YZS+EC9LAAbBGecoQCRNXo=
+
+Name: nl/zh/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/de/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: nl/pt/BR/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/ja/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/fr/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: nl/ja/toplevel_html/menu.html
+SHA-256-Digest: cnJslTBSWklg7quZaciCRRrDhZ/FYwFsvHy5Jraw4iA=
+
+Name: fragment.properties
+SHA-256-Digest: 7KNCLTtpVhxngJRZKzLlcxsFWiwd2gJL43bF0CK2s2w=
+
+Name: nl/zh/HK/report_html/menu.html
+SHA-256-Digest: 0MB/tca4SXirDJc4GC40UTuBPAiaPD95ST8YLL7QFU4=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_pt_BR.properti
+ es
+SHA-256-Digest: B9INI50VAPrF/RM23E/fVo7Hmj59ARCNEoYOi2OQTU0=
+
+Name: nl/zh/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_es.properties
+SHA-256-Digest: 4DSKQlh1cSg12mjIy3VhC9bj5wMxoZNpKqUPpLQVm6M=
+
+Name: nl/pt/BR/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/ja/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: nl/ko/report_html/title.html
+SHA-256-Digest: pAMIlO+7OWU5Mg8JqGFhH3g0O1Bp7epdtCOmD2+3Mto=
+
+Name: nl/zh/toplevel_html/menu.html
+SHA-256-Digest: nCYgVKVg7Xy5dtI0SLPEoaYI6dSr53pFIRaeluuWVDs=
+
+Name: plugin_zh_CT.properties
+SHA-256-Digest: fz9HTX3yHKtD20X7pLvWNkPRHEEsE1/7eID5oUsLvQw=
+
+Name: nl/it/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: nl/fr/toplevel_html/menu.html
+SHA-256-Digest: iyR8fSbKKt5Rmf0n05g7A68CI8fsuq8bQwJXamHOrLM=
+
+Name: nl/zh/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: nl/zh/CN/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: nl/zh/TW/toplevel_html/menu.html
+SHA-256-Digest: u0Ix75Y01WkebL0/0ybPvuN+JxvHL265+iGyWEsZLSA=
+
+Name: nl/zh/TW/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: nl/zh/HK/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: plugin_ko.properties
+SHA-256-Digest: QlNlCQcMoo4OpJXO0vsaaMTX1dIYe51nK9N2+99fKxA=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_ko.properties
+SHA-256-Digest: PswTnR88xoQLZSTzITYlHCpQUvZmUmBQ3cYUQmW4LBQ=
+
+Name: nl/zh/HK/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/ko/toplevel_html/menu.html
+SHA-256-Digest: PvI61EwFtiVIAINGggn1/tJCs0TzOiWhxOU5Iy0YgdM=
+
+Name: nl/zh/CN/report_html/menu.html
+SHA-256-Digest: SxZUKs07vcq7IERUqQlJ1tduIXqmWlBdpGrq+RxXNZI=
+
+Name: nl/zh/CN/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: plugin_zh_TW.properties
+SHA-256-Digest: EQmhONWV76JU/Q1JwzewYny/jCsaT4sUQbLUfDUs0Eg=
+
+Name: nl/es/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: nl/zh/HK/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: nl/es/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/zh/CN/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_pt_BR.properties
+SHA-256-Digest: B9INI50VAPrF/RM23E/fVo7Hmj59ARCNEoYOi2OQTU0=
+
+Name: nl/pt/BR/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: nl/it/toplevel_html/menu.html
+SHA-256-Digest: P+EfZryCk4hel4IkxezX5X9TQf7hpXxgc1tlbnLV17I=
+
+Name: nl/de/report_html/menu.html
+SHA-256-Digest: iPBm8yxc0UiKp5DASjUq36uL9J3UR1gXLBuaSn2sEhI=
+
+Name: nl/es/toplevel_html/menu.html
+SHA-256-Digest: YdMX4kdilMNHFq2Sl3QqhzhFovWoCp3/0wzHdYsRpdI=
+
+Name: nl/fr/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/zh/CN/toplevel_html/menu.html
+SHA-256-Digest: nCYgVKVg7Xy5dtI0SLPEoaYI6dSr53pFIRaeluuWVDs=
+
+Name: nl/zh/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: nl/pt/BR/toplevel_html/menu.html
+SHA-256-Digest: Bszd/cM5LThutxDZWUI1FKb/YEWUpxLnkjy4tQO/xV4=
+
+Name: META-INF/maven/com.ibm.commoncomponents.sa/com.ibm.rsar.analysis
+ .core.reporting.nl1/pom.properties
+SHA-256-Digest: 3C52U6x1pJYf6dQnjPx8B2zob80pal4ABz9SKkpqdJA=
+
+Name: nl/es/report_html/menu.html
+SHA-256-Digest: jNV/GHK8D6FB/sh426iMVTYxRIgMz2ofuqP5HtbzDys=
+
+Name: nl/pt/BR/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: nl/fr/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: nl/zh/TW/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: nl/ja/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_zh.properties
+SHA-256-Digest: seeygjQ50cVHH5uUauQaTXF5a0WouD42X+aqwBK7dbY=
+
+Name: nl/zh/TW/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/it/report_html/menu.html
+SHA-256-Digest: PVVl8u8YZcMAtbHk2ruRymHn1xgx709pkvRcpgmflvU=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_zh_CT.properti
+ es
+SHA-256-Digest: WnWbFgsXoUzAwETAt0c50Hs/qZVyQ73lNNMj1XQZlYY=
+
+Name: nl/de/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/ja/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/zh/CN/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_it.properties
+SHA-256-Digest: p+0+w/dgxlVapU8f2DtYn4QMNmD9FJBI7qGrsiPMvb4=
+
+Name: nl/ja/report_html/index.html
+SHA-256-Digest: GfmHpE4jnYrAxFo1g2Jbg3s4vtrrNAQgvtn92BxYZis=
+
+Name: nl/de/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_de.properties
+SHA-256-Digest: lC15+hvlgwlVd5LGxX+a73gnAtnzdjInFe51Q4OxeDM=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_zh_CT.properties
+SHA-256-Digest: WnWbFgsXoUzAwETAt0c50Hs/qZVyQ73lNNMj1XQZlYY=
+
+Name: nl/es/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/ja/report_html/menu.html
+SHA-256-Digest: eGszFOXKv4G6LSSxF6lNRZGPDAGmT+6oQvxlH6ZQ1VQ=
+
+Name: nl/zh/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_zh_CN.properties
+SHA-256-Digest: L5CboT40V7egAOrVbJVaErqeAmMfNOrKtCdOD2yQ4JM=
+
+Name: nl/fr/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/ko/report_html/index.html
+SHA-256-Digest: 9M3yFlG85din4UGxiwKU33DTQPRzypKlO67B9XaCc0Q=
+
+Name: plugin_ja.properties
+SHA-256-Digest: qO/fCYiyXdmiim/G5cWxxbrTD+fmU6fBE5/WYQ5QUlc=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_ja.properties
+SHA-256-Digest: xvk9yoDngmHMfDfJHz64DtwgH3gG/UhevEq/KBBFIHU=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_zh_CN.properti
+ es
+SHA-256-Digest: L5CboT40V7egAOrVbJVaErqeAmMfNOrKtCdOD2yQ4JM=
+
+Name: nl/zh/HK/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: nl/it/report_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/zh/TW/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_zh.properties
+SHA-256-Digest: seeygjQ50cVHH5uUauQaTXF5a0WouD42X+aqwBK7dbY=
+
+Name: nl/fr/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_it.properties
+SHA-256-Digest: p+0+w/dgxlVapU8f2DtYn4QMNmD9FJBI7qGrsiPMvb4=
+
+Name: nl/it/toplevel_html/title.html
+SHA-256-Digest: iHvPQEWUkLUj+VkR9EBYghOQoYyqKLVc8sjIMJ4+iJQ=
+
+Name: nl/ko/toplevel_html/title.html
+SHA-256-Digest: pAMIlO+7OWU5Mg8JqGFhH3g0O1Bp7epdtCOmD2+3Mto=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_ko.properties
+SHA-256-Digest: PswTnR88xoQLZSTzITYlHCpQUvZmUmBQ3cYUQmW4LBQ=
+
+Name: nl/it/toplevel_html/index.html
+SHA-256-Digest: kNfwcq10h8bU+7D1O726l68HMaQ4/Etw5l4T10JYL8k=
+
+Name: nl/zh/HK/toplevel_html/menu.html
+SHA-256-Digest: u0Ix75Y01WkebL0/0ybPvuN+JxvHL265+iGyWEsZLSA=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_zh_HK.properties
+SHA-256-Digest: 8sdRAHdM6r8hmpiXbWoDlabMxCfj2f5H5wrj+PFj3S8=
+
+Name: plugin_zh_CN.properties
+SHA-256-Digest: F7Y9Njye2KLHg7vyvoG3JG9AVDjWvjTkh+f/a/qGZVk=
+
+Name: nl/zh/HK/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: plugin_fr.properties
+SHA-256-Digest: qO/fCYiyXdmiim/G5cWxxbrTD+fmU6fBE5/WYQ5QUlc=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_fr.properties
+SHA-256-Digest: tqMA4Mp5QTrCqGLAAH0Vo8qluhBGLIuRywnvnlHz1es=
+
+Name: META-INF/maven/com.ibm.commoncomponents.sa/com.ibm.rsar.analysis
+ .core.reporting.nl1/pom.xml
+SHA-256-Digest: z/B19mtZ1QKFH0c5Sdoy74sgKm5EUdZLYXqW2ClSxMs=
+
+Name: nl/de/toplevel_html/menu.html
+SHA-256-Digest: U/+v3os9vWzhu0zGK7iqBMeoF5hpQLobKAL/+ptbOVk=
+
+Name: nl/ko/toplevel_html/index.html
+SHA-256-Digest: XzeLOPCr8ME85+StTV+MJNsINYrUBqQcHQg7Z267grE=
+
+Name: nl/zh/CN/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: nl/es/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: nl/pt/BR/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_zh_HK.properti
+ es
+SHA-256-Digest: 8sdRAHdM6r8hmpiXbWoDlabMxCfj2f5H5wrj+PFj3S8=
+
+Name: nl/it/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: nl/fr/report_html/menu.html
+SHA-256-Digest: aWNO9LfJCM9Oabv0ubjipKkg+vObjQoJU9zxoKPAhM0=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_es.properties
+SHA-256-Digest: 4DSKQlh1cSg12mjIy3VhC9bj5wMxoZNpKqUPpLQVm6M=
+
+Name: plugin_es.properties
+SHA-256-Digest: lSPg5BXputeWRnLWleK7prBO1AlwCcd2O2iM1l8QeYw=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_fr.properties
+SHA-256-Digest: tqMA4Mp5QTrCqGLAAH0Vo8qluhBGLIuRywnvnlHz1es=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_zh_TW.properti
+ es
+SHA-256-Digest: 8sdRAHdM6r8hmpiXbWoDlabMxCfj2f5H5wrj+PFj3S8=
+
+Name: nl/zh/report_html/menu.html
+SHA-256-Digest: SxZUKs07vcq7IERUqQlJ1tduIXqmWlBdpGrq+RxXNZI=
+
+Name: nl/zh/TW/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: nl/de/report_html/indexTop.html
+SHA-256-Digest: rtLNj3B5VkiMHOcX8toD7B67+4evDgV/vryKnR/R/lc=
+
+Name: plugin_de.properties
+SHA-256-Digest: D9sfWoFsEhmevGoO8xdIy580t/a0VtGJxCXsfsKA27M=
+
+Name: plugin_it.properties
+SHA-256-Digest: 4JWWPwUW5OHIxKSpnXlIxvARLipsA9mq9799CdcHSoY=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_zh_TW.properties
+SHA-256-Digest: 8sdRAHdM6r8hmpiXbWoDlabMxCfj2f5H5wrj+PFj3S8=
+
+Name: com/ibm/rsar/analysis/core/reporting/messages_ja.properties
+SHA-256-Digest: xvk9yoDngmHMfDfJHz64DtwgH3gG/UhevEq/KBBFIHU=
+
+Name: nl/ko/report_html/indexTop.html
+SHA-256-Digest: sGJwV1S8LrkV8sXPUwswfd18li/zDQSMdku6Y871Wfw=
+
+Name: nl/ko/report_html/menu.html
+SHA-256-Digest: YkZeO5loDNgJYl5PTelxstt9d8ILVeCZGxZU54U2Yj4=
+
+Name: src/com/ibm/rsar/analysis/core/reporting/messages_de.properties
+SHA-256-Digest: lC15+hvlgwlVd5LGxX+a73gnAtnzdjInFe51Q4OxeDM=
+
+Name: plugin_pt_BR.properties
+SHA-256-Digest: 3kngJBQrV2EFznEl4ubnNwixgOWq5qJSW0oCw60MQPk=
+

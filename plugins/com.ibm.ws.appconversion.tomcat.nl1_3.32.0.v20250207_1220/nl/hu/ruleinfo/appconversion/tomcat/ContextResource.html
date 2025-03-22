@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Java EE telepítésleírók és WebSphere kötések használata az erőforrás-hivatkozások megadásához</span>
+<p>
+Ez a szabály a következőket jelöli meg: <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> A <span class="FilePath">META-INF/context.xml</span> fájlban található elemek, amelyekre szükség lehet a költöztetés.</p>
+<p>
+Apache Tomcat <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> Az alábbi helyeken meghatározott elemek:<ul>
+<li>A <span class="FilePath">META-INF/context.xml</span> fájlban</li>
+<li>Az alkalmazás XML konfigurációs fájljában a Tomcat <span class="FilePath">conf</span> könyvtárában</li>
+<li>A <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elem a <span class="FilePath">conf/server.xml</span> elemben</li>
+</ul>
+<p>
+Mivel az átállítási eszköz nem fér hozzá a Tomcat konfigurációs könyvtárához,
+csak a <span class="FilePath">META-INF/context.xml</span> elért veszi
+át.
+A más helyeken definiált erőforrás
+információk átmásolhatók a <span class="FilePath">META-INF/context.xml</span>
+fájlba, hogy az eszköz feldolgozhassa azokat.
+</p>
+
+<p>
+A forráselemzőben rendelkezésre áll egy gyorsjavítás. A gyorsjavítás az információkat a <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> Elemek és erőforrás-hivatkozás vagy erőforrás-környezet hivatkozás szükséges, szükség szerint és egy megfelelő JNDI név.
+A Tomcat javasolja, de nem igényli, hogy a megfelelő erőforrás-hivatkozás a <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE -->
+Az elemet a <span class="FilePath">WEB-INF/web.xml</span>tartalmazza. 
+A gyorsjavítás megkeresi a listát <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE -->
+és <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> Elemek annak meghatározására, hogy a névnek megfelelő bejegyzés már létezik-e.  
+Ha nincs, akkor létrehozásra kerül.  Ha a
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> Elem rendelkezik 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> Attribútum, egy 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> Létrejön.
+Ha a <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> Az elem nem rendelkezik 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> Attribútum, egy 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> Létrejön. Mindkét esetben a <!-- START NON-TRANSLATABLE -->
+<span class="Code">name</span>
+<!-- END NON-TRANSLATABLE --> Az érték a JNDI névként is használható, és a kötésekben meg van határozva.
+
+</p>
+
+Például a következő <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> Elem a <span class="FilePath">META-INF/context.xml</span> fájlban:
+<div class="container">
+&lt; span class="Code"&gt; &lt; erőforrásnév="jdbc/exampleDB"<br> 
+<span class="indent2"></span>auth="Container"<br>
+<span class="indent2"></span>type="javax.sql.DataSource"<br>
+<span class="indent2"></span>description="Példa adatbázis " /&gt;<br>
+</span>
+</div>
+<br><br>
+A gyorsjavítás így hozza létre a megfelelő <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;resource-ref&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+Elem:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; átívelő osztály= "indent2"&gt; &lt; /span&gt; &lt; leíró &gt;<br>
+<span class="indent2"></span>Példa adatbázis&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Tároló&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Shareable&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Az erőforrások a Tomcat rendszerben alapértelmezésben megoszthatók.  Ha a hatókör nincs beállítva a <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> Elem, amely a gyorsjavítás új erőforrás-hivatkozásának létrehozásakor jelenik meg. Ha a megfelelő erőforrás-hivatkozás
+már létezik a WEB-INF/web.xml fájlban, akkor nem kerül sor módosításra.
+</p>
+<p>
+Ha a webes projekt Java EE 5 vagy magasabb szintű és a
+<span class="FilePath">WEB-INF/web.xml</span> fájl nem létezik, akkor a
+<span class="FilePath">WEB-INF/web.xml</span> fájl létrehozásra kerül és a
+rendszer hozzáadja az új erőforrás-hivatkozás elemeket.
+A
+gyorsjavítás hibajelentést küld, ha a webes projekt J2EE 1.4 vagy alacsonyabb
+szintű.
+</p>
+<p>
+Be kell állítania az erőforrást a WebSphere konfigurációban is.
+</p>
+<p>
+A Tomcat kontextus erőforrás meghatározással kapcsolatos további információkért lásd:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions" 
+	title="Új ablakban nyílik meg" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions'); return false;">
+	Apache Tomcat konfigurációs referencia - Erőforrás-meghatározások</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

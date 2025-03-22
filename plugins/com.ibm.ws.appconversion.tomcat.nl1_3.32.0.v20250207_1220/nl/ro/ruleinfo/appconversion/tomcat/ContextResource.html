@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utilizaţi descriptori de implementare Java EE şi legări WebSphere pentru a defini referinţe de resurse</span>
+<p>
+Această regulă semnalează <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente găsite în fișierul <span class="FilePath">META-INF/context.xml</span> care ar putea avea nevoie de migrație.</p>
+<p>
+Apache Tomcat permite <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente care trebuie definite în aceste locații:<ul>
+<li>Fişierul <span class="FilePath">META-INF/context.xml</span></li>
+<li>Fişierul de configuraţie XML al aplicaţiei din directorul Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> element în <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+De vreme ce este posibil ca unealta de migrare să nu aibă acces la directorul de configurare Tomcat,
+aceasta migrează numai fişierul <span class="FilePath">META-INF/context.xml</span>.
+Informaţiile de resurse definite în alte locaţii pot fi copiate
+în fişierul <span class="FilePath">META-INF/context.xml</span> pentru a fi
+procesate.
+</p>
+
+<p>
+În scanerul de sursă este disponibilă o corecţie rapidă. Remedierea rapidă ia informațiile de la <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> elemente și creează o referință de resurse sau o referință de mediu de resurse, după cum este necesar și un nume JNDI corespunzător.
+Tomcat recomandă, dar nu necesită, că referința de resurse corespunzătoare pentru <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE -->
+element să fie definit în " <span class="FilePath">WEB-INF/web.xml</span>". 
+Rapid fix caută lista de <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE -->
+și <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> elemente pentru a vedea dacă înregistrarea de potrivire a numelui există deja.  
+Dacă nu există, este creată una.  Dacă
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> element are un 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> atribut, 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> este creat.
+Dacă <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> element nu are un 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> atribut, 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> este creat. În ambele cazuri, <!-- START NON-TRANSLATABLE -->
+<span class="Code">name</span>
+<!-- END NON-TRANSLATABLE --> valoarea este, de asemenea, utilizat ca nume JNDI și este definit în legăturile.
+
+</p>
+
+De exemplu, având în vedere următoarele <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> element din fișierul <span class="FilePath">META-INF/context.xml</span> :
+<div class="container">
+&lt; span class="Code"&gt; &lt; Resource name="jdbc/exampleDB<br> 
+<span class="indent2"></span>auth="Container"<br>
+<span class="indent2"></span>type="javax.sql.DataSource"<br>
+<span class="indent2"></span>description="Exemplu Database " /&gt;<br>
+</span>
+</div>
+<br><br>
+Fixarea rapidă ar crea acest lucru corespunzător <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;resource-ref&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+element:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent2" &gt; &lt; /span&gt; &lt; description&gt;<br>
+<span class="indent2"></span>Exemplu Baza de date&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Container&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Shareable&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Implicit, resursele sunt partajabile în Tomcat.  Dacă domeniul de aplicare nu este stabilit pe <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> element, acesta este setat la shareable atunci când o nouă referință de resurse este creat pentru fix rapid. Dacă există deja o potrivire de referinţă de resursă în
+WEB-INF/web.xml, nu sunt făcute modificări.
+</p>
+<p>
+Dacă proiectul web este Java EE 5 sau o versiune ulterioară şi
+<span class="FilePath">WEB-INF/web.xml</span> nu există,
+este creat <span class="FilePath">WEB-INF/web.xml</span> şi
+sunt adăugate noile elemente de referinţe resurse.
+Dacă proiectul web este la versiunea J2EE 1.4 sau una anterioară, corecţia rapidă va raporta o eroare.
+</p>
+<p>
+De asemenea, va trebui să configuraţi resursa în configuraţia WebSphere.
+</p>
+<p>
+Pentru informaţii suplimentare privind definiţia resurselor de context în Tomcat, vedeţi:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions" 
+	title="Deschide o fereastră nouă" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions'); return false;">
+	Apache Tomcat Configuration Reference - Resource Definitions</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

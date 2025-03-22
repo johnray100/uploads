@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Использовать файлы описания Java EE для определения обработчиков событий контекста жизненного цикла</span>
+
+<p>
+Это правило флагов <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+в файле <span class="FilePath">META-INF/context.xml</span> .
+</p>
+<p>
+В Apache Tomcatобъекты Java , которые должны знать, когда их контекст запущен или остановлен, объявляются путем включения <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> в контексте. 
+Имя класса, указанное в <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> элемент реализует элемент <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE --> интерфейса.  
+Этот класс будет получать уведомления о возникновении событий соответствующего жизненного цикла.  Примечание: 
+<a href="DetectTomcatPackages.html" >Не использовать пакеты и API Apache Tomcat </a> 
+флаги использования <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+Аналогичные функции Java EE доступны с помощью <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> и 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ServletContextEvent</span>
+<!-- END NON-TRANSLATABLE --> и соответствующий <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> в файле <span class="FilePath">web.xml</span> .
+</p>
+<p>
+Tomcat позволяет <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE --> элементы, которые должны быть определены в следующих положениях: 
+<ul>
+<li>Файл <span class="FilePath">META-INF/context.xml</span></li>
+<li>Файл конфигурации XML приложения в каталоге Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> в файле <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Флаги только для инструмента миграции <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> в файле <span class="FilePath">META-INF/context.xml</span> .
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> Информация, определенная в других положениях, может быть скопирована в файл <span class="FilePath">META-INF/context.xml</span> для обработки.
+</p>
+<p>
+Рекомендуется преобразовать файлы Java с помощью <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->  для использования
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> и добавить соответствующие записи получателя запросов в файл <span class="FilePath">web.xml</span> для приложения.
+</p>
+<p>
+Дополнительная информация об обработчиках событий жизненного цикла сервлета:
+</p>
+<ul>
+<li>
+    <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html" 
+	title="Открывается в новом окне" onclick="javascript:helpWindow('https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html'); return false;">
+	Жизненный цикл сервлета в Java EE 6 - учебник</a>.
+</li>
+</ul>
+<p>
+Дополнительная информация об обработчиках событий жизненного цикла в Tomcat:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners" 
+	title="Открывается в новом окне" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners'); return false;">
+	Справочник по конфигурации Apache Tomcat - обработчики событий жизненного цикла</a>.
+</li>
+</ul>
+</div>
+</body>
+</html>

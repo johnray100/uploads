@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utilizaţi descriptori de implementare Java EE pentru a defini parametri de context</span>
+<p>
+Această regulă semnalează <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente găsite în fișierul <span class="FilePath">META-INF/context.xml</span> .
+</p>
+<p>
+Apache Tomcat permite <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente care trebuie definite în aceste locații: 
+<ul>
+<li>Fişierul <span class="FilePath">META-INF/context.xml</span></li>
+<li>Fişierul de configuraţie XML al aplicaţiei din directorul Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> element în <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Unealta de migrare doar migrează elementele parametri în fişierul <span class="FilePath">META-INF/context.xml</span>.
+Informaţiile de parametri definite în alte locaţii pot fi copiate
+în fişierul <span class="FilePath">META-INF/context.xml</span> pentru a fi
+procesate.
+</p>
+
+<p>
+Dacă există un fişier <span class="FilePath">WEB-INF/web.xml</span> în proiectul web:
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+elementele vor fi marcate sub oricare dintre următoarele condiții:
+</p>
+<ul>
+<li>Intrarea nu are o intrare care să se potrivească în fişierul <span class="FilePath">web.xml</span>.</li>
+<li>Intrarea are o valoare diferită de intrarea care se potriveşte în fişierul <span class="FilePath">web.xml</span> şi steguleţul de înlocuire setat la false.</li>
+</ul>
+<p class="indent2">
+O corecţie rapidă pentru această regulă este disponibilă în scanerul de sursă. Remedierea rapidă va adăuga un nou 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> element în web.xml , care reprezintă <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> element în cazul în care nu există deja în 
+<span class="FilePath">web.xml</span> . 
+Dacă intrarea există, aceasta va fi actualizată. 
+</p>
+<p>
+Dacă nu există fişierul <span class="FilePath">WEB-INF/web.xml</span>:</p>
+<p class="indent2">
+Toate <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elementele vor fi marcate.
+</p>
+<p class="indent2">
+Remedierea rapidă va crea un fișier <span class="FilePath">WEB-INF/web.xml</span> care include cele adecvate <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente în cazul în care proiectul web este la Java EE 5 sau mai mare. Corecţia rapidă va raporta o eroare dacă proiectul web este la
+versiunea J2EE 1.4 sau una anterioară.
+</p>
+<p>
+De exemplu, luaţi în considerare un fişier <span class="FilePath">META-INF/context.xml</span>
+cu următorul conţinut:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Parameter <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>valoare = "abc123<br>	
+&lt;Parameter <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="parameter_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>= "valoare nouă " /&gt;<br>                                     
+&lt;Parameter <br>
+<span class="indent2"></span>description="Will not trigger because of override set to true" <br>
+<span class="indent2"></span>name="parameter_2"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>/&gt;<br>
+</span>
+</div>
+<p>
+cu următorul fişier <span class="FilePath">web.xml</span> în aplicaţie: </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Declanșator din cauza valorii diferite&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;oldValue&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt; context-param&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Nu se va declanșa din cauza suprascrierii setat la adevărat&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br>
+</span>
+</div>
+<p>
+După ce este aplicată corecţia rapidă, fişierul <span class="FilePath">web.xml</span> va fi actualizat
+să conţină:</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger pentru că nu există&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;newEntry&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;abc123&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt; context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Declanșator din cauza valorii diferite&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;New Value&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt; context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Nu se va declanșa din cauza suprascrierii setat la adevărat&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+</span>
+</div>
+
+<p>
+Pentru informaţii suplimentare privind parametrul de context din Tomcat, vedeţi:
+</p>
+
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters" 
+	title="Deschide o fereastră nouă" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters'); return false;">
+	Apache Tomcat Configuration Reference - Context Parameters</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

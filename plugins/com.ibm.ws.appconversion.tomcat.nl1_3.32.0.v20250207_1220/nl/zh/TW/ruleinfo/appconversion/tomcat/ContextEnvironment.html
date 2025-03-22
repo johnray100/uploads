@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">使用 Java EE 部署描述子來定義環境參照</span>
+<p>
+此規則會標示 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 在 <span class="FilePath">META-INF/context.xml</span> 檔中找到必須轉換成 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> 中的元素 
+<span class="FilePath">WEB-INF/web.xml</span> 檔。
+</p>
+<p>
+Apache Tomcat 容許 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 要在下列位置中定義的元素: 
+<ul>
+<li><span class="FilePath">META-INF/context.xml</span> 檔</li>
+<li>Tomcat <span class="FilePath">conf</span> 目錄中的應用程式 XML 配置檔</li>
+<li>該 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 中的元素</li>
+</ul>
+<p>
+由於移轉工具可能無法存取 Tomcat 配置目錄，因此它只會標示 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 在 
+<span class="FilePath">META-INF/context.xml</span> 檔。
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 其他位置中定義的資訊可以複製到 <span class="FilePath">META-INF/context.xml</span> 檔，以便由工具處理。
+</p>
+<p>
+如果 <span class="FilePath">WEB-INF/web.xml</span> 存在於 Web 專案中：
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+將在下列任何條件下標示元素:
+</p>
+<ul>
+<li>該項目在 <span class="FilePath">web.xml</span> 檔中沒有相符項。</li>
+<li>該項目的類型與 <span class="FilePath">web.xml</span> 檔中的相符項不同。</li>
+<li>該項目的值與 <span class="FilePath">web.xml</span> 檔中的相符項不同，且其置換旗標設為 false。</li>
+</ul>
+<p class="indent2">
+在原始檔掃描器中提供了此規則的快速修正程式。 快速修正程式將新增 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+<span class="FilePath">web.xml</span> 檔中的元素，代表 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 元素 (如果它尚未存在於 
+<span class="FilePath">web.xml</span> 檔。 
+如果該項目存在，就會更新它。 
+</p>
+<p>
+如果 <span class="FilePath">WEB-INF/web.xml</span> 不存在：</p>
+<p class="indent2">
+全部 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 將會標示個元素。
+</p>
+<p class="indent2">
+快速修正程式會建立 <span class="FilePath">WEB-INF/web.xml</span> 檔，其中包含適當的 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> 元素 (如果 Web 專案位於 Java EE 5 或更新版本)。 如果 Web 專案是
+J2EE 1.4 或更舊的版本，快速修正程式會報告錯誤。
+</p>
+舉例來說，請考量具有下列內容的 <span class="FilePath">META-INF/context.xml</span> 檔：
+<div class="container">
+<span class="Code">
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type= "java.lang.String" value= "abc123" /&gt;<br>	
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="contextEnvString_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.String"<br> 
+<span class="indent2"></span>value = "new Value " /&gt;<br>                                     
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different type" <br>
+<span class="indent2"></span>name="contextEnvString_2"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.Integer"<br> 
+<span class="indent2"></span>value="123 " /&gt;<br>
+&lt;Environment <br>
+<span class="indent2"></span>description="will not Trigger because of override set to true." <br>
+<span class="indent2"></span>name="contextEnvString_3"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>type="java.lang.Integer" <br>
+<span class="indent2"></span>value="123 " /&gt;<br>
+</span>
+</div>
+<p>
+應用程式含有下列 <span class="FilePath">web.xml</span> 檔： </p>
+<div class="container">
+<span class="Code">
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;觸發程式，因為不同的值&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;oldValue&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;因為不同類型的觸發程式&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;不會觸發，因為置換設為 true。&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+<p>
+在套用快速修正程式之後，會更新 <span class="FilePath">web.xml</span>，使其包含：</p>
+<div class="container">
+<span class="Code">
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;觸發程式，因為不同的值&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;新值&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;因為不同類型的觸發程式&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;不會觸發，因為置換設為 true。&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;觸發程式因為它不存在&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;newEntry&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;abc123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

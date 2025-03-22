@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/* ***************************************************************** */
+/* Licensed Materials - Property of IBM                              */
+/* (C) Copyright IBM Corp. 2016, 2019. All Rights Reserved.          */
+/*                                                                   */
+/* US Government Users Restricted Rights - Use, duplication or       */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */
+/* ***************************************************************** */
+-->
+
+<?eclipse version="3.0"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts>
+  <!-- ######################################### -->
+  <!-- This section contains category level help -->
+  
+  
+  <!-- ######################################## -->
+  <!-- This section contains rule specific help -->
+
+  <context id="jsp-conversion" title="Migrazione Apache Tomcat in WebSphere JSP">
+     <description>Utilizzare questa categoria di regole per identificare i problemi relativi ai file JSP durante la migrazione da Apache Tomcat. </description>
+  </context>
+  <context id="xml-conversion" title="Migrazione del descrittore di distribuzione da Apache Tomcat a WebSphere">
+     <description>Utilizzare questa categoria di regole per identificare i problemi dei descrittori di deployment durante la migrazione da Apache Tomcat. </description>
+  </context>
+  <context id="java-conversion" title="Migrazione codice da Apache Tomcat a WebSphere">
+     <description>Utilizzare questa categoria di regole per identificare i problemi del codice Java durante la migrazione da Apache Tomcat. </description>
+  </context>
+  <context id="java-conversion-liberty" title="Migrazione codice da Apache Tomcat a Liberty">
+     <description>Questa categoria include le regole Apache Tomcat pertinenti solo ai server Liberty.</description>
+  </context>
+  <context id="java-conversion-general" title="Da Apache Tomcat a WebSphere tradizionale e Liberty">
+    <description>Questa categoria include le regole Apache Tomcat pertinenti durante la migrazione ai server WebSphere Application Server tradizionale o Liberty.</description>
+  </context>
+  <context id="contextResource" title="Utilizza i descrittori di distribuzione e i bind WebSphere per definire i riferimenti risorsa">
+    <description>Le informazioni sulla risorsa in META-INF/context.xml possono essere migrati in web.xml e bind WebSphere. Questa regola migra l'elemento Resource Context.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResource.html" label="Guida dettagliata"/>
+  </context>
+  <context id="invalidInitialContext" title="Evitare di utilizzare il contesto iniziale java:/comp non valido">
+     <description>Questa regola rileva una stringa di contesto iniziale non valida che inizia con java:/comp invece che con java:comp (senza la  "/").</description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidInitialContext.html" label="Guida dettagliata"/>
+  </context>
+  <context id="invalidWelcomeFileName" title="Evitare di utilizzare una barra  / in un nome file di benvenuto nel modulo web">
+     <description>Questa regola rileva i nomi file di benvenuto che iniziano con / o \ </description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidWelcomeFileName.html" label="Guida dettagliata"/>
+  </context>
+  <context id="detectDoUpgradeMethod" title="Non utilizzare il metodo Apache Tomcat WsServerContainer doUpgrade">
+     <description>Migrare il metodo Apache Tomcat WsServerContainer doUpgrade in un nuovo metodo IBM WebSocket API WsWsocServerContainer doUpgrade.</description>
+     <topic href="ruleinfo/appconversion/tomcat/DetectDoUpgradeMethod.html" label="Guida dettagliata"/>
+  </context>
+  <context id="detectTomcatPackages" title="Non utilizzare i package ed API Apache Tomcat">
+    <description>Questa regola contrassegna le istanze di package ed API specifici Apache Tomcat che è necessario migrare.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatPackages.html" label="Guida dettagliata"/>
+  </context>
+    <context id="detectInitialContextLookup" title="Accertarsi che le ricerche di contesto abbiano corrispondenti voci del descrittore di distribuzione">
+    <description>Questa regola contrassegna le ricerche di contesto iniziale.  Fornisce la possibilità di ricercare le voci della variabile d'ambiente corrispondenti in un file web.xml.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectInitialContextLookup.html" label="Guida dettagliata"/>
+  </context>
+  <context id="contextEnvironment" title="Utilizza i descrittori di distribuzione Java EE per definire i riferimenti d'ambiente">
+     <description>Le informazioni sull'ambiente nel file META-INF/context.xml possono essere migrate in  web.xml. Questa regola migra l'elemento Environment Context.</description>
+     <topic href="ruleinfo/appconversion/tomcat/ContextEnvironment.html" label="Guida dettagliata"/>
+  </context>
+  <context id="contextResourceLink" title="Utilizza i descrittori di distribuzione Java EE e i bind WebSphere per definire i riferimenti di collegamento alla risorsa">
+    <description>Le informazioni ResourceLink nel file META-INF/context.xml possono essere migrate in web.xml e nei bind WebSphere. Questa regola migra l'elemento ResourceLink Context.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResourceLink.html" label="Guida dettagliata"/>
+  </context>
+  <context id="resourceSharingScope" title="Imposta l'ambito di condivisione nei riferimenti risorsa">
+    <description>Questa regola contrassegna i riferimenti risorsa che non dispongono di un ambito di condivisione impostato. L'ambito di condivisione della risorsa è impostato per impostazione predefinita a Shareable in Apache Tomcat.  Impostare lo stesso ambito di condivisione in WebSphere.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingResourceSharingScope.html" label="Guida dettagliata"/>
+  </context>
+  <context id="contextParameter" title="Utilizza i descrittori di distribuzione Java EE per definire i parametri di contesto">
+    <description>Le informazioni sui parametri in META-INF/context.xml possono essere migrate in web.xml. Questa regola migra gli elementi Context Parameter.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextParameter.html" label="Guida dettagliata"/>
+  </context>
+  <context id="contextLifecycleListener" title="Utilizza i descrittori di distribuzione Java EE per definire i listener del ciclo di vita del contesto">
+    <description>Le informazioni sul listener del ciclo di vita in META-INF/context.xml possono essere migrate in web.xml. Questa regola contrassegna gli elementi Context Listener</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextLifecycleListener.html" label="Guida dettagliata"/>
+  </context>
+  <context id="contextValve" title="Non utilizzare il componente Context Valve">
+    <description>Il componente Context Valve non può essere utilizzato. Questa regola contrassegna il componente Context Valve nel file context.xml.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextValve.html" label="Guida dettagliata"/>
+  </context>
+  <context id="detectTomcatBasicDataSource" title="Non utilizzare Apache Tomcat BasicDataSource">
+    <description>Questa regola contrassegna le istanze della classe org.apache.tomcat.dbcp.dbcp.BasicDataSource che non è disponibile in WebSphere.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatBasicDataSource.html" label="Guida dettagliata"/>
+  </context>  
+  <context id="missingSecurityRole" title="Utilizza i descrittori di distribuzione per definire i ruoli di sicurezza mancanti">
+    <description>Questa regola contrassegna gli elementi auth-constraint, role-name in web.xml in cui mancano gli elementi security-role associati.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingSecurityRole.html" label="Guida dettagliata"/>
+  </context>  
+  <context id="migrateJuliLogging" title="Non utilizzare Apache Tomcat org.apache.juli.logging">
+    <description>Questa regola contrassegna i metodi di registrazione del package org.apache.juli.logging e assisterà l'utente a migrare l'applicazione per utilizzare la claase java.util.logging.Logger.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MigrateJuliLogging.html" label="Guida dettagliata"/>
+  </context>
+  <context id="detectGetRealPathTomcatSlash" title='Convalidare il risultato della concatenazione con getRealPath("/")'>
+    <description>In WebSphere, getRealPath("/") restituisce una stringa che non termina con una barra finale. Verificare che la concatenazione con questo metodo aggiunga una barra finale, se necessario.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatSlash.html" label="Guida dettagliata"/>
+  </context>
+   <context id="detectGetRealPathTomcatEmpty" title='Convalidare il risultato della concatenazione con getRealPath("")'>
+    <description>In Liberty, getRealPath("") restituisce una stringa che non termina con una barra finale. Verificare che la concatenazione con questo metodo aggiunga una barra finale, se necessario.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatEmpty.html" label="Guida dettagliata"/>
+  </context>
+</contexts>

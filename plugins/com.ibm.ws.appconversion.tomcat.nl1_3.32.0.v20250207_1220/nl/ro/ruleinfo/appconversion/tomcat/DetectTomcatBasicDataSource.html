@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Nu utilizaţi Apache Tomcat BasicDataSource</span>
+<p>
+Această regulă detectează utilizarea 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE --> 
+clasa în fișiere Java . Această clasă implementează interfața standard a sursei de date din industrie 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE -->. 
+Sursa de date Apache Tomcat oferă metode proprietare pe care aplicația dvs. le poate utiliza.
+<p>
+Dacă nu utilizați metode de proprietate, puteți schimba codul de utilizare <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE --> mai degrabă decât de turnare la 
+Tomcat 
+</p>
+<p>
+Dacă utilizaţi metode proprietare şi doriţi să continuaţi
+să le utilizaţi în aplicaţie,
+puteţi migra resursa pentru a utiliza Apache Commons DataSource.
+Pentru a utiliza Apache Commons, descărcaţi fişierul jar common-dbcp
+şi configuraţi-vă resursa să folosească această sursă de date. 
+În codul Java , schimbați referințele <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->
+la <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.commons.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+Sau, puteţi să vă reconfiguraţi resursa pentru a folosi
+pool-uri de conexiuni WebSphere pentru a creşte performanţa şi a simplifica problemele de scalabilitate.
+Utilizând această soluţie, statisticile şi informaţiile sursei de date sunt disponibile pentru aplicaţia dumneavoastră utilizând
+<a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html" 
+title="Deschide o fereastră nouă" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html'); return false;">Connection Factory MBean</a>.
+</p> 
+<p>
+Pentru informaţii suplimentare, consultaţi:
+</p>
+<ul>
+<li>
+
+<a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html" 
+title="Deschide o fereastră nouă" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html'); return false;">Conceptele privind datele</a>
+ WebSphere din documentație  
+</li>
+<li>
+<a href="http://commons.apache.org/dbcp/" 
+title="Deschide o fereastră nouă" onclick="javascript:helpWindow('http://commons.apache.org/dbcp/'); return false;">Apache Commons - The DBCP Component</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

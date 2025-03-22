@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">不要使用 Apache Tomcat BasicDataSource</span>
+<p>
+此規則會偵測是否使用 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE --> 
+Java 檔案中的類別。 此類別實作業界標準資料來源介面 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE -->-我知道 
+Apache Tomcat 資料來源提供您應用程式可能使用的專有方法。
+<p>
+如果您不是使用專有方法，則可以將程式碼變更為使用 <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE --> 而不是向 
+Tomcat 版本。 
+</p>
+<p>
+如果您使用專有方法，並希望繼續在應用程式中使用它們，您可以移轉資源，以使用 Apache Commons 資料來源。
+如果要使用 Apache Commons，請下載 common-dbcp
+jar 檔，並將資源配置成使用這個資料來源。 
+在 Java 程式碼中，變更下列項目的參照: <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->
+收件者 <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.commons.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+或者，您可以重新配置資源，以使用 WebSphere 連線儲存區來提高效能，並緩和執行緒作業和可調整性問題。
+當使用這個解決方案時，可利用
+<a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html" 
+title="開啟新視窗" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html'); return false;">Connection Factory MBean</a> 來提供資料來源統計資料和資訊給應用程式。
+</p> 
+<p>
+如需相關資訊，請參閱：
+</p>
+<ul>
+<li>
+文件中的 WebSphere
+<a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html" 
+title="開啟新視窗" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html'); return false;">資料概念</a>
+  
+</li>
+<li>
+<a href="http://commons.apache.org/dbcp/" 
+title="開啟新視窗" onclick="javascript:helpWindow('http://commons.apache.org/dbcp/'); return false;">Apache Commons - DBCP 元件</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

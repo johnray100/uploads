@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Ne használja az Apache Tomcat BasicDataSource osztályát</span>
+<p>
+Ez a szabály felismeri a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE --> 
+Osztály a Java fájlban. Ez az osztály az iparági szabványos adatforrás felületet valósítja meg 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE -->. 
+Az Apache Tomcat adatforrás védett metódusokat biztosít, amelyeket az alkalmazás használhat.
+<p>
+Ha nem védett metódusokat használ, akkor módosíthatja a kódot <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE --> Ahelyett, hogy a 
+Tomcat változat. 
+</p>
+<p>
+Ha használja a szabadalomvédett metódusokat és továbbra is használni kívánja
+azokat az alkalmazásban, akkor átállíthatja az erőforrást az Apache Commons
+DataSource használatára.
+Az Apache Commons használatához töltse le a
+common-dbcp jar fájlt és állítsa be úgy az erőforrást, hogy ezt az adatforrást
+használja. 
+A Java kódban módosítsa a <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->
+eddig: <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.commons.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+Alternatív megoldásként, újrakonfigurálhatja az erőforrást, hogy WebSphere
+kapcsolattárakat használjon a teljesítmény növeléséhez és a szálkezelési és
+méretezhetőségi problémák enyhítéséhez.
+Ezen megoldás használata esetén az
+adatforrás statisztikát és információkat alkalmazása a
+<a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html" 
+title="Új ablakban nyílik meg" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html'); return false;">Kapcsolatgyártó
+MBean</a> segítségével érheti el.
+</p> 
+<p>
+További információkért lásd:
+</p>
+<ul>
+<li>
+WebSphere
+<a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html" 
+title="Új ablakot nyit meg" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html'); return false;">Adatfogalmak</a>
+a dokumentációban  
+</li>
+<li>
+<a href="http://commons.apache.org/dbcp/" 
+title="Új ablakban nyílik meg" onclick="javascript:helpWindow('http://commons.apache.org/dbcp/'); return false;">Apache Commons - A DBCP komponens</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

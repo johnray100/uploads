@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">使用 Java EE 部署描述子來定義環境定義參數</span>
+<p>
+此規則會標示 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 在 <span class="FilePath">META-INF/context.xml</span> 檔中找到個元素。
+</p>
+<p>
+Apache Tomcat 容許 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 要在下列位置中定義的元素: 
+<ul>
+<li><span class="FilePath">META-INF/context.xml</span> 檔</li>
+<li>Tomcat <span class="FilePath">conf</span> 目錄中的應用程式 XML 配置檔</li>
+<li>該 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 中的元素</li>
+</ul>
+<p>
+這項移轉工具只會移轉 <span class="FilePath">META-INF/context.xml</span> 檔中的參數元素。
+定義在其他位置中的 Parameter 資訊可以複製到
+<span class="FilePath">META-INF/context.xml</span> 檔，以便處理它。
+</p>
+
+<p>
+如果 <span class="FilePath">WEB-INF/web.xml</span> 存在於 Web 專案中：
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+將在下列任一條件下標示元素:
+</p>
+<ul>
+<li>該項目在 <span class="FilePath">web.xml</span> 檔中沒有相符項。</li>
+<li>該項目的值與 <span class="FilePath">web.xml</span> 檔中的相符項不同，且其置換旗標設為 false。</li>
+</ul>
+<p class="indent2">
+在原始檔掃描器中提供了此規則的快速修正程式。 快速修正程式將新增 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> web.xml 檔中的元素，代表 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 元素 (如果它尚未存在於 
+<span class="FilePath">web.xml</span> 檔。 
+如果該項目存在，就會更新它。 
+</p>
+<p>
+如果 <span class="FilePath">WEB-INF/web.xml</span> 不存在：</p>
+<p class="indent2">
+全部 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 將會標示個元素。
+</p>
+<p class="indent2">
+快速修正程式會建立 <span class="FilePath">WEB-INF/web.xml</span> 檔，其中包含適當的 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> 元素 (如果 Web 專案位於 Java EE 5 或更新版本)。 如果 Web 專案是
+J2EE 1.4 或更舊的版本，快速修正程式會報告錯誤。
+</p>
+<p>
+舉例來說，請考量具有下列內容的 <span class="FilePath">META-INF/context.xml</span> 檔：
+<div class="container">
+<span class="Code">
+&lt;Parameter <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>value= "abc123" /&gt;<br>	
+&lt;Parameter <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="parameter_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>value = "new Value " /&gt;<br>                                     
+&lt;Parameter <br>
+<span class="indent2"></span>description="Will not trigger because of override set to true" <br>
+<span class="indent2"></span>name="parameter_2"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>value="123 " /&gt;<br>
+</span>
+</div>
+<p>
+應用程式含有下列 <span class="FilePath">web.xml</span> 檔： </p>
+<div class="container">
+<span class="Code">
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;觸發程式，因為不同的值&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;oldValue&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;將不會觸發，因為置換設為 true&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br>
+</span>
+</div>
+<p>
+在套用快速修正程式之後，會更新 <span class="FilePath">web.xml</span>，使其包含：</p>
+<div class="container">
+<span class="Code">
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;因為觸發程式不存在而觸發程式&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;newEntry&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;abc123&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;觸發程式，因為不同的值&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;新值&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;將不會觸發，因為置換設為 true&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+</span>
+</div>
+
+<p>
+如需 Tomcat 中之環境定義參數的相關資訊，請參閱：
+</p>
+
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters" 
+	title="開啟新視窗" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters'); return false;">
+	Apache Tomcat 配置參照 - 環境定義參數</a>。 
+</li>
+</ul>
+</div>
+</body>
+</html>

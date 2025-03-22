@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Não usar o Apache Tomcat BasicDataSource</span>
+<p>
+Esta regra detecta o uso do 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE --> 
+em arquivos Java . Esta classe implementa a interface da origem de dados padrão de mercado 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE -->. 
+A origem de dados Apache Tomcat fornece métodos proprietários que seu aplicativo pode estar usando..
+<p>
+Se você não estiver usando métodos proprietários, será possível alterar seu código para usar <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE --> em vez de lançar para o 
+Tomcat versão. 
+</p>
+<p>
+Se você estiver usando os métodos proprietários e deseja continuar usando eles no aplicativo,
+será possível migrar o recurso para usar o Apache Commons DataSource.
+Para usar o Apache Commons, faça download do arquivo jar common-dbcp e configure seu recurso
+para usar essa origem de dados. 
+Em seu código Java , altere as referências de <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->
+para <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.commons.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+Como alternativa, é possível reconfigurar seu recurso para usar os conjuntos de
+conexões WebSphere para aumentar o desempenho e aliviar os problemas de passagem e de
+escalabilidade.
+Usando esta solução, as estatísticas de origem de dados e as informações estão disponíveis para o seu aplicativo usando o
+<a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html"
+title="Abre uma nova janela" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html'); return false;">Bean gerenciado de connection factory</a>.
+</p> 
+<p>
+Para obter informações adicionais, veja:
+</p>
+<ul>
+<li>
+Conceitos do WebSphere
+<a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html" 
+title="Abre uma nova janela" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html'); return false;"> Data </a>
+na documentação  
+</li>
+<li>
+<a href="http://commons.apache.org/dbcp/"
+title="Abre uma nova janela" onclick="javascript:helpWindow('http://commons.apache.org/dbcp/'); return false;">Apache Commons - O componente DBCP</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

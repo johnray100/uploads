@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">リソース参照の定義に Java EE デプロイメント記述子および WebSphere バインディングを使用する</span>
+<p>
+この規則により、以下のものにフラグを立てます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> マイグレーションが必要になる可能性がある <span class="FilePath">META-INF/context.xml</span> ファイル内にあるエレメント。</p>
+<p>
+Apache Tomcat で許可される <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> 以下の場所で定義されるエレメント:<ul>
+<li><span class="FilePath">META-INF/context.xml</span> ファイル</li>
+<li>Tomcat の <span class="FilePath">conf</span> ディレクトリー内のアプリケーション XML 構成ファイル</li>
+<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 内のエレメント</li>
+</ul>
+<p>
+マイグレーション・ツールは、Tomcat 構成ディレクトリーにアクセスできない場合もあるため、マイグレーション・ツールがマイグレーションするのは <span class="FilePath">META-INF/context.xml</span> ファイルのみです。
+その他の場所で定義されたリソース情報は、処理できるように <span class="FilePath">META-INF/context.xml</span> ファイルにコピーできます。
+</p>
+
+<p>
+ソース・スキャナーでクイック・フィックスが使用可能です。 クイック・フィックスは、以下から情報を取得します。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 必要に応じてリソース参照またはリソース環境参照を作成し、対応する JNDI 名を作成します。
+Tomcat は、対応するリソース参照を推奨しますが、必須ではありません。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE -->
+エレメントは、 <span class="FilePath">WEB-INF/web.xml</span>で定義されます。 
+クイック・フィックスは、以下のリストを検索します。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE -->
+および <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> 名前に一致する項目が既に存在するかどうかを確認するためのエレメント。  
+存在しなければ、作成されます。  If the
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 要素には 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> 属性、a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 作成されます。
+If the <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 要素に要素がありません 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> 属性、a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> 作成されます。 どちらの場合も、 <!-- START NON-TRANSLATABLE -->
+<span class="Code">name</span>
+<!-- END NON-TRANSLATABLE --> 値は JNDI 名としても使用され、バインディングで定義されます。
+
+</p>
+
+例えば、次のように指定します。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">META-INF/context.xml</span> ファイルからのエレメント:
+<div class="container">
+&lt; span class="Code"&gt; &lt; リソース名 = "jdbc/exampleDB"<br> 
+<span class="indent2"></span>auth="Container"<br>
+<span class="indent2"></span>type="javax.sql.DataSource"<br>
+<span class="indent2"></span>description="Example Database "/&gt; (記述 =" データベースの例 " /&gt;)<br>
+</span>
+</div>
+<br><br>
+クイック・フィックスは、この対応するものを作成します。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;resource-ref&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+要素:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent2"&gt; &lt; /span&gt; &lt; 説明&gt;<br>
+<span class="indent2"></span>データベースの例&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;コンテナー&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;共有可能&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+デフォルトでは、リソースは Tomcat で共有可能です。  スコープが以下に設定されていない場合: <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> エレメント。クイック・フィックス用に新規リソース参照が作成されると、共有可能に設定されます。 WEB-INF/web.xml に一致するリソース参照が既に存在している場合、変更は行われません。
+</p>
+<p>
+Web プロジェクトが Java EE 5 以降で、<span class="FilePath">WEB-INF/web.xml</span> が存在しない場合、<span class="FilePath">WEB-INF/web.xml</span> が作成され、新規リソース参照エレメントが追加されます。
+Web プロジェクトが J2EE 1.4 以下である場合、クイック・フィックスはエラーを報告します。
+</p>
+<p>
+WebSphere 構成にリソースを構成する必要もあります。
+</p>
+<p>
+Tomcat でのコンテキスト・リソース定義について詳しくは、以下を参照してください。
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions" 
+	title="新しいウィンドウを開く" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions'); return false;">
+	Apache Tomcat Configuration Reference - Resource Definitions</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

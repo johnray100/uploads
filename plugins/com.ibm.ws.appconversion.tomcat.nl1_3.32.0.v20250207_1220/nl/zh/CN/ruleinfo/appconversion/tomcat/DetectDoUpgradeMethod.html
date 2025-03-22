@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2015, 2016.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script> 
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">请勿使用 Apache Tomcat WsServerContainer doUpgrade 方法</span>
+<p>
+Liberty V8.5.5.7 和传统 WebSphere Application Server V9.0 中引入了 <code>com.ibm.websphere.wsoc.WsWsocServerContainer doUpgrade</code> WebSocket 方法，该方法使 Servlet 或过滤器能够请求将当前 HTTP 请求升级到 WebSocket 会话。
+Apache Tomcat 通过 <code>org.apache.tomcat.websocket.server.WsServerContainer doUpgrade</code> 方法提供类似的功能。
+</p>
+<p>
+该规则标记 Tomcat <code>WsServerContainer doUpgrade</code> 方法，以便您可以将其迁移到 <code>WsWsocServerContainer doUpgrade</code> 方法。
+</p>
+<p>
+WebSphere Application Server 方法定义如下：
+</p>
+<div class="container">
+<pre class="JavaType">
+
+com.ibm.websphere.wsoc.WsWsocServerContainer
+
+<span class="JavaKeyword">公共空</span> doUpgrade(HttpServletRequest request, 
+                      HttpServletResponse response,
+                      ServerEndpointConfig sec, 
+                      java.util.Map&lt;java.lang.String,
+                      java.lang.String&gt; pathParams) 
+                        <span class="JavaKeyword">抛掷</span> ServletException, java.io.IOException
+
+}
+</pre>
+</div>
+<p>
+有关更多信息以及 Java 文档的链接，请参阅
+</p>
+<ul>
+<li><a href="https://www.ibm.com/docs/en/was-liberty/nd?topic=environment-developing-websocket-applications-in-liberty" 
+	title="打开一个新窗口" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-liberty/nd?topic=environment-developing-websocket-applications-in-liberty'); return false;">
+	Developing WebSocket applications in Liberty</a>。</li>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/tweb_websocket_apps.html" 
+	title="打开一个新窗口" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/tweb_websocket_apps.html'); return false;">
+	Developing WebSocket applications</a> in traditional WebSphere.</li>	
+</ul> 
+</div>
+</body>
+</html>

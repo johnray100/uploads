@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Použít deskriptory implementace Java EE k definování modulů listener životního cyklu kontextu</span>
+
+<p>
+Toto pravidlo značí vše <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+prvky v souboru <span class="FilePath">META-INF/context.xml</span> .
+</p>
+<p>
+Na serveru Apache Tomcatjsou objekty Java , které potřebují vědět, kdy je jejich kontext spuštěn nebo zastaven, deklarovány zahrnutím <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> prvek v rámci kontextu. 
+Název třídy uvedený v <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> prvek implementuje <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE --> rozhraní.  
+Této třídě bude oznamován výskyt odpovídajících událostí životního cyklu.  Všimněte si, že 
+<a href="DetectTomcatPackages.html" >Nepoužívat pravidlo Apache Tomcat balíky a rozhraní API</a> značí výskyty použití <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+Analogická funkčnost prostředí Java EE je k dispozici pomocí <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ServletContextEvent</span>
+<!-- END NON-TRANSLATABLE --> a odpovídající <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> položky v souboru <span class="FilePath">web.xml</span> .
+</p>
+<p>
+Tomcat umožňuje <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky, které mají být definovány v těchto umístěních: 
+<ul>
+<li>Soubor <span class="FilePath">META-INF/context.xml</span></li>
+<li>Konfigurační soubor XML aplikace v adresáři Tomcat <span class="FilePath">conf</span></li>
+<li>V případě <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvek v souboru <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Příznaky pouze nástroje migrace <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> prvky v souboru <span class="FilePath">META-INF/context.xml</span> .
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> informace definované v jiných umístěních lze zkopírovat do souboru <span class="FilePath">META-INF/context.xml</span> , aby bylo možné je zpracovat.
+</p>
+<p>
+Doporučenou akcí je převod souborů Java pomocí <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->  k použití
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> a chcete-li přidat odpovídající položky modulu listener do souboru <span class="FilePath">web.xml</span> pro aplikaci.
+</p>
+<p>
+Další informace o modulech listener životního cyklu servletu viz:
+</p>
+<ul>
+<li>
+    <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html" 
+	title="Otevře se v novém okně" onclick="javascript:helpWindow('https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html'); return false;">
+	Životní cyklus servletu v rámci výukového programu Java EE 6</a>.
+</li>
+</ul>
+<p>
+Další informace o modulech listener životního cyklu na serveru Tomcat viz:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners" 
+	title="Otevře se v novém okně" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners'); return false;">
+	Odkaz na konfiguraci Apache Tomcat - Moduly listener životního cyklu</a>.
+</li>
+</ul>
+</div>
+</body>
+</html>

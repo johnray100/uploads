@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Apache Tomcat の BasicDataSource を使用しない</span>
+<p>
+この規則は、以下のものの使用を検出します。 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE --> 
+Java ファイル内のクラス。 このクラスは、業界標準のデータ・ソース・インターフェースを実装します。 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE -->。 
+Apache Tomcat データ・ソースは、アプリケーションが使用している可能性のある独自のメソッドを提供します。
+<p>
+プロプラエタリー方式を使用していない場合は、以下を使用するようにコードを変更できます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE --> キャスティングではなく 
+Tomcat バージョン。 
+</p>
+<p>
+専有のメソッドを使用していて、アプリケーションでそれを引き続き使用したい場合は、Apache Commons の DataSource を使用するためにリソースをマイグレーションできます。
+Apache Commons を使用するには、common-dbcp JAR ファイルをダウンロードし、このデータ・ソースを使用するようにリソースを構成します。 
+Java コードで、以下の参照を変更します。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->
+へ <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.commons.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+もしくは、WebSphere 接続プールを使用するようにリソースを再構成して、パフォーマンスを上げ、スレッド化とスケーラビリティーの問題を緩和することができます。
+この解決方法を使用した場合、<a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html" 
+title="新しいウィンドウを開く" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html'); return false;">Connection Factory MBean</a> を使用して、データ・ソースに関する統計と情報がアプリケーションで使用できるようになります。
+</p> 
+<p>
+追加情報については、以下を参照してください。
+</p>
+<ul>
+<li>
+WebSphere
+資料内の <a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html" 
+title="新規ウィンドウを開きます" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html'); return false;">
+データの概念</a>  
+</li>
+<li>
+<a href="http://commons.apache.org/dbcp/" 
+title="新しいウィンドウを開く" onclick="javascript:helpWindow('http://commons.apache.org/dbcp/'); return false;">Apache Commons - The DBCP Component</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

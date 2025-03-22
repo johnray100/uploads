@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Imposta l'ambito condiviso nei riferimenti risorsa</span>
+<p>
+Questa regola contrassegna <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> elementi trovati nel file <span class="FilePath">WEB-INF/web.xml</span> che mancano <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> .  
+Il server Apache Tomcat imposta come valore predefinito l'ambito di condivisione delle risorse su <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.  
+L'ambito di condivisione della risorsa è definito come un attributo facoltativo in Java EE.
+Nello scanner di origine è disponibile una correzione rapida per questa regola. È possibile utilizzare
+la soluzione rapida per ottenere lo stesso ambito condivisibile in WebSphere traditional e Liberty
+come in Tomcat.
+</p>
+<p>
+La correzione rapida aggiunge <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> se non è già impostato e definisce la connessione come  <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+Segue un esempio di un riferimento risorsa che dovrebbe essere contrassegnato:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; descrizione&gt;<br>
+<span class="indent4"></span>Database di esempio&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc /exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Contenitore&lt;/res-auth&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<br><br>
+La correzione rapida aggiunge l'elemento res-sharing-scope:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; descrizione&gt;<br>
+<span class="indent4"></span>Database di esempio&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc /exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Contenitore&lt;/res-auth&gt;<br>
+<span class="indent4"></span>&lt;res-sharing-scope&gt;Condivisibile&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Pere ulteriori informazioni relative alle connessioni di condivisione alla risorsa in WebSphere Application Server, consultare <a href="https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html" 
+title="Apre una nuova finestra" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html'); return false;">Unshareable and shareable connections</a>.
+</p>
+</div>
+</body>
+</html>

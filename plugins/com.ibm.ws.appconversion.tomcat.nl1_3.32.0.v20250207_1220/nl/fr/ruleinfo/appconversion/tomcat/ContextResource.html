@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utiliser des descripteurs de déploiement Java EE et des liaisons WebSphere pour définir les références de ressource</span>
+<p>
+Cette règle marque <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> éléments trouvés dans le fichier <span class="FilePath">META-INF/context.xml</span> qui peuvent nécessiter une migration.</p>
+<p>
+Apache Tomcat autorise <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> éléments à définir dans ces emplacements:<ul>
+<li>dans le fichier <span class="FilePath">META-INF/context.xml</span>,</li>
+<li>dans le fichier XML d'application dans le répertoire <span class="FilePath">conf</span> de Tomcat,</li>
+<li>:NONE. <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> dans le fichier <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Etant donné que l'outil de migration n'a pas forcément accès au répertoire de configuration Tomcat, l'outil de migration ne migre que le fichier <span class="FilePath">META-INF/context.xml</span>.
+Vous pouvez copier les informations de ressource définies à d'autres emplacements dans le fichier
+<span class="FilePath">META-INF/context.xml</span> en vue de leur traitement.
+</p>
+
+<p>
+Un correctif rapide est disponible dans le scanner de source. Le correctif rapide extrait les informations du <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> et crée une référence de ressource ou une référence d'environnement de ressource selon les besoins et un nom JNDI correspondant.
+Tomcat recommande, mais ne requiert pas, que la référence de ressource correspondante pour <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE -->
+être défini dans le fichier <span class="FilePath">WEB-INF/web.xml</span>. 
+Le correctif rapide recherche la liste des <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE -->
+et <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> pour voir si l'entrée correspondant au nom existe déjà.  
+si tel n'est pas le cas, une entrée est créée,  Si les propriétés
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> l'élément a un 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> attribut, un 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> est créé.
+Si les propriétés <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> L'élément n'a pas de 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> attribut, un 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> est créé. Dans les deux cas, la <!-- START NON-TRANSLATABLE -->
+<span class="Code">name</span>
+<!-- END NON-TRANSLATABLE --> est également utilisé comme nom JNDI et est défini dans les liaisons.
+
+</p>
+
+Par exemple, compte tenu de ce qui suit: <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> dans le fichier <span class="FilePath">META-INF/context.xml</span> :
+<div class="container">
+&lt; span class="Code"&gt; &lt; Resource name="jdbc/exampleDB"<br> 
+<span class="indent2"></span>auth="Container"<br>
+<span class="indent2"></span>type="javax.sql.DataSource"<br>
+<span class="indent2"></span>description="Exemple de base de données " /&gt;<br>
+</span>
+</div>
+<br><br>
+Le correctif rapide créerait cette correspondance <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;resource-ref&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+élément:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent2"&gt; &lt; /span&gt; &lt; description&gt;<br>
+<span class="indent2"></span>Exemple de base de données&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc /exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Conteneur&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Partagable&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Par défaut, les ressources peuvent être partagées dans Tomcat.  Si la portée n'est pas définie sur la <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> , il est défini sur partageable lorsqu'une nouvelle référence de ressource est créée pour le correctif rapide. Si une référence de ressource correspondante existe déjà dans le fichier WEB-INF/web.xml, aucune modification n'est apportée.
+</p>
+<p>
+Si le projet Web est un projet Java EE 5 ou de version ultérieure et le fichier
+<span class="FilePath">WEB-INF/web.xml</span> n'existe pas, le fichier
+<span class="FilePath">WEB-INF/web.xml</span> est créé et les nouveaux éléments de référence de ressource sont ajoutés.
+Si le projet Web est un projet J2EE 1.4 ou de version antérieure, le correctif rapide signale une erreur.
+</p>
+<p>
+Vous devez aussi configurer la ressource dans la configuration WebSphere.
+</p>
+<p>
+Pour plus d'informations sur la définition de ressources de contexte dans Tomcat, voir :
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions" 
+	title="Ouverture dans une nouvelle fenêtre" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions'); return false;">
+		   Apache Tomcat Configuration Reference - Resource Definitions</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

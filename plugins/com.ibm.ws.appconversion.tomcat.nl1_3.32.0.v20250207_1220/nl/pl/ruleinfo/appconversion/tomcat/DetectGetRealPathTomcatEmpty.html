@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Sprawdź poprawność wyniku konkatenacji za pomocą metody getRealPath("")</span>
+<p>
+Ta reguła powoduje oznaczenie kodu Java, który zawiera odwołania do następujących metod i parametrów:
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("")</code></li>
+</ul>
+<p>
+W produkcie Tomcat metody te zwracają łańcuch kończący się ukośnikiem. W produkcie Liberty wartość zwracana nie kończy się ukośnikiem. W rezultacie łańcuchy skonkatenowane za pomocą tej metody mogą wskazywać poprawne pliki w produkcie Tomcat, ale nie w produkcie Liberty. W przypadku każdego oznaczonego wywołania metody należy sprawdzić, czy w kodzie korzystającym z tych wyników przestrzegana jest reguła dotycząca braku końcowego znaku ukośnika w produkcie Liberty.
+</p>
+<p>
+Przyjmijmy na przykład, że rozwinięty plik war został zainstalowany w katalogu <code>/path/app.war</code>. Wywołanie metody <code>getRealPath("")</code> da następujące wyniki:
+</p>
+<ul>
+<li>Tomcat: <code>/path/app.war/</code></li>
+<li>Liberty: <code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

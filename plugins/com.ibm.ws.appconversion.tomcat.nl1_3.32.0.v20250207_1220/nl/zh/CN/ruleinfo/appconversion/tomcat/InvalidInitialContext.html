@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">避免使用无效的初始上下文 java:/comp</span>
+<p>
+此规则会标记以以下字符开头的任何字符串文字: <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:/comp</span>
+<!-- END NON-TRANSLATABLE --> 在 Java 文件或 XML 文件中。
+此字符串通常表示命名上下文查询。  
+Java EE 规范将查找字符串定义为 <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:comp</span>
+<!-- END NON-TRANSLATABLE --> 没有前置正斜杠 (/) <!-- START NON-TRANSLATABLE -->
+<span class="Code">comp</span>
+<!-- END NON-TRANSLATABLE -->我不知道
+但是， Apache Tomcat 允许不合规的字符串。
+</p>
+<p>
+在源扫描程序中提供了针对此规则的 Java 快速修订。针对此规则的快速修订会从字符串中移除 /。</p>
+<p>
+例如，请考虑以下包含额外正斜杠的代码段。
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:/comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --><br> 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:/comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+该快速修订会移除正斜杠，并将代码更新为：
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+
+<p>
+如果文件中有字符串的多个实例，那么 XML 规则仅标记该字符串的第一个实例。 在源扫描程序中提供了 XML 快速修订。该 XML 快速修订会更改文件中问题字符串的所有实例。</p>
+<p>
+例如，请考虑以下 XML 代码段。
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:/comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+该快速修订会移除正斜杠，并将代码更新为：
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Ne pas utiliser la source de données de base d'Apache Tomcat</span>
+<p>
+Cette règle détecte l'utilisation du 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE --> 
+dans les fichiers Java . Cette classe implémente l'interface de source de données standard de l'industrie 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE -->. 
+La source de données Apache Tomcat fournit des méthodes propriétaires que votre application peut utiliser.
+<p>
+Si vous n'utilisez pas de méthodes propriétaires, vous pouvez modifier votre code pour l'utiliser <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE --> plutôt que de se lancer dans la 
+Version de Tomcat . 
+</p>
+<p>
+Si vous utilisez les méthodes propriétaires et voulez continuer à les utiliser dans l'application, vous pouvez migrer la ressource pour qu'elle utilise la source de données Apache Commons.
+Pour utiliser Apache Commons, téléchargez le fichier jar common-dbcp et configurez votre ressource en vue de l'utilisation de cette source de données. 
+Dans votre code Java , modifiez les références de <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->
+à <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.commons.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+Vous pouvez aussi reconfigurer votre ressource pour qu'elle utilise des pools de connexions WebSphere afin d'améliorer les performances et de limiter les problèmes liés aux unités d'exécution et à l'évolutivité.
+Avec cette solution, des informations et des statistiques sur la source de données sont disponibles dans votre application via la table de définitions <a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html" 
+title="Ouverture dans une nouvelle fenêtre" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html'); return false;">ConnectionFactory MBean</a>.
+</p> 
+<p>
+Pour plus d'informations, voir :
+</p>
+<ul>
+<li>
+<a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html" 
+title="Ouvre une nouvelle fenêtre" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html'); return false;">Concepts de données</a>
+WebSphere
+dans la documentation  
+</li>
+<li>
+<a href="http://commons.apache.org/dbcp/" 
+title="Ouverture dans une nouvelle fenêtre" onclick="javascript:helpWindow('http://commons.apache.org/dbcp/'); return false;">Apache Commons - The DBCP Component</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

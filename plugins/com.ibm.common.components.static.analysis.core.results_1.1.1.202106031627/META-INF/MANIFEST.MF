@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.ibm.common.components.static.analysis.core.
+ results
+Bundle-SymbolicName: com.ibm.common.components.static.analysis.core.re
+ sults
+Archiver-Version: Plexus Archiver
+Built-By: jenkins
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-Vendor: IBM
+Export-Package: com.ibm.common.components.staticanalysis.core.exceptio
+ ns,com.ibm.common.components.staticanalysis.core.results,com.ibm.comm
+ on.components.staticanalysis.core.results.exporters,com.ibm.common.co
+ mponents.staticanalysis.core.results.importers,com.ibm.common.compone
+ nts.staticanalysis.core.results.messages,com.ibm.common.components.st
+ aticanalysis.core.results.rules,com.ibm.common.components.staticanaly
+ sis.core.rules,com.ibm.common.components.staticanalysis.internal.core
+ .results,com.ibm.common.components.staticanalysis.internal.core.resul
+ ts.exporters,com.ibm.common.components.staticanalysis.internal.core.r
+ esults.importers,com.ibm.common.components.staticanalysis.internal.co
+ re.results.rules,com.ibm.common.components.staticanalysis.internal.co
+ re.results.utilities,com.ibm.common.components.staticanalysis.interna
+ l.core.rules
+Bundle-Name: Static Analysis Results
+Bundle-Version: 1.1.1.202106031627
+Bundle-ClassPath: saapi.jar
+Created-By: Apache Maven 3.6.3
+Build-Jdk: 1.8.0
+

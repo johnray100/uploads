@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Evitar la utilización del contexto inicial no válido java:/comp</span>
+<p>
+Esta regla señala cualquier literal de serie que empiece por <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:/comp</span>
+<!-- END NON-TRANSLATABLE --> en archivos Java o archivos XML.
+Esa serie de caracteres normalmente representa una búsqueda de contexto de denominación.  
+La especificación Java EE define la serie de búsqueda como <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:comp</span>
+<!-- END NON-TRANSLATABLE --> sin la barra inclinada (/) anterior <!-- START NON-TRANSLATABLE -->
+<span class="Code">comp</span>
+<!-- END NON-TRANSLATABLE -->.
+Sin embargo, Apache Tomcat permite la serie no conforme.
+</p>
+<p>
+Hay disponible un arreglo rápido de Java para esta regla en el explorador de origen. El arreglo rápido para esta regla elimina la / de la serie.
+</p>
+<p>
+Por ejemplo, considere el siguiente fragmento de código que incluye la barra
+inclinada sobrante.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:/comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --><br> 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:/comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+El arreglo rápido elimina la barra inclinada y actualiza el código a:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+
+<p>
+La regla XML sólo marca la primera aparición de la serie de caracteres en el archivo
+si hay varias. Hay disponible un arreglo rápido de XML en el explorador de origen. El arreglo rápido XML cambia todas las apariciones de la serie de
+caracteres errónea en el archivo.</p>
+<p>
+Por ejemplo, considere el fragmento de código XML siguiente.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:/comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+El arreglo rápido elimina la barra inclinada y actualiza el código a:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

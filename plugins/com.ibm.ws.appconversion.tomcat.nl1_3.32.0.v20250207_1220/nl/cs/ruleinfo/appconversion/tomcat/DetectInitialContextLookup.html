@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Ověřte, že vyhledávání kontextu mají odpovídající položky deskriptoru implementace</span>
+<p>
+Toto pravidlo značí instance kontextu <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> .  
+Argument pro <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> Metoda by měla být definována v souboru <span class="FilePath">web.xml</span> . 
+</p>
+<p> 
+Navrhovaná akce je, pro každé nalezené vyhledání kontextu, uživatel by měl zkontrolovat, zda existuje odpovídající 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-reference</span>
+<!-- END NON-TRANSLATABLE -->,  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-reference</span>
+<!-- END NON-TRANSLATABLE -->nebo <!-- START NON-TRANSLATABLE -->
+<span class="Code">env-entry</span>
+<!-- END NON-TRANSLATABLE --> prvek v poli 
+Soubor <span class="FilePath">web.xml</span> .</p>
+ 
+<p>
+Například v následujícím úseku kódu <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> Metoda by byla označena příznakem.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context initCtx = new InitialContext();</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context envCtx = (Context) initCtx.lookup("java:comp/env/myIntialParam");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<b></b>
+<p>
+Pokud je argument pro <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> metoda je 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">"java:comp/env"</span>
+<!-- END NON-TRANSLATABLE --> nebo  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">"java:comp/UserTransaction"</span>
+<!-- END NON-TRANSLATABLE --> kontext 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> Metoda není označena, protože neodpovídá specifickým prostředkům.
+</p>
+<p>			
+V následujícím příkladu dvě instance <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> Metoda by nebyla označena.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context initCtx = new InitialContext();</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context envCtx = (Context) initCtx.lookup("java:comp/env");</span>
+<!-- END NON-TRANSLATABLE -->
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">UserTransaction tran = (UserTransaction)initCtx.lookup("java:comp/UserTransaction");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

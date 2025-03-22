@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Nepoužívat komponentu Context Valve</span>
+<p>
+Toto pravidlo značí vše <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Valve&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+prvky v souboru <span class="FilePath">META-INF/context.xml</span> .
+</p>
+<p>Funkce zařízení <!-- START NON-TRANSLATABLE -->
+<span class="Code">Valve</span>
+<!-- END NON-TRANSLATABLE --> Komponenty lze dosáhnout v prostředí Java EE pomocí filtrů servletu Java . Doporučenou akcí je použití filtrů servletu Java místo Apache Tomcat <!-- START NON-TRANSLATABLE -->
+<span class="Code">Valve</span>
+<!-- END NON-TRANSLATABLE --> komponenty.
+</p>
+<p>
+Další informace o komponentě Valve na serveru Tomcat viz:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-6.0-doc/config/valve.html" 
+	title="Otevře se v novém okně" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-6.0-doc/config/valve.html'); return false;">
+	Odkaz na konfiguraci Apache Tomcat - Komponenta Valve</a>.   
+</li>
+</ul>
+<p>
+Další informace o filtrech servletu Java:
+</p>
+<ul>
+<li>
+    <a href="http://www.oracle.com/technetwork/java/filters-137243.html" 
+	title="Otevře se v novém okně" onclick="javascript:helpWindow('http://www.oracle.com/technetwork/java/filters-137243.html'); return false;">
+	Hlavní informace o filtrech</a>.
+</li>
+</ul>
+</div>
+</body>
+</html>

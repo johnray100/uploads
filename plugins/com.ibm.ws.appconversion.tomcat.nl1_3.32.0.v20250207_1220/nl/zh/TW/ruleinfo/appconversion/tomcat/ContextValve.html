@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">不要使用環境定義閥元件</span>
+<p>
+此規則會標示所有 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Valve&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+<span class="FilePath">META-INF/context.xml</span> 檔中的元素。
+</p>
+<p>的功能 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Valve</span>
+<!-- END NON-TRANSLATABLE --> 可以在 Java EE 中使用 Java Servlet 過濾器來達成元件。 建議動作是使用 Java Servlet 過濾器，而不是 Apache Tomcat <!-- START NON-TRANSLATABLE -->
+<span class="Code">Valve</span>
+<!-- END NON-TRANSLATABLE --> 元件。
+</p>
+<p>
+如需 Tomcat 中之閥元件的相關資訊，請參閱：
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-6.0-doc/config/valve.html" 
+	title="開啟新視窗" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-6.0-doc/config/valve.html'); return false;">
+	Apache Tomcat 配置參照 - 閥元件</a>。
+</li>
+</ul>
+<p>
+如需 Java Servlet 過濾器的相關資訊，請參閱：
+</p>
+<ul>
+<li>
+    <a href="http://www.oracle.com/technetwork/java/filters-137243.html" 
+	title="開啟新視窗" onclick="javascript:helpWindow('http://www.oracle.com/technetwork/java/filters-137243.html'); return false;">
+	過濾器要素</a>。
+</li>
+</ul>
+</div>
+</body>
+</html>

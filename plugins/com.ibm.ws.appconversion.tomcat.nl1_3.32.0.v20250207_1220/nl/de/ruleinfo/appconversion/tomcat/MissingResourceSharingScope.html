@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Bereich für gemeinsame Nutzung in Ressourcenreferenzen festlegen</span>
+<p>
+Diese Regel markiert Folgendes: <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> Elemente in der Datei <span class="FilePath">WEB-INF/web.xml</span> , in denen die <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> Element.  
+Apache Tomcat Server setzt den Geltungsbereich für die gemeinsame Nutzung von Ressourcen standardmäßig auf <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.  
+Der Bereich für gemeinsame Ressourcennutzung ist als optionales Attribut in Java EEdefiniert.
+Es ist eine Schnellkorrektur für diese Regel im Quellenscanner verfügbar. Sie können die Schnellkorrektur verwenden, um in
+WebSphere Traditional und Liberty denselben gemeinsam nutzbaren Bereich wie in Tomcat abzurufen.
+</p>
+<p>
+Die Schnellkorrektur fügt die <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> Element, wenn es noch nicht festgelegt ist, und definiert die Verbindung als  <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+Im Folgenden sehen Sie ein Beispiel für eine Ressourcenreferenz, die markiert wird:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Ressourcenref&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; description&gt;<br>
+<span class="indent4"></span>Beispieldatenbank&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Container&lt;/res-auth&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<br><br>
+Die Schnellkorrektur fügt das Element "res-sharing-scope" hinzu:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Ressourcenref&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; description&gt;<br>
+<span class="indent4"></span>Beispieldatenbank&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Container&lt;/res-auth&gt;<br>
+<span class="indent4"></span>&lt;res-sharing-scope&gt;Gemeinsam nutzbar&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Weitere Informationen zur gemeinsamen Nutzung von Ressourcenverbindungen in WebSphere Application Server finden Sie im Artikel
+<a href="https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html"
+title="Wird in neuem Fenster geöffnet" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html'); return false;">Nicht gemeinsam und gemeinsam nutzbare Verbindungen</a>.
+</p>
+</div>
+</body>
+</html>

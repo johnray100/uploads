@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/* ***************************************************************** */
+/* Licensed Materials - Property of IBM                              */
+/* (C) Copyright IBM Corp. 2016, 2019. All Rights Reserved.          */
+/*                                                                   */
+/* US Government Users Restricted Rights - Use, duplication or       */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */
+/* ***************************************************************** */
+-->
+
+<?eclipse version="3.0"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts>
+  <!-- ######################################### -->
+  <!-- This section contains category level help -->
+  
+  
+  <!-- ######################################## -->
+  <!-- This section contains rule specific help -->
+
+  <context id="jsp-conversion" title="Apache Tomcat から WebSphere への JSP のマイグレーション">
+     <description>Apache Tomcat からマイグレーションする際の JSP ファイルに関する問題を識別するには、このカテゴリーの規則を使用します。</description>
+  </context>
+  <context id="xml-conversion" title="Apache Tomcat から WebSphere へのデプロイメント記述子のマイグレーション">
+     <description>Apache Tomcat からマイグレーションする際のデプロイメント記述子に関する問題を識別するには、このカテゴリーの規則を使用します。</description>
+  </context>
+  <context id="java-conversion" title="Apache Tomcat から WebSphere へのコードのマイグレーション">
+     <description>Apache Tomcat からマイグレーションする際の Java コードに関する問題を識別するには、このカテゴリーの規則を使用します。</description>
+  </context>
+  <context id="java-conversion-liberty" title="Apache Tomcat から Liberty へのコードのマイグレーション">
+     <description>このカテゴリーには、Liberty サーバーにのみ関連する Apache Tomcat 規則が含まれます。</description>
+  </context>
+  <context id="java-conversion-general" title="Apache Tomcat から WebSphere traditional および Liberty">
+    <description>このカテゴリーには、WebSphere Application Server traditional または Liberty サーバーにマイグレーションする場合に関連する Apache Tomcat ルールが含まれます。</description>
+  </context>
+  <context id="contextResource" title="リソース参照の定義に Java EE デプロイメント記述子および WebSphere バインディングを使用する">
+    <description>META-INF/context.xml 内のリソース情報は、web.xml および WebSphere バインディングにマイグレーションできます。 この規則は、Resource Context エレメントをマイグレーションします。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResource.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="invalidInitialContext" title="無効な初期コンテキスト java:/comp を使用しない">
+     <description>この規則は、java:comp (「/」なし) ではなく java:/comp で始まる無効な初期コンテキスト・ストリングを検出します。</description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidInitialContext.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="invalidWelcomeFileName" title="Web モジュールのウェルカム・ファイル名で / を使用しない">
+     <description>この規則は、/ または \ で始まるウェルカム・ファイル名を検出します。 </description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidWelcomeFileName.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="detectDoUpgradeMethod" title="Apache Tomcat WsServerContainer doUpgrade メソッドを使用しない">
+     <description>Apache Tomcat WsServerContainer doUpgrade メソッドを新しい IBM WebSocket API WsWsocServerContainer doUpgrade メソッドにマイグレーションします。</description>
+     <topic href="ruleinfo/appconversion/tomcat/DetectDoUpgradeMethod.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="detectTomcatPackages" title="Apache Tomcat のパッケージおよび API を使用しない">
+    <description>この規則により、マイグレーションの必要がある Apache Tomcat 固有のパッケージおよび API のインスタンスにフラグを立てます。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatPackages.html" label="詳しいヘルプ"/>
+  </context>
+    <context id="detectInitialContextLookup" title="コンテキスト・ルックアップが対応するデプロイメント記述子エントリーを持つようにする">
+    <description>この規則により、初期コンテキスト・ルックアップにフラグを立てます。  また web.xml ファイルの対応する環境変数エントリーを確認できるようにします。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectInitialContextLookup.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="contextEnvironment" title="環境参照の定義に Java EE デプロイメント記述子を使用する">
+     <description>META-INF/context.xml 内の環境情報は、web.xml にマイグレーションできます。 この規則は、Environment Context エレメントをマイグレーションします。</description>
+     <topic href="ruleinfo/appconversion/tomcat/ContextEnvironment.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="contextResourceLink" title="リソース・リンク参照の定義に Java EE デプロイメント記述子および WebSphere バインディングを使用する">
+    <description>META-INF/context.xml 内の ResourceLink 情報は、web.xml および WebSphere バインディングにマイグレーションできます。 この規則は、ResourceLink Context エレメントをマイグレーションします。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResourceLink.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="resourceSharingScope" title="リソース参照に共有有効範囲を設定する">
+    <description>この規則により、リソース共有有効範囲が設定されていないすべてのリソース参照にフラグを立てます。 リソース共有有効範囲のデフォルトは、Apache Tomcat では Shareable です。  共有有効範囲を WebSphere と同じに設定します。</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingResourceSharingScope.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="contextParameter" title="コンテキスト・パラメーターの定義に Java EE デプロイメント記述子を使用する">
+    <description>META-INF/context.xml 内のパラメーター情報は、web.xml にマイグレーションできます。 この規則は、Context Parameter エレメントをマイグレーションします。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextParameter.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="contextLifecycleListener" title="コンテキスト・ライフサイクル・リスナーの定義に Java EE デプロイメント記述子を使用する">
+    <description>META-INF/context.xml 内のライフサイクル・リスナー情報は、web.xml にマイグレーションできます。 この規則により、Context Listener エレメントにフラグを立てます。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextLifecycleListener.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="contextValve" title="Context Valve コンポーネントを使用しない">
+    <description>Context Valve コンポーネントは使用できません。 この規則により、context.xml ファイル内の Context Valve コンポーネントにフラグを立てます。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextValve.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="detectTomcatBasicDataSource" title="Apache Tomcat の BasicDataSource を使用しない">
+    <description>この規則により、WebSphere では使用できない org.apache.tomcat.dbcp.dbcp.BasicDataSource クラスのインスタンスにフラグを立てます。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatBasicDataSource.html" label="詳しいヘルプ"/>
+  </context>  
+  <context id="missingSecurityRole" title="欠落しているセキュリティー・ロールの定義に Java EE デプロイメント記述子を使用する">
+    <description>この規則により、web.xml 内で関連する security-role エレメントが欠落している auth-constraint および role-name エレメントにフラグを立てます。</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingSecurityRole.html" label="詳しいヘルプ"/>
+  </context>  
+  <context id="migrateJuliLogging" title="Apache Tomcat の org.apache.juli.logging を使用しない">
+    <description>この規則により、org.apache.juli.logging パッケージのロギング・メソッドにフラグを立てるもので、java.util.logging.Logger クラスを使用するためにアプリケーションをマイグレーションする際に役立ちます。</description>
+    <topic href="ruleinfo/appconversion/tomcat/MigrateJuliLogging.html" label="詳しいヘルプ"/>
+  </context>
+  <context id="detectGetRealPathTomcatSlash" title='getRealPath("/") との連結の結果を検証する'>
+    <description>WebSphere で、getRealPath("/") は、末尾スラッシュで終了しないストリングを返します。 このメソッドとの連結で、必要な場合、末尾スラッシュが追加されることを確認します。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatSlash.html" label="詳しいヘルプ"/>
+  </context>
+   <context id="detectGetRealPathTomcatEmpty" title='getRealPath("") との連結の結果を検証する'>
+    <description>Liberty では、getRealPath("") は、末尾スラッシュで終了しないストリングを返します。 このメソッドとの連結で、必要な場合、末尾スラッシュが追加されることを確認します。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatEmpty.html" label="詳しいヘルプ"/>
+  </context>
+</contexts>

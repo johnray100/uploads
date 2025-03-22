@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2015, 2016.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script> 
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Nu utilizaţi metoda Apache Tomcat WsServerContainer doUpgrade</span>
+<p>
+Liberty V8.5.5.7 şi WebSphere Application Server V9.0 tradiţional introduc metoda <code>com.ibm.websphere.wsoc.WsWsocServerContainer doUpgrade</code> WebSocket,
+care permite unui servlet sau filtru să ceară ca cererea HTTP curentă să fie modernizată la o sesiune WebSocket.
+Apache Tomcat oferă capacităţi similare prin metoda <code>org.apache.tomcat.websocket.server.WsServerContainer doUpgrade</code>. 
+</p>
+<p>
+Această regulă semnalează metoda Tomcat <code>WsServerContainer doUpgrade</code> astfel încât să o
+puteţi migra la metoda <code>WsWsocServerContainer doUpgrade</code>.
+</p>
+<p>
+Metoda WebSphere Application Server este definită după cum urmează:
+</p>
+<div class="container">
+<pre class="JavaType">
+
+com.ibm.websphere.wsoc.WsWsocServerContainer
+
+<span class="JavaKeyword">vid public</span> doUpgrade(HttpServletRequest request, 
+                      HttpServletResponse response,
+                      ServerEndpointConfig sec, 
+                      java.util.Map&lt;java.lang.String,
+                      java.lang.String&gt; pathParams) 
+                        <span class="JavaKeyword">aruncă</span> ServletException, java.io.IOException
+
+}
+</pre>
+</div>
+<p>
+Pentru mai multe informaţii şi o legătură la documentaţia Java, consultaţi
+</p>
+<ul>
+<li><a href="https://www.ibm.com/docs/en/was-liberty/nd?topic=environment-developing-websocket-applications-in-liberty" 
+	title="Deschide o fereastră nouă" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-liberty/nd?topic=environment-developing-websocket-applications-in-liberty'); return false;">
+	Dezvoltarea aplicaţiilor WebSocket în Liberty</a>.</li>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/tweb_websocket_apps.html" 
+	title="Deschide o fereastră nouă" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/tweb_websocket_apps.html'); return false;">
+	Dezvoltarea aplicaţiilor WebSocket în WebSphere tradiţional</a>.</li>	
+</ul> 
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">确保上下文查询具有相应的部署描述符条目</span>
+<p>
+此规则会标记上下文实例 <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> 设置。  
+的自变量 <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> 应该在 <span class="FilePath">web.xml</span> 文件中定义方法。 
+</p>
+<p> 
+建议的操作是，对于找到的每个上下文查找，用户应检查是否存在相应的 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-reference</span>
+<!-- END NON-TRANSLATABLE -->,  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-reference</span>
+<!-- END NON-TRANSLATABLE -->，或 <!-- START NON-TRANSLATABLE -->
+<span class="Code">env-entry</span>
+<!-- END NON-TRANSLATABLE --> 元素 
+<span class="FilePath">web.xml</span> 文件。</p>
+ 
+<p>
+例如，在以下代码片段中， <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> 方法将被标记。
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context initCtx = new InitialContext();</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context envCtx = (Context) initCtx.lookup("java:comp/env/myIntialParam");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<b></b>
+<p>
+如果参数 <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> 方法为 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">"java:comp/env"</span>
+<!-- END NON-TRANSLATABLE --> 或  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">"java:comp/UserTransaction"</span>
+<!-- END NON-TRANSLATABLE --> 上下文 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> 未标记方法，因为它们不对应于特定资源。
+</p>
+<p>			
+在以下示例中， <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> 将不会标记方法。
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context initCtx = new InitialContext();</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context envCtx = (Context) initCtx.lookup("java:comp/env");</span>
+<!-- END NON-TRANSLATABLE -->
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">UserTransaction tran = (UserTransaction)initCtx.lookup("java:comp/UserTransaction");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

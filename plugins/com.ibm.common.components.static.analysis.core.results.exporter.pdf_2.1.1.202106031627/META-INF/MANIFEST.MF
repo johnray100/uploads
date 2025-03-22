@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.ibm.common.components.static.analysis.core.
+ results.exporter.pdf
+Bundle-SymbolicName: com.ibm.common.components.static.analysis.core.re
+ sults.exporter.pdf
+Archiver-Version: Plexus Archiver
+Built-By: jenkins
+Require-Bundle: com.ibm.common.components.static.analysis.core.results
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-Vendor: IBM
+Import-Package: com.ibm.common.components.staticanalysis.core.results.
+ exporters
+Export-Package: com.ibm.common.components.staticanalysis.core.results.
+ exporter.pdf,com.ibm.common.components.staticanalysis.internal.core.r
+ esults.exporter.pdf;x-friends:="com.ibm.common.components.static.anal
+ ysis.core.results.tests",com.ibm.common.components.staticanalysis.int
+ ernal.core.results.exporter.pdf.translation;x-friends:="com.ibm.commo
+ n.components.static.analysis.core.results.tests"
+Bundle-Name: SA PDF Exporter
+Bundle-Version: 2.1.1.202106031627
+Bundle-ClassPath: sapdf.jar,jaxb-api.jar,eclipselink-2.7.0.jar,reactiv
+ e-1.0.5.3.jar
+Created-By: Apache Maven 3.6.3
+Build-Jdk: 1.8.0
+

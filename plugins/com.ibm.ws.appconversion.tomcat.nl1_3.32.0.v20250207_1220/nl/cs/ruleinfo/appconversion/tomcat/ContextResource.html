@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Použít deskriptory implementace Java EE a vazby WebSphere k definování odkazů na prostředky</span>
+<p>
+Toto pravidlo označí <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky nalezené v souboru <span class="FilePath">META-INF/context.xml</span> , které mohou vyžadovat migraci.</p>
+<p>
+Apache Tomcat umožňuje <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky, které mají být definovány v těchto umístěních:<ul>
+<li>Soubor <span class="FilePath">META-INF/context.xml</span></li>
+<li>Konfigurační soubor XML aplikace v adresáři Tomcat <span class="FilePath">conf</span></li>
+<li>V případě <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvek v souboru <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Vzhledem k tomu, že nástroj migrace nemusí mít přístup ke konfiguračnímu adresáři Tomcat, migruje nástroj migrace pouze soubor <span class="FilePath">META-INF/context.xml</span>.
+Informace o prostředku definované v jiných umístěních lze pro jeho zpracování zkopírovat do souboru <span class="FilePath">META-INF/context.xml</span>.
+</p>
+
+<p>
+Ve zdrojovém skeneru je k dispozici rychlá oprava. Rychlá oprava vezme informace z <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> a podle potřeby vytvoří odkaz na prostředek nebo odkaz na prostředí prostředku a odpovídající název rozhraní JNDI.
+Tomcat doporučuje, ale nevyžaduje, aby odpovídající odkaz na prostředek pro <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE -->
+Prvek je definován v souboru <span class="FilePath">WEB-INF/web.xml</span>. 
+Rychlá oprava prohledá seznam <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE -->
+a <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> prvky, aby se zjistilo, zda položka odpovídající názvu již existuje.  
+Není-li tomu tak, vytvoří se.  Pokud jsou hodnoty
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> prvek má hodnotu 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> atribut, a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> je vytvořen.
+Pokud jsou hodnoty <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> prvek nemá hodnotu 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> atribut, a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> je vytvořen. V obou případech <!-- START NON-TRANSLATABLE -->
+<span class="Code">name</span>
+<!-- END NON-TRANSLATABLE --> Hodnota je také použita jako název rozhraní JNDI a je definována ve vazbách.
+
+</p>
+
+Například s ohledem na následující <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> prvek ze souboru <span class="FilePath">META-INF/context.xml</span> :
+<div class="container">
+&lt; span class="Code"&gt; &lt; Resource name="jdbc/exampleDB"<br> 
+<span class="indent2"></span>auth="Container"<br>
+<span class="indent2"></span>type="javax.sql.DataSource"<br>
+<span class="indent2"></span>description="Vzorovná databáze " /&gt;<br>
+</span>
+</div>
+<br><br>
+Rychlá oprava by vytvořila tuto odpovídající <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;resource-ref&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+prvek:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent2"&gt; &lt; /span&gt; &lt; popis&gt;<br>
+<span class="indent2"></span>Příklad databáze&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Kontejner&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Sdílitelné&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Standardně jsou prostředky sdílitelné na serveru Tomcat.  Pokud není rozsah nastaven na <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> , je nastaven na Sdílitelný, když je vytvořen nový odkaz na prostředek pro rychlou opravu. Pokud v souboru WEB-INF/web.xml již existuje odpovídající odkaz na prostředek, nebudou provedeny žádné změny.
+</p>
+<p>
+Pokud je webový projekt Java EE 5 nebo vyšší a soubor <span class="FilePath">WEB-INF/web.xml</span> neexistuje, je vytvořen soubor <span class="FilePath">WEB-INF/web.xml</span> a jsou přidány nové prvky odkazu na prostředek.
+Je-li webový projekt nastaven na J2EE 1.4 nebo nižší, rychlá oprava ohlásí chybu.
+</p>
+<p>
+Dále budete muset nakonfigurovat prostředek v konfiguraci WebSphere.
+</p>
+<p>
+Další informace o definici prostředku kontextu na serveru Tomcat viz:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions" 
+	title="Otevře se v novém okně" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions'); return false;">
+	Odkaz na konfiguraci Apache Tomcat - Definice prostředku</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

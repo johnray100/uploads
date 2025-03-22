@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">验证使用 getRealPath("/") 进行并置的结果</span>
+<p>
+此规则会标记引用了以下方法和参数的 Java 代码：
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("/")</code></li>
+</ul>
+<p>
+在 Tomcat 中，这些方法调用将返回以正斜杠结尾的字符串。
+在 Liberty 和 WebSphere Traditional 中，返回值将不以正斜杠结尾。因此，使用该方法的字符串并置可能在
+Tomcat 中指向有效文件，但在 WebSphere 中可能未指向有效文件。对于每个标记的方法调用，检查使用结果的任何代码是否导致在 WebSphere 中缺少后置斜杠。
+</p>
+<p>
+例如，假定已将分解的 war 安装到 <code>/path/app.war</code>。然后，调用 <code>getRealPath("/")</code> 将产生以下结果：
+</p>
+<ul>
+<li>Tomcat: <code>/path/app.war/</code></li>
+<li>WebSphere: <code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

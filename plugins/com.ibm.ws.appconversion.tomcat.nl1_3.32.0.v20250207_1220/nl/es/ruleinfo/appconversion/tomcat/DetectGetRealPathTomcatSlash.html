@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Validar el resultado de la concatenación con getRealPath("/")</span>
+<p>
+Esta regla señala el código Java que tiene referencias a los métodos y parámetros siguientes:
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("/")</code></li>
+</ul>
+<p>
+En Tomcat, estas llamadas de método devolverán una serie que finaliza con una barra inclinada. En Liberty
+y WebSphere tradicional, el valor de retorno no finalizará con una barra inclinada. Como resultado, la concatenación
+de serie con este método puede apuntar a un archivo válido en Tomcat, pero no en WebSphere. Para cada llamada de
+método marcada, compruebe que cualquier código que utilice el resultado justifica la carencia de una barra inclinada final en WebSphere.
+</p>
+<p>
+Por ejemplo, suponga que ha instalado un war explotado en <code>/path/app.war</code>. A continuación, la llamada
+a <code>getRealPath("/")</code> tiene los resultados siguientes:
+</p>
+<ul>
+<li>Tomcat: <code>/path/app.war/</code></li>
+<li>WebSphere: <code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Java EE telepítési leírók használata a hiányzó biztonsági szerepek megadásához</span>
+<p>
+Ez a szabály a következőket jelöli meg: <!-- START NON-TRANSLATABLE -->
+<span class="Code">auth-constraint</span>
+<!-- END NON-TRANSLATABLE -->, <!-- START NON-TRANSLATABLE -->
+<span class="Code">role-name</span>
+<!-- END NON-TRANSLATABLE --> A termékben található elemek 
+<span class="FilePath">WEB-INF/web.xml</span> fájl, amely hiányzik a megfelelő <!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE --> Elem.  
+Apache Tomcat kiszolgáló nem igényli a  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE --> Meg van határozva, de a
+A Java EE meghatározás azt jelzi, hogy meg kell adni.
+</p>	
+Ez egy példa a <!-- START NON-TRANSLATABLE -->
+<span class="Code">auth-constraint</span>
+<!-- END NON-TRANSLATABLE -->,
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">role-name</span>
+<!-- END NON-TRANSLATABLE --> A megjelölendő elemek:
+<div class="container">
+&lt; span class="Code"&gt; &lt; web-app&gt;<br>
+<span class="indent"></span>...<br>
+&lt; span class="indent"&gt; &lt; /span&gt; &lt; értékpapírosítási megszorítás &gt;<br>
+<span class="indent2"></span>&lt;display-name&gt;ThisConstraint&lt;/display-name&gt;<br>
+&lt; átívelő osztály= "indent2"&gt; &lt; /spanyolul: web-resource-collection&gt;<br>
+<span class="indent4"></span>&lt;web-resource-name&gt;adminResources&lt;/web-resource-name&gt;<br>
+<span class="indent4"></span>&lt;url-pattern&gt;/*&lt;/url-pattern&gt;<br>
+<span class="indent4"></span>&lt;http-method&gt;GET&lt;/http-method&gt;<br>
+<span class="indent2"></span>&lt;/web-resource-collection&gt;<br>
+&lt; átívelő osztály= "indent2"&gt; &lt; /span&gt; &lt; auth-megszorz&gt;<br>
+<span class="indent4"></span>&lt;description&gt;Az admins&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;role-name&gt;admin&lt;/role-name&gt;<br>
+<span class="indent4"></span>&lt;role-name&gt;felső felhasználó&lt;/role-name&gt;<br>
+<span class="indent2"></span>&lt;/auth-constraint&gt;<br>
+<span class="indent"></span>&lt;/security-constraint&gt;<br>
+&lt;/web-app&gt;<br>
+</span>
+</div>
+<p>
+Mind a <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;role-name&gt;admin&lt;/role-name&gt;</span>
+<!-- END NON-TRANSLATABLE --> és a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;role-name&gt;superuser&lt;/role-name&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+A vonalak meg lesznek jelölve.
+</p>
+<p>
+A forrás szkenner tartalmaz egy gyors javítást, ami hozzáad egy hiányzó elemet <!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE -->
+Elemek.
+</p>
+Ebben a példában a gyorsjavítás a következő eemeket adja hozzá a
+<span class="FilePath">web.xml</span> fájlhoz:
+<div class="container">
+&lt; span class="Code"&gt; &lt; span class="indent"&gt; &lt; /span&gt; &lt; értékpapírosítás &gt;<br>
+<span class="indent2"></span>&lt;role-name&gt;admin&lt;/role-name&gt;<br>
+<span class="indent"></span>&lt;/security-role&gt;<br>
+&lt; span class="indent"&gt; &lt; /span&gt; &lt; értékpapírosítás &gt;<br>
+<span class="indent2"></span>&lt;role-name&gt;felső felhasználó&lt;/role-name&gt;<br>
+<span class="indent"></span>&lt;/security-role&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

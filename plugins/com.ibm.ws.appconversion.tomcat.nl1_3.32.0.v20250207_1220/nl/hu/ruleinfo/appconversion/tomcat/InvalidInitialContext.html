@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Az érvénytelen java:/comp kontextus használatának kerülése</span>
+<p>
+Ez a szabály a karaktersorozattal kezdődő tetszőleges karaktersorozat literál <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:/comp</span>
+<!-- END NON-TRANSLATABLE --> Java fájlokban vagy XML fájlokban.
+A karaktersorozat általában elnevezésikontextus-kikeresést
+képvisel.  
+A Java EE specifikáció a kikeresési karaktersorozatot határozza meg <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:comp</span>
+<!-- END NON-TRANSLATABLE --> Megelőző osztásjel (/) nélkül <!-- START NON-TRANSLATABLE -->
+<span class="Code">comp</span>
+<!-- END NON-TRANSLATABLE -->.
+Az Apache Tomcat azonban engedélyezi a nem megfelelő karaktersorozatot.
+</p>
+<p>
+A forráselemzőben rendelkezésre áll egy Java gyorsjavítás ehhez a
+szabályhoz. A szabályhoz tartozó gyorsjavítás eltávolítja a / karaktert a karaktersorozatból.
+</p>
+<p>
+A következő kódrészlet például tartalmazza az extra osztásjelet.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:/comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --><br> 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:/comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+A gyorsjavítás eltávolítja az osztásjelet és a következőképpen frissíti a
+kódot:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+
+<p>
+Az XML szabály csak a karaktersorozat első példányát jelöli meg a fájlban,
+amennyiben több is van. A forráselemzőben rendelkezésre áll egy XML
+gyorsjavítás. Az XML gyorsjavítás a problémás karaktersorozat összes példányát
+módosítja a fájlban.</p>
+<p>
+Nézze meg például a következő kódrészletet.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:/comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+A gyorsjavítás eltávolítja az osztásjelet és a következőképpen frissíti a
+kódot:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

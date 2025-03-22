@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Použít deskriptory implementace Java EE k definování odkazů na prostředí</span>
+<p>
+Toto pravidlo označí <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky nalezené v souboru <span class="FilePath">META-INF/context.xml</span> , které musí být transformovány <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky v 
+<span class="FilePath">WEB-INF/web.xml</span> soubor.
+</p>
+<p>
+Apache Tomcat umožňuje <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky, které mají být definovány v těchto umístěních: 
+<ul>
+<li>Soubor <span class="FilePath">META-INF/context.xml</span></li>
+<li>Konfigurační soubor XML aplikace v adresáři Tomcat <span class="FilePath">conf</span></li>
+<li>V případě <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvek v souboru <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Vzhledem k tomu, že nástroj migrace nemusí mít přístup ke konfiguračnímu adresáři Tomcat , označí pouze <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> v rámci 
+<span class="FilePath">META-INF/context.xml</span> soubor.
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> informace definované v jiných umístěních lze zkopírovat do souboru <span class="FilePath">META-INF/context.xml</span> , aby byl nástrojem zpracován.
+</p>
+<p>
+Pokud ve webovém projektu existuje soubor <span class="FilePath">WEB-INF/web.xml</span>:
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+prvky budou označeny za následujících podmínek:
+</p>
+<ul>
+<li>Položka nemá odpovídající položku v souboru <span class="FilePath">web.xml</span>.</li>
+<li>Položka má jiný typ než odpovídající položka v souboru <span class="FilePath">web.xml</span>.</li>
+<li>Položka má jinou hodnotu než odpovídající položka v souboru <span class="FilePath">web.xml</span> a její příznak přepisu je nastaven na false.</li>
+</ul>
+<p class="indent2">
+Rychlá oprava pro toto pravidlo je k dispozici ve zdrojovém skeneru. Rychlá oprava přidá novou <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+v souboru <span class="FilePath">web.xml</span> , který představuje <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvek, pokud ještě neexistuje v 
+Soubor <span class="FilePath">web.xml</span> . 
+Pokud položka existuje, bude aktualizována. 
+</p>
+<p>
+Pokud soubor <span class="FilePath">WEB-INF/web.xml</span> neexistuje:</p>
+<p class="indent2">
+Vše <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky budou označeny.
+</p>
+<p class="indent2">
+Rychlá oprava vytvoří soubor <span class="FilePath">WEB-INF/web.xml</span> , který obsahuje odpovídající <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky, pokud je webový projekt na úrovni Java EE 5 nebo vyšší. Rychlá oprava nahlásí chybu, pokud je webový projekt ve verzi J2EE 1.4 nebo nižší.
+</p>
+Například zvažte soubor <span class="FilePath">META-INF/context.xml</span> s následujícím obsahem:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Prostředí <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type= "java.lang.String" hodnota= "abc123" /&gt;<br>	
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="contextEnvString_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.String"<br> 
+<span class="indent2"></span>value = "nová hodnota " /&gt;<br>                                     
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different type" <br>
+<span class="indent2"></span>name="contextEnvString_2"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.Integer"<br> 
+<span class="indent2"></span>hodnota="123 " /&gt;<br>
+&lt;Environment <br>
+<span class="indent2"></span>description="will not Trigger because of override set to true." <br>
+<span class="indent2"></span>name="contextEnvString_3"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>type="java.lang.Integer" <br>
+<span class="indent2"></span>hodnota="123 " /&gt;<br>
+</span>
+</div>
+<p>
+s následujícím souborem <span class="FilePath">web.xml</span> v aplikaci: </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Spouštěč kvůli jiné hodnotě&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;oldValue&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Spouštěč z důvodu odlišného typu&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;nebude spouštěč kvůli přepsání nastaveným na hodnotu true.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+<p>
+Po provedení rychlé opravy bude soubor <span class="FilePath">web.xml</span> aktualizován, aby obsahoval:</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Spouštěč kvůli jiné hodnotě&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;nová hodnota&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Spouštěč z důvodu odlišného typu&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;nebude spouštěč kvůli přepsání nastaveným na hodnotu true.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Spouštěč, protože neexistuje&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;newEntry&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;abc123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

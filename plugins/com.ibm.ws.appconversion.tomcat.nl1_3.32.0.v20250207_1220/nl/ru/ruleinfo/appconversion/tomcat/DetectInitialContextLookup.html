@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Экземпляры контекстного поиска должны иметь соответствующие записи в файле описания</span>
+<p>
+Это правило помечает экземпляры контекста <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> метод.  
+Аргумент для <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> должен быть определен в файле <span class="FilePath">web.xml</span> . 
+</p>
+<p> 
+Рекомендуются действия для каждого найденного контекстного поиска, пользователь должен проверить, есть ли соответствующий 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-reference</span>
+<!-- END NON-TRANSLATABLE -->,  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-reference</span>
+<!-- END NON-TRANSLATABLE -->или <!-- START NON-TRANSLATABLE -->
+<span class="Code">env-entry</span>
+<!-- END NON-TRANSLATABLE --> элемент в 
+Файл<span class="FilePath">web.xml</span> .</p>
+ 
+<p>
+Например, в следующем фрагменте кода: <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> метод будет помечен.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context initCtx = new InitialContext();</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context envCtx = (Context) initCtx.lookup("java:comp/env/myIntialParam");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<b></b>
+<p>
+Если аргумент для <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> метод- 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">"java:comp/env"</span>
+<!-- END NON-TRANSLATABLE --> или  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">"java:comp/UserTransaction"</span>
+<!-- END NON-TRANSLATABLE --> контекст 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> метод не помечен, так как они не соответствуют конкретным ресурсам.
+</p>
+<p>			
+В следующем примере два экземпляра <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> не будет помечен флагом.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context initCtx = new InitialContext();</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context envCtx = (Context) initCtx.lookup("java:comp/env");</span>
+<!-- END NON-TRANSLATABLE -->
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">UserTransaction tran = (UserTransaction)initCtx.lookup("java:comp/UserTransaction");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

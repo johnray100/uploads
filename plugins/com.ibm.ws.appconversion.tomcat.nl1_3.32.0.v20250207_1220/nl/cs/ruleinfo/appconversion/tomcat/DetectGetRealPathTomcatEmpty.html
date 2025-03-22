@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Ověřit výsledek zřetězení pomocí getRealPath("")</span>
+<p>
+Toto pravidlo označí příznakem kód Java, který odkazuje na následující metody a parametry:
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("")</code></li>
+</ul>
+<p>
+Na serveru Tomcat tato volání metody vrátí řetězec končící dopředným lomítkem. Na serveru nebude návratová hodnota končit dopředným lomítkem. Výsledkem je, že zřetězení řetězce s touto metodou může ukazovat na platný soubor na serveru Tomcat, ale ne na serveru Liberty. U každého označeného volání metody zkontrolujte, že všechny kódy používají výsledné účty pro nedostatek koncového lomítka na serveru Liberty.
+</p>
+<p>
+Předpokládejme například, že máte nainstalovaný soubor war rozbalený zde: <code>/path/app.war</code>. Poté má volání
+<code>getRealPath("")</code> následující výsledky:
+</p>
+<ul>
+<li>Tomcat: <code>/path/app.war/</code></li>
+<li>Liberty: <code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

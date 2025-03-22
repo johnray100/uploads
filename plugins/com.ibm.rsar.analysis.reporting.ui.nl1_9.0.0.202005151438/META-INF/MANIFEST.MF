@@ -1,0 +1,247 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.ibm.rsar.analysis.reporting.ui.nl1
+Bundle-SymbolicName: com.ibm.rsar.analysis.reporting.ui.nl1;singleton:
+ =true
+Archiver-Version: Plexus Archiver
+Built-By: jenkins
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-Vendor: %bundle.vendor	
+Fragment-Host: com.ibm.rsar.analysis.reporting.ui;bundle-version="[9.0
+ .0,10.0.0)"
+Bundle-Name: %bundle.name
+Bundle-Version: 9.0.0.202005151438
+Bundle-Localization: fragment
+Created-By: Apache Maven 3.5.4
+Build-Jdk: 1.8.0
+
+Name: nl/pt/BR/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: ASoxPMRrYvUc4Fn74M2xw8A9KFX5Cvgctni9YrT++38=
+
+Name: com/ibm/xtools/analysis/reporting/messages_zh_HK.properties
+SHA-256-Digest: PmXxpkfs0GyiskGCmME7KVgvqEcXMzZaV3HTfDfn2YA=
+
+Name: META-INF/maven/com.ibm.commoncomponents.sa/com.ibm.rsar.analysis
+ .reporting.ui.nl1/pom.xml
+SHA-256-Digest: Rfh+OM1RijuL7g5WZSkEDidx5rAP60qTatgyUYNQeYw=
+
+Name: nl/ja/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: ARjysBZ6IuVMI9424l1QD+bcJvgt6QuIXanuE2JPqsE=
+
+Name: .classpath
+SHA-256-Digest: tajLFDPSBXdM6WeuGFHLBJ3a5BGR5OwhZ0anb0sI4Yo=
+
+Name: nl/zh/CN/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: 65/kPSG263PPNZ1ZFspHr/Nqt8LmUMIJLJ0qbcENA8M=
+
+Name: META-INF/maven/com.ibm.commoncomponents.sa/com.ibm.rsar.analysis
+ .reporting.ui.nl1/pom.properties
+SHA-256-Digest: Z0LAS4Rccm9++zAvc+Ewxf93HlZo1aTrLXDp19LujgQ=
+
+Name: com/ibm/xtools/analysis/reporting/messages_zh_TW.properties
+SHA-256-Digest: ea4EENTuaZe0rc23EIbWYqMSvGFXEfR6JU8ayUR65u8=
+
+Name: com/ibm/xtools/analysis/reporting/messages_de.properties
+SHA-256-Digest: TGQ9UIIev6Bom4eSSOwcJxcPbsaoBnCko6L3Zfk66DI=
+
+Name: nl/de/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: fPNzEYaDOoHavYTwH2fzPZfs3S8u2e146KCNLlt99cg=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_ja.properties
+SHA-256-Digest: O3P1wTiUkmuV0fH5HDugeKI4uMiuOSS14G1UO0Eln64=
+
+Name: fragment.properties
+SHA-256-Digest: mytBmvrHd75LiWxfnxgutA+dx8hFyV9B8iDsTWiyJic=
+
+Name: build.properties
+SHA-256-Digest: fP0NfKV7ZMUPFoX56ySPxFbBX60z6bmcC1MHRb2Btfo=
+
+Name: nl/fr/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: WsYJgHGgLIzbifVt1at88hmtb8inI92qCs2xMYX9ybs=
+
+Name: nl/fr/reports/codereview.java.severity.properties
+SHA-256-Digest: m+gD1AcA91zfwctg2qGDwfWXjqYmaKiysh5DJN1fehk=
+
+Name: nl/de/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: 68OB/9pM+yykk20QoL2uq9Qu5XpkVxDhpD1HWaVxNts=
+
+Name: com/ibm/xtools/analysis/reporting/messages_pt_BR.properties
+SHA-256-Digest: PklQOgD4h52QNk1uPcg6aBNmvApNpkvUf9/bW46n+QM=
+
+Name: nl/zh/reports/codereview.java.severity.properties
+SHA-256-Digest: q1b0i80fCEZ2ARGtsOYn63SXuQN808IYIA0Bx+cQ280=
+
+Name: nl/de/reports/codereview.java.results.properties
+SHA-256-Digest: KXcMn+XArrGcp5jhyPi+kf7nitz16usCpVJbPuipWO0=
+
+Name: com/ibm/xtools/analysis/reporting/messages_es.properties
+SHA-256-Digest: niCYe9KIy1HYXewfXZDeS0fiCmZ8HcKWHoVSq1YUR+U=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_fr.properties
+SHA-256-Digest: epO3lwnGPbgqtFgu8hypJCvhWPbC7DqSXqRMdQp5MlQ=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_zh_TW.properties
+SHA-256-Digest: ea4EENTuaZe0rc23EIbWYqMSvGFXEfR6JU8ayUR65u8=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_zh_HK.properties
+SHA-256-Digest: PmXxpkfs0GyiskGCmME7KVgvqEcXMzZaV3HTfDfn2YA=
+
+Name: nl/de/reports/codereview.java.severity.properties
+SHA-256-Digest: N7XJFODGizhUzjkuNVZwVlU2IyyWM2kgxYsg65yU/KQ=
+
+Name: nl/it/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: Gm/3YFsnuod6PCUvkEymv0cNExTnyj7TQznhJn/8Yvo=
+
+Name: nl/zh/CN/reports/codereview.java.results.properties
+SHA-256-Digest: NmZE/hZgmpiP8BNRnU3JOD573rhnifF3hfzVVu+GHfg=
+
+Name: plugin_ja.properties
+SHA-256-Digest: De7CKEB6bHkLQbmUfgIWzFL7jiqe5DP2yoVsuIFanr8=
+
+Name: com/ibm/xtools/analysis/reporting/messages_fr.properties
+SHA-256-Digest: epO3lwnGPbgqtFgu8hypJCvhWPbC7DqSXqRMdQp5MlQ=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_it.properties
+SHA-256-Digest: efKHEKe3h2pTAJUNJwZzf9btu0PAmq14m2swFNnPMTE=
+
+Name: nl/ja/reports/codereview.java.results.properties
+SHA-256-Digest: aMxB4298s3VRdTtoyZ5HF6tFEOqVy9YFwdWtqq3CSBs=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_zh.properties
+SHA-256-Digest: GnXmOtDRf/niKE8XxLcHrs1+HeVxRYja8f0OzIzmsFA=
+
+Name: com/ibm/xtools/analysis/reporting/messages_ja.properties
+SHA-256-Digest: O3P1wTiUkmuV0fH5HDugeKI4uMiuOSS14G1UO0Eln64=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_zh_CN.properties
+SHA-256-Digest: dbScn4mzcdcIp+3d/QTPFKLqat4USfT45+2RG1/Kurg=
+
+Name: nl/fr/reports/codereview.java.results.properties
+SHA-256-Digest: /E4rafAcs7Ru2H/AKpbg1CtFbo0UC92eSi9z8SCGmSY=
+
+Name: nl/it/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: lzYw7Zc0XSoUtSG1Y0Zu+7LGkVOhMi9T20jirheXC4c=
+
+Name: nl/zh/TW/reports/codereview.java.severity.properties
+SHA-256-Digest: 98t1UBa7G08/nt4S+wRI93RTnpcB4uSwR62ylWNbVtc=
+
+Name: nl/es/reports/codereview.java.severity.properties
+SHA-256-Digest: BeP0U9umuDZa5KxE9zHTplGNwqFbKGILS3le5vUxl0Y=
+
+Name: nl/ja/reports/codereview.java.severity.properties
+SHA-256-Digest: Jwi3sU+cfagUcgCBvb251qjY24jxGGJQ40RBDl0qWWM=
+
+Name: plugin_ko.properties
+SHA-256-Digest: PBwllmlQwF7Ww+vOrbTBpHXbhMC4JDY6LU6Q2O7kusc=
+
+Name: nl/zh/TW/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: XnZwy6onyHqKI3kls0oQym5dVN7qnsffSf78qh2WZBY=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_de.properties
+SHA-256-Digest: TGQ9UIIev6Bom4eSSOwcJxcPbsaoBnCko6L3Zfk66DI=
+
+Name: nl/ko/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: dr8m5h85HVOQU4LMBCanWTB4q+VESORWuPzxfO8yTTc=
+
+Name: nl/zh/TW/reports/codereview.java.results.properties
+SHA-256-Digest: CuU07Fsoz3yKVuC+p/KG2qKF4ddK5p67SIwZkfVfRk0=
+
+Name: nl/ko/reports/codereview.java.severity.properties
+SHA-256-Digest: k6VFM04qFfHn7x8HT6VaWq/9bV7aIhwDJ/ySSuKxq7E=
+
+Name: plugin_zh_TW.properties
+SHA-256-Digest: AafRs3XqVkWWgWVmsPLf9zLfa8YTlRhhjfqZau7HZk8=
+
+Name: com/ibm/xtools/analysis/reporting/messages_ko.properties
+SHA-256-Digest: mrNQXiVPPm0Vv6UBTUq1f4IZD/VubFMDZsioQZ33LtM=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_es.properties
+SHA-256-Digest: niCYe9KIy1HYXewfXZDeS0fiCmZ8HcKWHoVSq1YUR+U=
+
+Name: nl/it/reports/codereview.java.severity.properties
+SHA-256-Digest: KEVP568z/sFI+PbhPsEl0dfj/vJZT8l3llB9So98fNQ=
+
+Name: nl/it/reports/codereview.java.results.properties
+SHA-256-Digest: yTwaEbmT+i+PrualFi3nxEDB979r/8sAhYYZwrJRhd0=
+
+Name: nl/zh/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: 65/kPSG263PPNZ1ZFspHr/Nqt8LmUMIJLJ0qbcENA8M=
+
+Name: plugin_zh_CN.properties
+SHA-256-Digest: hWuxBUVRDA5R69jmvP0ewhGCZfdHG0lDr/tPJGuq3fQ=
+
+Name: nl/zh/reports/codereview.java.results.properties
+SHA-256-Digest: NmZE/hZgmpiP8BNRnU3JOD573rhnifF3hfzVVu+GHfg=
+
+Name: plugin_fr.properties
+SHA-256-Digest: bfrU4TJZTECaqwndHRBLdxrwAOvpq77OlmfalfxtZQo=
+
+Name: nl/pt/BR/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: Z+/c3hBME8+kaK9843xYTNzoc7C//VFVNH+h0n4X2fY=
+
+Name: nl/es/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: 3WyLkzMdhOMlwEjcDD0op2Wob18eCrlLHWI1bDSWI7Y=
+
+Name: nl/es/reports/codereview.java.results.properties
+SHA-256-Digest: 0Pa5UIPd4JZLkAqhjyWCy5NqLWhollDQ8NFdTOSuACY=
+
+Name: nl/ja/reports/codereview.java.ignored.results.properties
+SHA-256-Digest: 5I4N9M48agau5Dh//Oe9qBUamOc1di5Fo0bmgTnEB9o=
+
+Name: nl/zh/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: O2AcLZPM8U51kkG+LXC6BLgiiUKxKPA/gmq4koUwMAs=
+
+Name: plugin_es.properties
+SHA-256-Digest: FcgMoX/chu0j/ADQY8UvfjYgd2gh02t7e60+9+MvnJI=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_pt_BR.properties
+SHA-256-Digest: PklQOgD4h52QNk1uPcg6aBNmvApNpkvUf9/bW46n+QM=
+
+Name: nl/zh/TW/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: ryI4Q6L3eqyBI6q7DptnvgQKrXhAyL+esJXQARQxl4Q=
+
+Name: nl/es/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: vm+6RiFrWbEghRvw/7aGuxXf602DXkCW0MmAU52+KzA=
+
+Name: plugin_de.properties
+SHA-256-Digest: zKmfu4Z65huVGbZC4mlGGbq8v0/Nimxb9seTRdk8ltA=
+
+Name: com/ibm/xtools/analysis/reporting/messages_zh_CN.properties
+SHA-256-Digest: dbScn4mzcdcIp+3d/QTPFKLqat4USfT45+2RG1/Kurg=
+
+Name: plugin_it.properties
+SHA-256-Digest: yMJEA/2iY3gafmLrBCYksdKcpqL18e17RDLw2gLUIsA=
+
+Name: nl/zh/CN/reports/codereview.java.severity.properties
+SHA-256-Digest: q1b0i80fCEZ2ARGtsOYn63SXuQN808IYIA0Bx+cQ280=
+
+Name: nl/ko/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: seBXHH7gMgcTr4NaW/55PlWglN/NBFhez+b1gV63b1s=
+
+Name: com/ibm/xtools/analysis/reporting/messages_zh.properties
+SHA-256-Digest: GnXmOtDRf/niKE8XxLcHrs1+HeVxRYja8f0OzIzmsFA=
+
+Name: nl/fr/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: PaT1vLakAU2AU7ljBdMGBGfZFXWyL9iILiqflNHjWcQ=
+
+Name: nl/zh/CN/reports/codereview.java.severity.by.category.properties
+SHA-256-Digest: O2AcLZPM8U51kkG+LXC6BLgiiUKxKPA/gmq4koUwMAs=
+
+Name: src/com/ibm/xtools/analysis/reporting/messages_ko.properties
+SHA-256-Digest: mrNQXiVPPm0Vv6UBTUq1f4IZD/VubFMDZsioQZ33LtM=
+
+Name: nl/ko/reports/codereview.java.results.properties
+SHA-256-Digest: QMMxQ/AGRV39b+fnj++gaMEJ1NN1qxvznpnPSFtLrRc=
+
+Name: com/ibm/xtools/analysis/reporting/messages_it.properties
+SHA-256-Digest: efKHEKe3h2pTAJUNJwZzf9btu0PAmq14m2swFNnPMTE=
+
+Name: nl/pt/BR/reports/codereview.java.results.properties
+SHA-256-Digest: 3ialOqxKueUuNlMXw8Kkj+Nmsn6LvgweraU1JK4yPao=
+
+Name: plugin_pt_BR.properties
+SHA-256-Digest: TIq1GWkxMpcS+tCZ71RKE9uGxI1wXxT6P9ozWuJv4aM=
+
+Name: nl/pt/BR/reports/codereview.java.severity.properties
+SHA-256-Digest: 14xiSuyGp10/UtnrY33GOOgGvY1MzEp8uLkmUpAdX5Q=
+

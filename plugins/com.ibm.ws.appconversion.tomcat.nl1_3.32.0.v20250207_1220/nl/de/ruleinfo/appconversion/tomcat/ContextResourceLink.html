@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Java-EE-Implementierungsdeskriptoren und WebSphere-Bindungen für die Definition von Ressourcenlinkreferenzen verwenden</span>
+<p>
+Diese Regel markiert Folgendes: <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elemente in der Datei <span class="FilePath">META-INF/context.xml</span> , die möglicherweise migriert werden müssen.
+</p>
+<p>
+Apache Tomcat ermöglicht <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> an den folgenden Positionen zu definierende Elemente:<ul>
+<li>Datei <span class="FilePath">META-INF/context.xml</span></li>
+<li>XML-Anwendungskonfigurationsdatei im Tomcat-Verzeichnis <span class="FilePath">conf</span></li>
+<li>Der <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> Element in der Datei <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Da das Migrationstool möglicherweise keinen Zugriff auf das Tomcat-Konfigurationsverzeichnis hat, migriert das Migrationstool
+nur die Datei <span class="FilePath">META-INF/context.xml</span>.
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Informationen, die an den anderen Positionen definiert sind, können in die Datei <span class="FilePath">META-INF/context.xml</span> kopiert werden, damit sie verarbeitet werden.
+</p>
+
+<p>
+Es ist eine Schnellkorrektur im Quellenscanner verfügbar. Die Schnellkorrektur verwendet die Informationen aus dem 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> und erstellt eine Ressourcenreferenz und einen entsprechenden JNDI-Namen wie folgt:
+</p>
+<ul>
+	<li>Die Schnellkorrektur durchsucht die Liste der Elemente "resource-ref", um festzustellen, ob bereits ein Eintrag vorhanden ist, der dem Namen entspricht.  
+Wenn nicht, wird ein Eintrag erstellt.</li>
+	<li>Der <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Attribut "name" wird für die <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-ref-name</span>
+<!-- END NON-TRANSLATABLE --> in der Datei web.xml </li>
+	<li>Der <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Attribut 'type' wird für die <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-type</span>
+<!-- END NON-TRANSLATABLE --> in der Datei web.xml</li>
+	<li>Der <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Das globale Attribut wird für die <!-- START NON-TRANSLATABLE -->
+<span class="Code">binding-name</span>
+<!-- END NON-TRANSLATABLE --> in der IBM -Bindungsdatei</li>
+	<li>Der <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-auth</span>
+<!-- END NON-TRANSLATABLE --> ist festgelegt auf <!-- START NON-TRANSLATABLE -->
+<span class="Code">Container</span>
+<!-- END NON-TRANSLATABLE --></li>
+	<li>Der <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> ist auf 'Gemeinsam nutzbar' gesetzt</li>
+</ul> 
+<p>
+Beachten Sie, dass die anderen <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->
+Attribute (Factory, Benutzername und Kennwort) werden nicht automatisch migriert.  
+Wenn Ihre Anwendung diese Attribute in einem <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->müssen Sie dann eine eindeutige Ressource in der Serverkonfiguration erstellen, die Ressource mit einem eindeutigen JNDI-Namen angeben und die 
+IBM Bindungsdatei mit dem neuen JNDI-Namen.
+</p>
+<p>
+Wenn das Webprojekt ein Projekt der Version Java EE 5 oder höher und die Datei
+<span class="FilePath">WEB-INF/web.xml</span> nicht vorhanden ist, wird die Datei
+<span class="FilePath">WEB-INF/web.xml</span> erstellt, und die neuen Ressourcenlinkreferenzelemente werden hinzugefügt.
+Wenn das Webprojekt ein Projekt der Version J2EE 1.4 oder niedriger ist, meldet die
+Schnellkorrektur einen Fehler.
+</p>
+<p>
+Angenommen, die Datei <span class="FilePath">META-INF/Context.xml</span> enthält Folgendes: <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->:</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+	&lt;ResourceLink global="jdbc/SampleWebGlobal" name="jdbc/SampleWeb" type="javax.sql.DataSource"/&gt;
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Die Schnellkorrektur aktualisiert oder erstellt eine neue <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 
+in der Datei <span class="FilePath">web.xml</span> ähnlich dem folgenden Beispiel:  
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref id= "ResourceRef_1313785392722"&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/SampleWeb&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Container&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Gemeinsam nutzbar&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Der JNDI-Name wird der IBM Bindungsdatei hinzugefügt. 
+Er verweist auf die vorhandene Referenz, die in der Datei <span class="FilePath">web.xml</span> definiert ist.
+Falls die Bindungsdatei noch nicht vorhanden ist, wird sie erstellt.
+</p> 
+<p>
+Außerdem müssen Sie die Ressource in der Konfiguration von WebSphere Application Server konfigurieren.
+</p>
+<p>
+Weitere Informationen zur Kontextressourcendefinition in Tomcat finden Sie im folgenden Dokument:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links"
+	title="Wird in neuem Fenster geöffnet" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links'); return false;">
+	Apache Tomcat Configuration Reference - Resource Links</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

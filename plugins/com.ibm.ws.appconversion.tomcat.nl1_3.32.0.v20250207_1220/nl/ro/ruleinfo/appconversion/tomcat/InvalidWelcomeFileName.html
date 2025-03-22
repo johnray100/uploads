@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Evitaţi utilizarea unui / într-un nume de fişier de întâmpinare pentru un modul web</span>
+<p>
+Această regulă steaguri orice modul de web <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;welcome-file&gt;</span>
+<!-- END NON-TRANSLATABLE --> care începe cu un caracter slash înainte (/) sau un caracter slash spate (\) în fișierul <span class="FilePath">web.xml</span> .
+</p>
+<p>
+În scanerul de sursă este disponibilă o corecţie rapidă pentru această regulă. Corecţia rapidă înlătură caracterele / sau \ din nume.
+</p>
+<p></p>
+Dată fiind următoarea listă de fişiere de întâmpinare:
+<div class="container">
+&lt; span class="Code"&gt; &lt; welcome-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;<br>
+</span> 
+<br>
+</div>
+<p></p>
+Corecţia rapidă va actualiza patru intrări de cod la:
+<div class="container">
+&lt; span class="Code"&gt; &lt; welcome-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;
+</span> 
+<br>
+</div>
+</div>
+</body>
+</html>

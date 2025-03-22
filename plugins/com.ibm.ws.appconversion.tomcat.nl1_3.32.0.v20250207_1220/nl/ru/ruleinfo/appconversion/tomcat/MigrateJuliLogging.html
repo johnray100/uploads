@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Не использовать метод Apache Tomcat org.apache.juli.logging</span>
+ 
+<p>Это правило обнаруживает использование  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.Log</span>
+<!-- END NON-TRANSLATABLE --> и 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.LogFactory</span>
+<!-- END NON-TRANSLATABLE --> классы и методы.
+Эти методы ведения протоколов недоступны в WebSphere traditional и Liberty и для них
+требуется выполнить миграцию.
+</p>
+<p>         
+В сканере исходного кода доступно быстрое исправление. Он заменяет собой 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.LogFactory</span>
+<!-- END NON-TRANSLATABLE --> 
+с <!-- START NON-TRANSLATABLE -->
+<span class="Code">java.util.logging.Logger</span>
+<!-- END NON-TRANSLATABLE -->. 
+Кроме того, он заменяет методы ведения протоколов Apache Tomcat на Java 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Logger.log(Level, message)</span>
+<!-- END NON-TRANSLATABLE --> метод.
+</p>
+<p>
+Некоторые из методов Apache Tomcat отображаются непосредственно в определенный 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">java.util.logging.Level</span>
+<!-- END NON-TRANSLATABLE -->. Для уровней, которые не отображаются непосредственно, можно настроить уровень ведения журнала в диалоговом окне Конфигурация анализа.
+Кроме того, быстрое исправление изменяет операторы импорта класса.
+</p>
+<p>
+Замены, выполняемые процедурой быстрого исправления, показаны в следующей таблице преобразований.
+Методы ведения протокола, передающие в качестве второго параметра значение Throwable,
+преобразуются аналогично соответствующим элементам в следующей таблице. 
+</p>
+<table border="1" cellpadding="1px">
+<thead>
+<tr>
+<th><b>Метод org.apache.juli.logging</b></th>
+<th><b>Метод java.util.logging</b></th>
+<th><b>Настраиваемый</b></th>
+</tr>
+</thead>   
+<tr>
+<td>LogFactory.getLog(Class.class)</td>
+<td>Logger.getLogger(Class.class.getName())</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>LogFactory.getLog("og name")</td>
+<td>Logger.getLogger("log name")</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>LogFactory.getInstance(Class.class)</td>
+<td>Logger.getLogger(Class.class.getName())</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>LogFactory.getInstance("имя протокола")</td>
+<td>Logger.getLogger("log name")</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>Log.fatal("mgs")</td>
+<td>Logger.log(WsLevel.FATAL, "msg")</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>Log.error("msg")</td>
+<td>Logger.log(Level.SEVERE, "msg")</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>Log.warn("msg")</td>
+<td>Logger.log(Level.WARNING, "msg")</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>Log.info("msg")</td>
+<td>Logger.log(Level.INFO, "msg")</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>Log.debug("msg")</td>
+<td>Logger.log(WsLevel.DETAIL, "msg")</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>Log.trace("msg")</td>
+<td>Logger.log(Level.FINE, "msg")</td>
+<td>Да</td>
+</tr>
+</table>
+<p>
+Пример: создание экземпляра класса протокола:
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+Log log = LogFactory.getLog(MyClass.class);
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<br>заменяется на 
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+Logger log = Logger.getLogger(MyClass.class.getName());
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+В этом примере показан вызов <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.Log.error()</span>
+<!-- END NON-TRANSLATABLE -->
+с <!-- START NON-TRANSLATABLE -->
+<span class="Code">Throwable</span>
+<!-- END NON-TRANSLATABLE --> в качестве второго параметра.
+<div class="container">
+<span class="Code"> catch (Exception e) {<br>
+<span class="indent2"></span>log.error("Some error message", e);<br>  
+}
+</span>
+</div>
+<br>Пример заменяется на следующий код: 
+<div class="container">
+<span class="Code"> catch (Exception e) {<br>       
+<span class="indent2"></span>log.log(Level.SEVERE, "Some error message", e);<br>  
+} 
+</span>
+</div>
+<br>
+<br>Примечания:
+<ol>
+<li>Некоторые из операций миграции методов ведения протоколов можно настроить. Например, если вы хотите, чтобы <!-- START NON-TRANSLATABLE -->
+<span class="Code">Log.trace</span>
+<!-- END NON-TRANSLATABLE --> метод, который нужно перенести на уровень, отличный от <!-- START NON-TRANSLATABLE -->
+<span class="Code">WsLevel.DETAIL</span>
+<!-- END NON-TRANSLATABLE -->, можно изменить его в диалоговом окне Конфигурация анализа.
+</li>
+<li><!-- START NON-TRANSLATABLE -->
+<span class="Code">WsLevel</span>
+<!-- END NON-TRANSLATABLE --> определяется в классе IBM(R),
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">com.ibm.websphere.logging.WsLevel</span>
+<!-- END NON-TRANSLATABLE -->.
+Он расширяет <!-- START NON-TRANSLATABLE -->
+<span class="Code">java.util.logging.Level</span>
+<!-- END NON-TRANSLATABLE --> для предоставления дополнительных уровней журнала.  Если вы не хотите использовать <!-- START NON-TRANSLATABLE -->
+<span class="Code">WsLevel</span>
+<!-- END NON-TRANSLATABLE -->
+заданных уровней, можно также сконфигурировать эти отображения в диалоговом окне Конфигурация анализа в соответствии с этим правилом Tomcat Java .
+</li>
+<li>
+Не все <!-- START NON-TRANSLATABLE -->
+<span class="Code">LogFactory</span>
+<!-- END NON-TRANSLATABLE --> методы переносятся. 
+После миграции основных методов ведения протоколов может потребоваться дополнительная
+миграция, выполняемая вручную. Оценить любое дополнительное использование 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">LogFactory</span>
+<!-- END NON-TRANSLATABLE --> методы в приложении.
+</li>
+<li>
+Методы класса <code>org.apache.juli.logging.Log</code> имеют параметры с типом <code>java.lang.Object</code>. 
+Методы класса <code>java.util.logging.Logger</code> имеют параметры с типом <code>java.lang.String</code>. 
+При использовании параметров, тип которых отличается от <code>java.lang.String</code>,
+может потребоваться дополнительное изменение - потребуется вручную добавить <code>toString()</code> к параметрам после выполнения процедуры быстрого исправления, заменяющей <code>org.apache.juli.logging.Log</code> на <code>java.util.logging.Logger</code>.
+</li>
+</ol>
+<p>
+Дополнительная информация приведена в следующей документации по Java:
+<ul>
+<li>
+<a href="http://download.oracle.com/javase/8/docs/api/java/util/logging/Logger.html" 
+title="Открывается в новом окне" onclick="javascript:helpWindow('http://download.oracle.com/javase/8/docs/api/java/util/logging/Logger.html'); return false;">java.util.logging.Logger</a>
+</li>
+<li>
+<a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/logging/WsLevel.html" 
+title="Открывается в новом окне" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/logging/WsLevel.html'); return false;">com.ibm.websphere.logging.WsLevel</a>
+</li>
+<li>
+
+Пакет <a href="http://tomcat.apache.org/tomcat-9.0-doc/api/org/apache/juli/logging/package-summary.html" 
+title="Открывается в новом окне" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/api/org/apache/juli/logging/package-summary.html'); return false;">org.apache.juli.logging</a>.
+</li>
+
+</ul>
+</div>
+</body>
+</html>

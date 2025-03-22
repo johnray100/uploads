@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Использовать файлы описания Java EE для определения ссылок на среду</span>
+<p>
+Это правило помечает <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> элементы, найденные в файле <span class="FilePath">META-INF/context.xml</span> , который должен быть преобразован в <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> элементы в 
+Файл<span class="FilePath">WEB-INF/web.xml</span> .
+</p>
+<p>
+Apache Tomcat allows <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> элементы, которые должны быть определены в следующих положениях: 
+<ul>
+<li>Файл <span class="FilePath">META-INF/context.xml</span></li>
+<li>Файл конфигурации XML приложения в каталоге Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> в файле <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Поскольку инструмент миграции может не иметь доступа к каталогу конфигурации Tomcat , он только помечает <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> в 
+<span class="FilePath">META-INF/context.xml</span> .
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> Информация, определенная в других положениях, может быть скопирована в файл <span class="FilePath">META-INF/context.xml</span> , чтобы его можно было обработать инструментом.
+</p>
+<p>
+Если файл <span class="FilePath">WEB-INF/web.xml</span> существует в веб-проекте:
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+элементы будут помечены под любым из следующих условий:
+</p>
+<ul>
+<li>Для записи нет совпадающих записей в файле <span class="FilePath">web.xml</span>.</li>
+<li>Тип записи отличается от типа соответствующей записи в файле <span class="FilePath">web.xml</span>.</li>
+<li>Значение записи отличается от значения соответствующей записи в файле <span class="FilePath">web.xml</span>, и флагу переопределения записи присвоено значение false.</li>
+</ul>
+<p class="indent2">
+В сканере исходного кода доступно быстрое исправление для этого правила. Быстрое исправление добавит новый <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+в файле <span class="FilePath">web.xml</span> , который представляет <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> элемент, если он еще не существует в 
+Файл<span class="FilePath">web.xml</span> . 
+Если запись существует, она будет обновлена. 
+</p>
+<p>
+Если файл <span class="FilePath">WEB-INF/web.xml</span> не существует:</p>
+<p class="indent2">
+Все <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> Элементы будут помечены.
+</p>
+<p class="indent2">
+Быстрое исправление создаст файл <span class="FilePath">WEB-INF/web.xml</span> , содержащий соответствующие <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> , если веб-проект находится на Java EE 5 или выше. или выведет сообщение об ошибке (если веб-проект создан в J2EE 1.4 или ниже).
+</p>
+Пример: существует файл <span class="FilePath">META-INF/context.xml</span> со следующим содержимым:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Среда <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type= "java.lang.String" value= "abc123" /&gt;<br>	
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="contextEnvString_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.String"<br> 
+<span class="indent2"></span>value = "новое Значение " /&gt;<br>                                     
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different type" <br>
+<span class="indent2"></span>name="contextEnvString_2"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.Integer"<br> 
+<span class="indent2"></span>value="123 " /&gt;<br>
+&lt;Environment <br>
+<span class="indent2"></span>description="will not Trigger because of override set to true." <br>
+<span class="indent2"></span>name="contextEnvString_3"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>type="java.lang.Integer" <br>
+<span class="indent2"></span>value="123 " /&gt;<br>
+</span>
+</div>
+<p>
+со следующим файлом <span class="FilePath">web.xml</span> в приложении: </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Триггер из-за другого значения&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;oldValue&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Триггер из-за другого типа&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;не будет триггером, поскольку для переопределения задано значение true.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+<p>
+После применения быстрого исправления файл <span class="FilePath">web.xml</span> будет изменен следующим образом:</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Триггер из-за другого значения&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;новое Значение&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Триггер из-за другого типа&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;не будет триггером, поскольку для переопределения задано значение true.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Триггер becasue не существует&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;newEntry&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;abc123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

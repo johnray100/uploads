@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utilizzare i descrittori di distribuzione Java EE per definire i riferimenti ambiente</span>
+<p>
+Questa regola contrassegna <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> elementi trovati nel file <span class="FilePath">META-INF/context.xml</span> che devono essere trasformati in <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> elementi nel 
+<span class="FilePath">WEB-INF/web.xml</span> .
+</p>
+<p>
+Apache Tomcat consente <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> elementi da definire in queste ubicazioni: 
+<ul>
+<li>Il file <span class="FilePath">META-INF/context.xml</span></li>
+<li>Il file di configurazione XML dell'applicazione nella directory Tomcat <span class="FilePath">conf</span></li>
+<li>Gli <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> in <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Poiché lo strumento di migrazione potrebbe non avere accesso alla directory di configurazione di Tomcat , contrassegna solo <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> nella 
+File <span class="FilePath">META-INF/context.xml</span> .
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> le informazioni definite nelle altre ubicazioni possono essere copiate nel file <span class="FilePath">META-INF/context.xml</span> in modo che possano essere elaborate dallo strumento.
+</p>
+<p>
+Se esiste un <span class="FilePath">WEB-INF/web.xml</span> nel progetto web:
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+gli elementi verranno contrassegnati in una delle seguenti condizioni:
+</p>
+<ul>
+<li>la voce non dispone di una voce corrispondente nel file <span class="FilePath">web.xml</span>.</li>
+<li>La voce dispone di un differente tipo rispetto alla corrispondente voce nel file <span class="FilePath">web.xml</span>.</li>
+<li>La voce dispone di un valore differente rispetto alla corrispondente voce in <span class="FilePath">web.xml</span> e il relativo flag di sovrascrittura è impostato su false.</li>
+</ul>
+<p class="indent2">
+Nello scanner di origine è disponibile una correzione rapida per questa regola. La correzione rapida aggiungerà una nuova <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+nel file <span class="FilePath">web.xml</span> che rappresenta il <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> se non esiste già nel 
+<span class="FilePath">web.xml</span> . 
+Se la voce esiste, verrà aggiornata. 
+</p>
+<p>
+Se <span class="FilePath">WEB-INF/web.xml</span> non esiste:</p>
+<p class="indent2">
+Tutti <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> elementi verranno contrassegnati.
+</p>
+<p class="indent2">
+La correzione rapida crea un file <span class="FilePath">WEB-INF/web.xml</span> che include il file <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> elementi se il progetto Web è Java EE 5 o superiore. La correzione rapida riporterà un errrore se il progetto web è a livello di
+J2EE 1.4 o inferiore.
+</p>
+Ad esempio, considerare un file <span class="FilePath">META-INF/context.xml</span>
+con il seguente contenuto:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Ambiente <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type= "java.lang.String" value= "abc123" /&gt;<br>	
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="contextEnvString_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.String"<br> 
+<span class="indent2"></span>value = "nuovo valore " /&gt;<br>                                     
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different type" <br>
+<span class="indent2"></span>name="contextEnvString_2"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.Integer"<br> 
+<span class="indent2"></span>value="123 " /&gt;<br>
+&lt;Environment <br>
+<span class="indent2"></span>description="will not Trigger because of override set to true." <br>
+<span class="indent2"></span>name="contextEnvString_3"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>type="java.lang.Integer" <br>
+<span class="indent2"></span>value="123 " /&gt;<br>
+</span>
+</div>
+<p>
+con il seguente file <span class="FilePath">web.xml</span> nell'applicazione: </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; voce - invio&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger a causa di un valore diverso&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;oldValue&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; voce - invio&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Trigger a causa di un diverso tipo&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; voce - invio&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;non verrà Trigger a causa della sovrascrittura impostata su true.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+<p>
+Una volta che è stata applicata la correzione rapida, il file <span class="FilePath">web.xml</span> verrà aggiornato per contenere:</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; voce - invio&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger a causa di un valore diverso&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;nuovo valore&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; voce - invio&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger a causa di un diverso tipo&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; voce - invio&gt;<br>
+<span class="indent2"></span>&lt;description&gt;non verrà Trigger a causa della sovrascrittura impostata su true.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt; voce - invio&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger perché non esiste&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;newEntry&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;abc123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

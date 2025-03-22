@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Java EE telepítésleírók és WebSphere kötések használata az erőforrás-hivatkozás leírások megadásához</span>
+<p>
+Ez a szabály a következőket jelöli meg: <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> A <span class="FilePath">META-INF/context.xml</span> fájlban található elemek, amelyekre szükség lehet a költöztetés.
+</p>
+<p>
+Apache Tomcat <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> Az alábbi helyeken meghatározott elemek:<ul>
+<li>A <span class="FilePath">META-INF/context.xml</span> fájlban</li>
+<li>Az alkalmazás XML konfigurációs fájljában a Tomcat <span class="FilePath">conf</span> könyvtárában</li>
+<li>A <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elem a <span class="FilePath">conf/server.xml</span> elemben</li>
+</ul>
+<p>
+Mivel az átállítási eszköz nem fér hozzá a Tomcat konfigurációs könyvtárához,
+csak a <span class="FilePath">META-INF/context.xml</span> elért veszi
+át.
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> A többi helyen megadott információk átmásolhatók a <span class="FilePath">META-INF/context.xml</span> fájlba annak feldolgozásához.
+</p>
+
+<p>
+A forráselemzőben rendelkezésre áll egy gyorsjavítás. A gyorsjavítás az információkat a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Elemek és erőforrás-hivatkozás és egy megfelelő JNDI név létrehozása az alábbiak szerint:
+</p>
+<ul>
+	<li>A gyorsjavítás megnézi a resource-ref listában, hogy van-e a névvel egyező
+bejegyzés.  
+Ha nincs, akkor létrehozásra kerül.</li>
+	<li>A <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Name attribútum a (z) számára <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-ref-name</span>
+<!-- END NON-TRANSLATABLE --> A web.xml </li>
+	<li>A <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Type attribútum kerül felhasználásra a hez <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-type</span>
+<!-- END NON-TRANSLATABLE --> A web.xml</li>
+	<li>A <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Globális attribútum kerül felhasználásra a hez <!-- START NON-TRANSLATABLE -->
+<span class="Code">binding-name</span>
+<!-- END NON-TRANSLATABLE --> Az IBM kötési fájlban</li>
+	<li>A <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-auth</span>
+<!-- END NON-TRANSLATABLE --> Be van állítva <!-- START NON-TRANSLATABLE -->
+<span class="Code">Container</span>
+<!-- END NON-TRANSLATABLE --></li>
+	<li>A <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> A Shareable értékre van állítva</li>
+</ul> 
+<p>
+Figyelje meg a másikat <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->
+Attribútumok (gyár, felhasználónév és jelszó) nem kerülnek automatikusan átállításra.  
+Ha az alkalmazás ezt az attribútumot használja <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->, akkor létre kell hoznia egy egyedi erőforrást a kiszolgáló konfigurációjában, adja meg az erőforrást egy egyedi JNDI névvel, majd frissítse a 
+IBM kötési fájl az új JNDI névvel.
+</p>
+<p>
+Ha a webes projekt Java EE 5 vagy magasabb szintű és a
+<span class="FilePath">WEB-INF/web.xml</span> fájl nem létezik, akkor a
+<span class="FilePath">WEB-INF/web.xml</span> fájl létrehozásra kerül és a
+rendszer hozzáadja az új erőforrás-hivatkozás referencia elemeket.
+A
+gyorsjavítás hibajelentést küld, ha a webes projekt J2EE 1.4 vagy alacsonyabb
+szintű.
+</p>
+<p>
+Például a következőket tartalmazó <span class="FilePath">META-INF/Context.xml</span> esetén <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->:</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+	&lt;ResourceLink global="jdbc/SampleWebGlobal" name="jdbc/SampleWeb" type="javax.sql.DataSource"/&gt;
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+A gyorsjavítás frissít vagy létrehoz egy új <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 
+A <span class="FilePath">web.xml</span> fájlban hasonló ehhez a példához:  
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref id= "ResourceRef_1313785392722"&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/SampleWeb&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Tároló&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Shareable&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+A JNDI név hozzáadásra kerül az IBM kötésfájlhoz. 
+A név a
+<span class="FilePath">web.xml</span> fájlban meghatározott meglévő
+hivatkozásra mutat.
+Ha a kötésfájl még nem létezik, akkor a rendszer létrehozza azt.
+</p> 
+<p>
+Be kell állítania az erőforrást a WebSphere Application Server konfigurációban is.
+</p>
+<p>
+A Tomcat kontextus erőforrás meghatározással kapcsolatos további információkért lásd:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links" 
+	title="Új ablakban nyílik meg" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links'); return false;">
+	Apache Tomcat konfigurációs referencia - Erőforrás-hivatkozások</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

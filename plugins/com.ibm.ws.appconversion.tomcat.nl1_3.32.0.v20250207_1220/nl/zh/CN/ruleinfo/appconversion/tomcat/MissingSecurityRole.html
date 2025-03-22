@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">使用 Java EE 部署描述符来定义缺少的安全角色</span>
+<p>
+此规则将标记 <!-- START NON-TRANSLATABLE -->
+<span class="Code">auth-constraint</span>
+<!-- END NON-TRANSLATABLE -->, <!-- START NON-TRANSLATABLE -->
+<span class="Code">role-name</span>
+<!-- END NON-TRANSLATABLE --> 中找到的元素 
+缺少相应的 <span class="FilePath">WEB-INF/web.xml</span> 文件 <!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE --> 元素。  
+Apache Tomcat 服务器不需要  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE --> 定义元素，但是
+Java EE 规范指示必须对其进行定义。
+</p>	
+这是一个示例 <!-- START NON-TRANSLATABLE -->
+<span class="Code">auth-constraint</span>
+<!-- END NON-TRANSLATABLE -->,
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">role-name</span>
+<!-- END NON-TRANSLATABLE --> 要标记的元素:
+<div class="container">
+<span class="Code">
+&lt;web-app&gt;<br>
+<span class="indent"></span>...<br>
+<span class="indent"></span>&lt;security-constraint&gt;<br>
+<span class="indent2"></span>&lt;display-name&gt;ThisConstraint&lt;/display-name&gt;<br>
+<span class="indent2"></span>&lt;web-resource-collection&gt;<br>
+<span class="indent4"></span>&lt;web-resource-name&gt;adminResources&lt;/web-resource-name&gt;<br>
+<span class="indent4"></span>&lt;url-pattern&gt;/*&lt;/url-pattern&gt;<br>
+<span class="indent4"></span>&lt;http-method&gt;GET&lt;/http-method&gt;<br>
+<span class="indent2"></span>&lt;/web-resource-collection&gt;<br>
+<span class="indent2"></span>&lt;auth-constraint&gt;<br>
+<span class="indent4"></span>&lt;description&gt;管理员&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;role-name&gt;管理&lt;/role-name&gt;<br>
+<span class="indent4"></span>&lt;role-name&gt;超级用户&lt;/role-name&gt;<br>
+<span class="indent2"></span>&lt;/auth-constraint&gt;<br>
+<span class="indent"></span>&lt;/security-constraint&gt;<br>
+&lt;/web-app&gt;<br>
+</span>
+</div>
+<p>
+都是 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;role-name&gt;admin&lt;/role-name&gt;</span>
+<!-- END NON-TRANSLATABLE --> 与 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;role-name&gt;superuser&lt;/role-name&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+将标记行。
+</p>
+<p>
+源扫描程序包含用于添加任何缺失项的快速修订 <!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE -->
+元素。
+</p>
+在本示例中，该快速修订会将下列元素添加至 <span class="FilePath">web.xml</span> 文件：
+<div class="container">
+<span class="Code">
+<span class="indent"></span>&lt;security-role&gt;<br>
+<span class="indent2"></span>&lt;role-name&gt;管理&lt;/role-name&gt;<br>
+<span class="indent"></span>&lt;/security-role&gt;<br>
+<span class="indent"></span>&lt;security-role&gt;<br>
+<span class="indent2"></span>&lt;role-name&gt;超级用户&lt;/role-name&gt;<br>
+<span class="indent"></span>&lt;/security-role&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

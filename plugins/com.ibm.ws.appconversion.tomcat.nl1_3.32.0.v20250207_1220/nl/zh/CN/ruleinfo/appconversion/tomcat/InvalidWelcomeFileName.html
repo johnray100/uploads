@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">避免在 Web 模块欢迎文件名中使用 /</span>
+<p>
+此规则会标记任何 Web 模块 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;welcome-file&gt;</span>
+<!-- END NON-TRANSLATABLE --> 在 <span class="FilePath">web.xml</span> 文件中以正斜杠字符 (/) 或反斜杠字符 (\) 开头。
+</p>
+<p>
+在源扫描程序中，为此规则提供了快速修订。 快速修订会从名称中移除 / 或 \。</p>
+<p></p>
+给定以下欢迎文件列表： 
+<div class="container">
+<span class="Code">
+&lt;welcome-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;<br>
+</span> 
+<br>
+</div>
+<p></p>
+该快速修订会将代码的四个条目更新为：
+<div class="container">
+<span class="Code">
+&lt;welcome-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;
+</span> 
+<br>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Файлы описания Java EE и привязки WebSphere следует использовать для определения ссылок на ресурсы</span>
+<p>
+Это правило помечает <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> Элементы, найденные в файле <span class="FilePath">META-INF/context.xml</span> , которые могут нуждаться в миграции.</p>
+<p>
+Apache Tomcat allows <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> элементы, которые должны быть определены в следующих положениях:<ul>
+<li>Файл <span class="FilePath">META-INF/context.xml</span></li>
+<li>Файл конфигурации XML приложения в каталоге Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> в файле <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Так как инструмент миграции может не иметь доступа к каталогу конфигурации Tomcat,
+то выполняет миграцию только файла <span class="FilePath">META-INF/context.xml</span>.
+Информация о ресурсе, определенная в других расположениях, может быть скопирована в файл <span class="FilePath">META-INF/context.xml</span> для обработки.
+</p>
+
+<p>
+В сканере исходного кода доступно быстрое исправление. Быстрое исправление принимает информацию из <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> и создает ссылку на ресурс или ссылку на среду ресурса по мере необходимости и соответствующее имя JNDI.
+Tomcat рекомендует, но не требует, чтобы соответствующая ссылка на ресурс для <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE -->
+в <span class="FilePath">WEB-INF/web.xml</span>. 
+Быстрое исправление выполняет поиск в списке <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE -->
+и <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> , чтобы увидеть, совпадает ли запись с таким именем.  
+Если такого имени нет, оно будет создано.  Если
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> элемент имеет 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> атрибут, a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> создан.
+Если <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> элемент не имеет 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> атрибут, a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> создан. В обоих случаях: <!-- START NON-TRANSLATABLE -->
+<span class="Code">name</span>
+<!-- END NON-TRANSLATABLE --> также используется в качестве имени JNDI и определяется в привязках.
+
+</p>
+
+Например, с учетом следующих <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> из файла <span class="FilePath">META-INF/context.xml</span> :
+<div class="container">
+&lt; span class="Code"&gt; &lt; Resource name="jdbc/exampleDB"<br> 
+<span class="indent2"></span>auth="Container"<br>
+<span class="indent2"></span>type="javax.sql.DataSource"<br>
+<span class="indent2"></span>description="Пример базы данных " /&gt;<br>
+</span>
+</div>
+<br><br>
+Быстрое исправление создаст соответствующий <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;resource-ref&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+элемент:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent2"&gt; &lt; /span&gt; &lt; description&gt;<br>
+<span class="indent2"></span>Пример базы данных&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Контейнер&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Общий доступ&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+По умолчанию ресурсы в Tomcat могут использоваться совместно.  Если область не задана в <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> , он устанавливается для совместного использования при создании новой ссылки на ресурс для быстрого исправления. Если в файле WEB-INF/web.xml уже существует соответствующая ссылка на ресурс, то не вносятся никакие изменения.
+</p>
+<p>
+Если веб-проект использует Java EE 5 или выше, а файл
+<span class="FilePath">WEB-INF/web.xml</span> не существует,
+то файл <span class="FilePath">WEB-INF/web.xml</span> будет создан,
+и в него будут добавлены элементы ссылок на ресурсы.
+Если веб-проект использует J2EE 1.4 или ниже, то процедура быстрого исправления выведет сообщение об ошибке.
+</p>
+<p>
+Также потребуется настроить ресурс в конфигурации WebSphere.
+</p>
+<p>
+Дополнительная информация об определении ресурса контекста в Tomcat приведена в следующем разделе:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions" 
+	title="Открывается в новом окне" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions'); return false;">
+	Справочник по конфигурации Apache Tomcat - определения ресурсов</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">不要使用 Apache Tomcat org.apache.juli.logging</span>
+ 
+<p>此規則會偵測是否使用  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.Log</span>
+<!-- END NON-TRANSLATABLE --> 和 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.LogFactory</span>
+<!-- END NON-TRANSLATABLE --> 類別和方法。
+這些記載方法在 WebSphere Traditional 或  Liberty 中無法使用，必須移轉。
+</p>
+<p>         
+原始檔掃描器提供了快速修正程式。 它會取代 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.LogFactory</span>
+<!-- END NON-TRANSLATABLE --> 
+具有 <!-- START NON-TRANSLATABLE -->
+<span class="Code">java.util.logging.Logger</span>
+<!-- END NON-TRANSLATABLE -->-我知道 
+它也會將 Apache Tomcat 記載方法取代為 Java 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Logger.log(Level, message)</span>
+<!-- END NON-TRANSLATABLE --> 方法。
+</p>
+<p>
+部分 Apache Tomcat 方法直接對映至已定義的 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">java.util.logging.Level</span>
+<!-- END NON-TRANSLATABLE -->. 對於未直接對映的層次，您可以在「分析配置」對話框中自訂記載層次。
+此外，快速修正程式會更新類別的 import 陳述式。
+</p>
+<p>
+這個對映表顯示快速修正程式取代項目。
+在下表中，會傳遞 Throwable 作為第二個參數的記載方法，會以其對應項目的相同方式來對映。
+</p>
+<table border="1" cellpadding="1px">
+<thead>
+<tr>
+<th><b>org.apache.juli.logging 方法</b></th>
+<th><b>java.util.logging 方法</b></th>
+<th><b>可配置</b></th>
+</tr>
+</thead>   
+<tr>
+<td>LogFactory.getLog(Class.class)</td>
+<td>Logger.getLogger(Class.class.getName())</td>
+<td>否</td>
+</tr>
+<tr>
+<td>LogFactory.getLog("log name")</td>
+<td>Logger.getLogger("log name")</td>
+<td>否</td>
+</tr>
+<tr>
+<td>LogFactory.getInstance(Class.class)</td>
+<td>Logger.getLogger(Class.class.getName())</td>
+<td>否</td>
+</tr>
+<tr>
+<td>LogFactory.getInstance("log name")</td>
+<td>Logger.getLogger("log name")</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Log.fatal("mgs")</td>
+<td>Logger.log(WsLevel.FATAL, "msg")</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Log.error("msg")</td>
+<td>Logger.log(Level.SEVERE, "msg")</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Log.warn("msg")</td>
+<td>Logger.log(Level.WARNING, "msg")</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Log.info("msg")</td>
+<td>Logger.log(Level.INFO, "msg")</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Log.debug("msg")</td>
+<td>Logger.log(WsLevel.DETAIL, "msg")</td>
+<td>是</td>
+</tr>
+<tr>
+<td>Log.trace("msg")</td>
+<td>Logger.log(Level.FINE, "msg")</td>
+<td>是</td>
+</tr>
+</table>
+<p>
+例如，所建立的記載類別實例：
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+Log log = LogFactory.getLog(MyClass.class);
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<br>會移轉成 
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+Logger log = Logger.getLogger(MyClass.class.getName());
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+此範例顯示呼叫 <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.juli.logging.Log.error()</span>
+<!-- END NON-TRANSLATABLE -->
+使用 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Throwable</span>
+<!-- END NON-TRANSLATABLE --> 作為第二個參數。
+<div class="container">
+<span class="Code"> 
+catch (Exception e) {<br>
+<span class="indent2"></span>log.error("Some error message", e);<br>  
+}
+</span>
+</div>
+<br>這個範例會移轉成下列程式碼：
+<div class="container">
+<span class="Code"> 
+catch (Exception e) {<br>       
+<span class="indent2"></span>log.log(Level.SEVERE, "Some error message", e);<br>  
+} 
+</span>
+</div>
+<br>
+<br>附註：
+<ol>
+<li>某些記載方法移轉是可配置的。 例如，如果您想要 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Log.trace</span>
+<!-- END NON-TRANSLATABLE --> 要移轉至其他層次的方法 <!-- START NON-TRANSLATABLE -->
+<span class="Code">WsLevel.DETAIL</span>
+<!-- END NON-TRANSLATABLE -->，您可以在「分析配置」對話框中變更它。
+</li>
+<li><!-- START NON-TRANSLATABLE -->
+<span class="Code">WsLevel</span>
+<!-- END NON-TRANSLATABLE --> 定義在 IBM(R) 類別中，
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">com.ibm.websphere.logging.WsLevel</span>
+<!-- END NON-TRANSLATABLE -->-我知道
+它延伸 <!-- START NON-TRANSLATABLE -->
+<span class="Code">java.util.logging.Level</span>
+<!-- END NON-TRANSLATABLE --> 以提供其他記載層次。  如果您不想使用 <!-- START NON-TRANSLATABLE -->
+<span class="Code">WsLevel</span>
+<!-- END NON-TRANSLATABLE -->
+定義的層次，您也可以在此 Tomcat Java 規則下的「分析配置」對話框中配置那些對映。
+</li>
+<li>
+並非全部 <!-- START NON-TRANSLATABLE -->
+<span class="Code">LogFactory</span>
+<!-- END NON-TRANSLATABLE --> 方法。 
+在移轉基本的記載方法之後，您可能需要進行其他的手動移轉。 評估的任何其他用途 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">LogFactory</span>
+<!-- END NON-TRANSLATABLE --> 方法。
+</li>
+<li><code>org.apache.juli.logging.Log</code> 類別中的方法具有類型為
+<code>java.lang.Object</code> 的參數。 
+<code>java.util.logging.Logger</code> 類別中的方法具有類型為
+<code>java.lang.String</code> 的參數。 
+如果您使用非 <code>java.lang.String</code> 類型的參數，則在執行快速修正程式以從
+<code>org.apache.juli.logging.Log</code> 移轉至 <code>java.util.logging.Logger</code> 之後，可能需要執行額外的手動移轉，以將
+<code>toString()</code> 新增至參數。
+</li>
+</ol>
+<p>
+如需相關資訊，請參閱下列的 Java 說明文件：
+<ul>
+<li>
+<a href="http://download.oracle.com/javase/8/docs/api/java/util/logging/Logger.html" 
+title="開啟新視窗" onclick="javascript:helpWindow('http://download.oracle.com/javase/8/docs/api/java/util/logging/Logger.html'); return false;">java.util.logging.Logger</a>
+</li>
+<li>
+<a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/logging/WsLevel.html" 
+title="開啟新視窗" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/logging/WsLevel.html'); return false;">com.ibm.websphere.logging.WsLevel</a> 
+</li>
+<li>
+<a href="http://tomcat.apache.org/tomcat-9.0-doc/api/org/apache/juli/logging/package-summary.html" 
+title="開啟新視窗" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/api/org/apache/juli/logging/package-summary.html'); return false;">org.apache.juli.logging</a> 套件。
+</li>
+
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">getRealPath("") との連結の結果を検証する</span>
+<p>
+この規則は、以下のメソッドおよびパラメーターへの参照がある Java コードにフラグを立てます。
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("")</code></li>
+</ul>
+<p>
+Tomcat では、これらのメソッド呼び出しは、スラッシュで終了するストリングを返します。Liberty では、戻り値はスラッシュで終了しません。結果として、このメソッドとのストリング連結は、Tomcat では有効なファイルを指すのに、Liberty では指さない可能性があります。フラグが立てられたメソッド呼び出しごとに、結果を使用しているコードのいずれかが、Liberty での末尾スラッシュの欠落の原因となっていないか確認してください。
+</p>
+<p>
+例えば、展開された war を <code>/path/app.war</code> にインストールしたとします。この場合、<code>getRealPath("")</code> を呼び出すと、以下のような結果になります。
+</p>
+<ul>
+<li>Tomcat: <code>/path/app.war/</code></li>
+<li>Liberty: <code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

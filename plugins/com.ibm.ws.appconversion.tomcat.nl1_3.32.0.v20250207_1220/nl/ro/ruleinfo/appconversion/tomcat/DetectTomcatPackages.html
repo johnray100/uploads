@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Nu utilizaţi pachete şi API-uri Apache Tomcat</span>
+<p>
+Această regulă scanează fişierele Java pentru a detecta utilizarea următoarelor pachete Apache Tomcat proprietare:
+</p> 
+<ul>
+<li>org.apache.tomcat</li>
+<li>org.apache.catalina</li>
+<li>org.apache.coyote</li>
+<li>org.apache.el</li>
+<li>org.apache.jasper</li>
+<li>org.apache.jk</li>
+<li>org.apache.juli</li>
+<li>org.apache.naming</li>
+</ul>
+<p>
+Când aplicaţia dumneavoastră utilizează clasele din aceste pachete, trebuie să fie modificat codul pentru a
+utiliza API-urile furnizate de kitul de dezvoltare Java (JDK), API-urile furnizate de WebSphere(R) Application Server
+sau API-urile cu sursă deschisă.
+</p>
+<p>
+Evaluaţi codul folosind API-ul specific JBoss şi modificaţi-l pentru a folosi un API non-proprietar sau
+un API WebSphere Application Server.
+</p>
+<p>
+Pentru informaţii suplimentare, consultaţi:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/api/index.html" 
+	title="Deschide o fereastră nouă" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/api/index.html'); return false;">
+	Apache Tomcat 8.0 API</a> în documentaţia Java.   
+</li>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/api/index.html" 
+	title="Deschide o fereastră nouă" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/api/index.html'); return false;">
+	Apache Tomcat 9.0 API</a> în documentaţia Java.   
+</li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">環境参照の定義に Java EE デプロイメント記述子を使用する</span>
+<p>
+この規則により、以下のものにフラグを立てます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 変換する必要がある <span class="FilePath">META-INF/context.xml</span> ファイルにあるエレメント <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> エレメント 
+<span class="FilePath">WEB-INF/web.xml</span> ファイル。
+</p>
+<p>
+Apache Tomcat で許可される <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 以下の場所で定義されるエレメント: 
+<ul>
+<li><span class="FilePath">META-INF/context.xml</span> ファイル</li>
+<li>Tomcat の <span class="FilePath">conf</span> ディレクトリー内のアプリケーション XML 構成ファイル</li>
+<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 内のエレメント</li>
+</ul>
+<p>
+マイグレーション・ツールは Tomcat 構成ディレクトリーにアクセスできない可能性があるため、 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> の 
+<span class="FilePath">META-INF/context.xml</span> ファイル。
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 他の場所で定義されている情報は、ツールで処理するために <span class="FilePath">META-INF/context.xml</span> ファイルにコピーできます。
+</p>
+<p>
+Web プロジェクトに <span class="FilePath">WEB-INF/web.xml</span> が存在するとします。
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+エレメントには、以下のいずれかの条件下でフラグが立てられます。
+</p>
+<ul>
+<li>エントリーに <span class="FilePath">web.xml</span> ファイル内の対応するエレメントがない。</li>
+<li>エントリーのタイプが <span class="FilePath">web.xml</span> ファイル内の対応するエレメントと異なっている。</li>
+<li>エントリーの値が <span class="FilePath">web.xml</span> ファイル内の対応するエレメントと異なっていて、そのオーバーライド・フラグが false に設定されている。</li>
+</ul>
+<p class="indent2">
+ソース・スキャナーで、この規則のクイック・フィックスが使用可能です。 クイック・フィックスは、新しい <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+エレメントを表す <span class="FilePath">web.xml</span> ファイル内のエレメント <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> 要素 (まだ存在していない場合) 
+<span class="FilePath">web.xml</span> ファイル。 
+エントリーが存在する場合は、更新されます。 
+</p>
+<p><span class="FilePath">WEB-INF/web.xml</span> が存在しない場合は、以下のようになります。</p>
+<p class="indent2">
+すべて <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> エレメントにフラグが立てられます。
+</p>
+<p class="indent2">
+クイック・フィックスは、適切なファイルを含む <span class="FilePath">WEB-INF/web.xml</span> ファイルを作成します。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> Web プロジェクトが Java EE 5 以上である場合の要素。 Web プロジェクトが J2EE 1.4 以下である場合、クイック・フィックスはエラーを報告します。
+</p>
+例えば、<span class="FilePath">META-INF/context.xml</span> ファイルに以下のようなコンテンツがあります。
+<div class="container">
+&lt; span class="Code"&gt; &lt; 環境 <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type= "java.lang.String" value= "abc123" /&gt;<br>	
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="contextEnvString_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.String"<br> 
+<span class="indent2"></span>値 =「新しい値」/&gt;<br>                                     
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different type" <br>
+<span class="indent2"></span>name="contextEnvString_2"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.Integer"<br> 
+<span class="indent2"></span>値 = "123 " /&gt;<br>
+&lt;Environment <br>
+<span class="indent2"></span>description="will not Trigger because of override set to true." <br>
+<span class="indent2"></span>name="contextEnvString_3"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>type="java.lang.Integer" <br>
+<span class="indent2"></span>値 = "123 " /&gt;<br>
+</span>
+</div>
+<p>
+このファイルに関連して、アプリケーションには以下の <span class="FilePath">web.xml</span> ファイルがあります。</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;異なる値によるトリガー&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;oldValue&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;タイプが異なるためトリガー&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123 (英語)&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;オーバーライドが true に設定されているため、トリガーされません。&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+<p>
+クイック・フィックスが適用されると、<span class="FilePath">web.xml</span> は、以下を含むように更新されます。</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;異なる値によるトリガー&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;新規値&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;タイプが異なるためトリガー&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123 (英語)&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;オーバーライドが true に設定されているため、トリガーされません。&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;存在しないため、トリガーする&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;newEntry&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;abc123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

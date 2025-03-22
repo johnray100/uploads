@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Eviter d'utiliser une barre oblique dans un nom de fichier de bienvenue de module Web</span>
+<p>
+Cette règle marque tout module Web <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;welcome-file&gt;</span>
+<!-- END NON-TRANSLATABLE --> qui commence par une barre oblique (/) ou une barre oblique inverse (\) dans le fichier <span class="FilePath">web.xml</span> .
+</p>
+<p>
+Un correctif rapide pour cette règle est disponible dans le scanner de source. Ce correctif rapide supprime la barre oblique (/) ou la barre oblique inversée (\) du nom.
+</p>
+<p></p>
+Par exemple, dans la liste de fichier de bienvenue suivante : 
+<div class="container">
+&lt; span class="Code"&gt; &lt; bienvenue-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;<br>
+</span> 
+<br>
+</div>
+<p></p>
+le correctif rapide met à jour quatre entrées du code comme suit :
+<div class="container">
+&lt; span class="Code"&gt; &lt; bienvenue-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;
+</span> 
+<br>
+</div>
+</div>
+</body>
+</html>

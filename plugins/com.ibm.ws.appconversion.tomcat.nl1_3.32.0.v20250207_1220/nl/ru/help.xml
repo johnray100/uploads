@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/* ***************************************************************** */
+/* Licensed Materials - Property of IBM                              */
+/* (C) Copyright IBM Corp. 2016, 2019. All Rights Reserved.          */
+/*                                                                   */
+/* US Government Users Restricted Rights - Use, duplication or       */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */
+/* ***************************************************************** */
+-->
+
+<?eclipse version="3.0"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts>
+  <!-- ######################################### -->
+  <!-- This section contains category level help -->
+  
+  
+  <!-- ######################################## -->
+  <!-- This section contains rule specific help -->
+
+  <context id="jsp-conversion" title="Миграция Apache Tomcat в WebSphere JSP">
+     <description>Правила в этой категории предназначены для поиска неполадок в файле JSP в
+процессе миграции из Apache Tomcat.</description>
+  </context>
+  <context id="xml-conversion" title="Миграция файлов описания Apache Tomcat в WebSphere">
+     <description>Правила в этой категории предназначены для поиска неполадок в файле
+описания в процессе миграции из Apache Tomcat.</description>
+  </context>
+  <context id="java-conversion" title="Миграция исходного кода Apache Tomcat в WebSphere">
+     <description>Правила в этой категории предназначены для поиска неполадок в коде Java в процессе миграции из Apache Tomcat.</description>
+  </context>
+  <context id="java-conversion-liberty" title="Миграция исходного кода Apache Tomcat в Liberty">
+     <description>Эта категория содержит правила Apache Tomcat, относящиеся только к серверам Liberty.</description>
+  </context>
+  <context id="java-conversion-general" title="Apache Tomcat в WebSphere traditional и Liberty">
+    <description>Эта категория включает правила Apache Tomcat, относящиеся к миграции на серверы WebSphere Application Server traditional или Liberty.</description>
+  </context>
+  <context id="contextResource" title="Файлы описания Java EE и привязки WebSphere следует использовать для определения ссылок на ресурсы">
+    <description>Информацию о ресурсах можно перенести из файла META-INF/context.xml в файл web.xml и привязки WebSphere. Данное правило выполняет миграцию элемента Контекст ресурса.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResource.html" label="Подробная справка"/>
+  </context>
+  <context id="invalidInitialContext" title="Не рекомендуется использовать недопустимый начальный контекст java:/comp">
+     <description>Данное обнаруживает недопустимую начальную строку контекста, которая начинается с java:/comp, а не с java:comp (без символа "/").</description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidInitialContext.html" label="Подробная справка"/>
+  </context>
+  <context id="invalidWelcomeFileName" title="Следует избегать использования символа прямой косой черты (/) в имени файла приветствия веб-модуля">
+     <description>Данное правило обнаруживает имена файлов приветствия, начинающиеся с символа / или \ </description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidWelcomeFileName.html" label="Подробная справка"/>
+  </context>
+  <context id="detectDoUpgradeMethod" title="Не следует использовать метод WsServerContainer doUpgrade Apache Tomcat">
+     <description>Выполнить миграцию метода Apache Tomcat WsServerContainer doUpgrade в новый метод API IBM WebSocket WsWsocServerContainer doUpgrade.</description>
+     <topic href="ruleinfo/appconversion/tomcat/DetectDoUpgradeMethod.html" label="Подробная справка"/>
+  </context>
+  <context id="detectTomcatPackages" title="Не следует использовать API и пакеты Apache Tomcat">
+    <description>Это правило отмечает экземпляры API и пакетов Apache Tomcat, для которых требуется выполнить миграцию.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatPackages.html" label="Подробная справка"/>
+  </context>
+    <context id="detectInitialContextLookup" title="Экземпляры контекстного поиска должны иметь соответствующие записи в файле описания">
+    <description>Это правило отмечает начальные операции контекстного поиска.  Оно предоставляет возможность проверки соответствующих записей о переменных среды в файле web.xml.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectInitialContextLookup.html" label="Подробная справка"/>
+  </context>
+  <context id="contextEnvironment" title="Использовать файлы описания Java EE для определения ссылок на среду">
+     <description>Информацию о среде можно перенести из файла META-INF/context.xml в web.xml. Это правило переносит элемент Контекст среды.</description>
+     <topic href="ruleinfo/appconversion/tomcat/ContextEnvironment.html" label="Подробная справка"/>
+  </context>
+  <context id="contextResourceLink" title="Файлы описания Java EE и привязки WebSphere следует использовать для определения ссылок на ресурсы">
+    <description>Информацию ResourceLink можно перенести из файла META-INF/context.xml в файл web.xml и привязки WebSphere. Это правило переносит элемент Контекст ResourceLink.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResourceLink.html" label="Подробная справка"/>
+  </context>
+  <context id="resourceSharingScope" title="Задать область совместного доступа для ссылок на ресурсы">
+    <description>Это правило отмечает ссылки на ресурсы, для которых не задана область совместного доступа к ресурсу. В Apache Tomcat этой области по умолчанию присвоено значение Shareable.  В WebSphere рекомендуется указать для области такое же значение.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingResourceSharingScope.html" label="Подробная справка"/>
+  </context>
+  <context id="contextParameter" title="Использовать файлы описания Java EE для определения параметров контекста">
+    <description>Информация о параметре может быть перенесена из META-INF/context.xml в web.xml. Это правило выполняет миграцию элементов Context Parameter.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextParameter.html" label="Подробная справка"/>
+  </context>
+  <context id="contextLifecycleListener" title="Использовать файлы описания Java EE для определения обработчиков событий контекста жизненного цикла">
+    <description>Информация обработчика событий жизненного цикла может быть перенесена из META-INF/context.xml в web.xml. Это правило выполняет миграцию элементов Context Listener.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextLifecycleListener.html" label="Подробная справка"/>
+  </context>
+  <context id="contextValve" title="Не использовать компонент valve контекста">
+    <description>Нельзя использовать компонент Valve контекста. Это правило отмечает компонент Context Valve в файле context.xml.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextValve.html" label="Подробная справка"/>
+  </context>
+  <context id="detectTomcatBasicDataSource" title="Не следует использовать класс BasicDataSource Apache Tomcat">
+    <description>Это правило отмечает экземпляры класса org.apache.tomcat.dbcp.dbcp.BasicDataSource, недоступные в WebSphere.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatBasicDataSource.html" label="Подробная справка"/>
+  </context>  
+  <context id="missingSecurityRole" title="Использовать файлы описания Java EE для определения отсутствующих правил защиты">
+    <description>Это правило отмечает элементы auth-constraint и role-name в web.xml, для которых отсутствуют связанные элементы security-role.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingSecurityRole.html" label="Подробная справка"/>
+  </context>  
+  <context id="migrateJuliLogging" title="Не использовать метод Apache Tomcat org.apache.juli.logging">
+    <description>Это правило отмечает методы ведения протоколов из пакета org.apache.juli.logging и помогает изменить приложение для использования класса java.util.logging.Logger.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MigrateJuliLogging.html" label="Подробная справка"/>
+  </context>
+  <context id="detectGetRealPathTomcatSlash" title='Проверить результат конкатенации с помощью getRealPath("/")'>
+    <description>В WebSphere метод getRealPath("/") возвращает строку, которая не заканчивается косой чертой. Убедитесь, что при конкатенации с этим методом при необходимости добавляется завершающая косая черта.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatSlash.html" label="Подробная справка"/>
+  </context>
+   <context id="detectGetRealPathTomcatEmpty" title='Проверить результат конкатенации с помощью getRealPath("")'>
+    <description>В Liberty метод getRealPath("") возвращает строку, которая не заканчивается косой чертой. Убедитесь, что при конкатенации с этим методом при необходимости добавляется завершающая косая черта.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatEmpty.html" label="Подробная справка"/>
+  </context>
+</contexts>

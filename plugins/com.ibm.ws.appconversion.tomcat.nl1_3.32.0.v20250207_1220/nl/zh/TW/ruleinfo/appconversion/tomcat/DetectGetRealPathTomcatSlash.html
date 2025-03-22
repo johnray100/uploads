@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">使用 getRealPath("/") 驗證連結的結果</span>
+<p>
+此規則會標示參照下列方法及參數的 Java 程式碼：
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("/")</code></li>
+</ul>
+<p>
+在 Tomcat 中，這些方法呼叫會傳回以正斜線結尾的字串。在 Liberty 及 WebSphere Traditional 中，回覆值將不會以正斜線結尾。因此，使用此方法的字串連結在 Tomcat 中可能會指向有效檔案，但在 WebSphere 中不會指向有效檔案。對於標示的每個方法呼叫，請檢查使用該結果的任何程式碼在 WebSphere 中皆會對缺少尾端斜線負責。
+</p>
+<p>
+例如，假設您將分解的 war 已安裝至 <code>/path/app.war</code>。則呼叫 <code>getRealPath("/")</code> 將具有下列結果：
+</p>
+<ul>
+<li>Tomcat：<code>/path/app.war/</code></li>
+<li>WebSphere：<code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

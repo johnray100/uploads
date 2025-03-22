@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Ne használjon Apache Tomcat csomagokat és API-kat</span>
+<p>
+Ez a szabály a Java fájlokat elemezve észleli a következő Apache Tomcat
+szabadalomvédett csomagok használatát:
+</p> 
+<ul>
+<li>org.apache.tomcat</li>
+<li>org.apache.catalina</li>
+<li>org.apache.coyote</li>
+<li>org.apache.el</li>
+<li>org.apache.jasper</li>
+<li>org.apache.jk</li>
+<li>org.apache.juli</li>
+<li>org.apache.naming</li>
+</ul>
+<p>
+Amikor alkalmazása ezen
+csomagokban található osztályokat használ, akkor a kódot módosítani kell, úgy,
+hogy az Java fejlesztőkészlet (JDK) által biztosított, WebSphere
+Application Server által biztosított vagy nyílt forrású alkalmazásprogramozási
+felületeket használjon.
+</p>
+<p>
+Értékelje ki a JBoss rendszerre jellemző alkalmazásprogramozási felületet
+használó kódot, majd módosítsa úgy, hogy az egy nem szabadalomvédett vagy
+WebSphere Application Server alkalmazásprogramozási felületet használjon.
+</p>
+<p>
+További információkért lásd:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/api/index.html" 
+	title="Új ablakban nyílik meg" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/api/index.html'); return false;">
+	Apache Tomcat 8.0 API</a> Java dokumentációja.   
+</li>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/api/index.html" 
+	title="Új ablakban nyílik meg" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/api/index.html'); return false;">
+	Apache Tomcat 9.0 API</a> Java dokumentációja.   
+</li>
+</ul>
+</div>
+</body>
+</html>

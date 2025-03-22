@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/* ***************************************************************** */
+/* Licensed Materials - Property of IBM                              */
+/* (C) Copyright IBM Corp. 2016, 2019. All Rights Reserved.          */
+/*                                                                   */
+/* US Government Users Restricted Rights - Use, duplication or       */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */
+/* ***************************************************************** */
+-->
+
+<?eclipse version="3.0"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts>
+  <!-- ######################################### -->
+  <!-- This section contains category level help -->
+  
+  
+  <!-- ######################################## -->
+  <!-- This section contains rule specific help -->
+
+  <context id="jsp-conversion" title="Apache Tomcat 到 WebSphere JSP 迁移">
+     <description>可使用此类别规则来识别从 Apache Tomcat 迁移时的 JSP 文件问题。</description>
+  </context>
+  <context id="xml-conversion" title="Apache Tomcat 到 WebSphere 部署描述符迁移">
+     <description>可使用此类别规则来识别从 Apache Tomcat 迁移时的部署描述符问题。</description>
+  </context>
+  <context id="java-conversion" title="Apache Tomcat 到 WebSphere 代码迁移">
+     <description>可使用此类别规则来识别从 Apache Tomcat 迁移时的 Java 代码问题。</description>
+  </context>
+  <context id="java-conversion-liberty" title="Apache Tomcat 到 Liberty 代码迁移">
+     <description>此类别包含仅与 Liberty 服务器相关的 Apache Tomcat 规则。</description>
+  </context>
+  <context id="java-conversion-general" title="Apache Tomcat 到 WebSphere Traditional 和 Liberty">
+    <description>该类别包含在迁移到 WebSphere Application Server Traditional 或 Liberty 服务器时适用的 Apache Tomcat 规则。</description>
+  </context>
+  <context id="contextResource" title="使用 Java EE 部署描述符和 WebSphere 绑定来定义资源引用">
+    <description>可以将 META-INF/context.xml 中的资源信息迁移至 web.xml 和 WebSphere 绑定。 此规则会迁移资源上下文元素。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResource.html" label="详细帮助"/>
+  </context>
+  <context id="invalidInitialContext" title="避免使用无效的初始上下文 java:/comp">
+     <description>此规则会检测以 java:/comp 而不是 java:comp（不含“/”）开头的无效初始上下文字符串。</description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidInitialContext.html" label="详细帮助"/>
+  </context>
+  <context id="invalidWelcomeFileName" title="避免在 Web 模块欢迎文件名中使用 /">
+     <description>此规则会检测以 / 或 \ 开头的欢迎文件名。 </description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidWelcomeFileName.html" label="详细帮助"/>
+  </context>
+  <context id="detectDoUpgradeMethod" title="请勿使用 Apache Tomcat WsServerContainer doUpgrade 方法">
+     <description>将 Apache Tomcat WsServerContainer doUpgrade 方法迁移到新的 IBM WebSocket API WsWsocServerContainer doUpgrade 方法。</description>
+     <topic href="ruleinfo/appconversion/tomcat/DetectDoUpgradeMethod.html" label="详细帮助"/>
+  </context>
+  <context id="detectTomcatPackages" title="请勿使用 Apache Tomcat 包和 API">
+    <description>此规则会标记需要迁移的 Apache Tomcat 特定包和 API 的实例。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatPackages.html" label="详细帮助"/>
+  </context>
+    <context id="detectInitialContextLookup" title="确保上下文查询具有相应的部署描述符条目">
+    <description>此规则会标记初始上下文查询。  它提供了在 web.xml 文件中检查相应环境变量条目的机会。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectInitialContextLookup.html" label="详细帮助"/>
+  </context>
+  <context id="contextEnvironment" title="使用 Java EE 部署描述符来定义环境引用">
+     <description>可以将 META-INF/context.xml 中的环境信息迁移至 web.xml。 此规则会迁移环境上下文元素。</description>
+     <topic href="ruleinfo/appconversion/tomcat/ContextEnvironment.html" label="详细帮助"/>
+  </context>
+  <context id="contextResourceLink" title="使用 Java EE 部署描述符和 WebSphere 绑定来定义资源链接引用">
+    <description>可以将 META-INF/context.xml 中的资源链接信息迁移至 web.xml 和 WebSphere 绑定。 此规则会迁移资源链接上下文元素。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResourceLink.html" label="详细帮助"/>
+  </context>
+  <context id="resourceSharingScope" title="在资源引用上设置共享作用域">
+    <description>此规则会标记未设置资源共享作用域的任何资源引用。 在 Apache Tomcat 上，资源共享作用域缺省为 Shareable。  请对 WebSphere 上的共享作用域进行相同的设置。</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingResourceSharingScope.html" label="详细帮助"/>
+  </context>
+  <context id="contextParameter" title="使用 Java EE 部署描述符来定义上下文参数">
+    <description>可以将 META-INF/context.xml 中的参数信息迁移至 web.xml。 此规则会迁移上下文参数元素。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextParameter.html" label="详细帮助"/>
+  </context>
+  <context id="contextLifecycleListener" title="使用 Java EE 部署描述符来定义上下文生命周期侦听器">
+    <description>可以将 META-INF/context.xml 中的生命周期侦听器信息迁移至 web.xml。 此规则会标记上下文侦听器元素。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextLifecycleListener.html" label="详细帮助"/>
+  </context>
+  <context id="contextValve" title="请勿使用上下文 Valve 组件">
+    <description>不能使用上下文 Valve 组件。 此规则会标记 context.xml 文件中的上下文 Valve 组件。</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextValve.html" label="详细帮助"/>
+  </context>
+  <context id="detectTomcatBasicDataSource" title="请勿使用 Apache Tomcat BasicDataSource">
+    <description>此规则会标记在 WebSphere 中不可用的 org.apache.tomcat.dbcp.dbcp.BasicDataSource 类实例。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatBasicDataSource.html" label="详细帮助"/>
+  </context>  
+  <context id="missingSecurityRole" title="使用 Java EE 部署描述符来定义缺少的安全角色">
+    <description>此规则会标记 web.xml 中缺少相关联 security-role 元素的 auth-constraint 和 role-name 元素。</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingSecurityRole.html" label="详细帮助"/>
+  </context>  
+  <context id="migrateJuliLogging" title="请勿使用 Apache Tomcat org.apache.juli.logging">
+    <description>此规则会标记 org.apache.juli.logging 包中的记录方法，并且将有助于迁移应用程序以使用 java.util.logging.Logger 类。</description>
+    <topic href="ruleinfo/appconversion/tomcat/MigrateJuliLogging.html" label="详细帮助"/>
+  </context>
+  <context id="detectGetRealPathTomcatSlash" title='验证使用 getRealPath("/") 进行并置的结果'>
+    <description>在 WebSphere 中，getRealPath("/") 返回一个未以后置斜杠结尾的字符串。如果需要，检查使用此方法的并置是否添加了后置斜杠。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatSlash.html" label="详细帮助"/>
+  </context>
+   <context id="detectGetRealPathTomcatEmpty" title='验证使用 getRealPath("") 进行并置的结果'>
+    <description>在 Liberty 中，getRealPath("") 返回一个未以后置斜杠结尾的字符串。如果需要，检查使用此方法的并置是否添加了后置斜杠。</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatEmpty.html" label="详细帮助"/>
+  </context>
+</contexts>

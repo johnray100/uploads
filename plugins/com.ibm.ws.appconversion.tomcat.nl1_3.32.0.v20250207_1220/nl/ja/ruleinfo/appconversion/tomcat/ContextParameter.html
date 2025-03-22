@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">コンテキスト・パラメーターの定義に Java EE デプロイメント記述子を使用する</span>
+<p>
+この規則により、以下のものにフラグを立てます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">META-INF/context.xml</span> ファイルにあるエレメント。
+</p>
+<p>
+Apache Tomcat で許可される <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 以下の場所で定義されるエレメント: 
+<ul>
+<li><span class="FilePath">META-INF/context.xml</span> ファイル</li>
+<li>Tomcat の <span class="FilePath">conf</span> ディレクトリー内のアプリケーション XML 構成ファイル</li>
+<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 内のエレメント</li>
+</ul>
+<p>
+マイグレーション・ツールがマイグレーションするのは、<span class="FilePath">META-INF/context.xml</span> ファイル内のパラメーター・エレメントのみです。
+その他の場所で定義されたパラメーター情報は、処理できるように <span class="FilePath">META-INF/context.xml</span> ファイルにコピーできます。
+</p>
+
+<p>
+Web プロジェクトに <span class="FilePath">WEB-INF/web.xml</span> が存在するとします。
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+エレメントには、以下のいずれかの条件下でフラグが立てられます。
+</p>
+<ul>
+<li>エントリーに <span class="FilePath">web.xml</span> ファイル内の対応するエレメントがない。</li>
+<li>エントリーの値が <span class="FilePath">web.xml</span> 内の対応するエントリーと異なっていて、そのオーバーライド・フラグが false に設定されている。</li>
+</ul>
+<p class="indent2">
+ソース・スキャナーで、この規則のクイック・フィックスが使用可能です。 クイック・フィックスは、新しい 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> エレメントを表す web.xml ファイル内のエレメント <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 要素 (まだ存在していない場合) 
+<span class="FilePath">web.xml</span> ファイル。 
+エントリーが存在する場合は、更新されます。 
+</p>
+<p><span class="FilePath">WEB-INF/web.xml</span> が存在しない場合は、以下のようになります。</p>
+<p class="indent2">
+すべて <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> エレメントにフラグが立てられます。
+</p>
+<p class="indent2">
+クイック・フィックスは、適切なファイルを含む <span class="FilePath">WEB-INF/web.xml</span> ファイルを作成します。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> Web プロジェクトが Java EE 5 以上である場合の要素。 Web プロジェクトが J2EE 1.4 以下である場合、クイック・フィックスはエラーを報告します。
+</p>
+<p>
+例えば、<span class="FilePath">META-INF/context.xml</span> ファイルに以下のようなコンテンツがあります。
+<div class="container">
+&lt; span class="Code"&gt; &lt; パラメーター <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>値 = "abc123" /&gt;<br>	
+&lt;Parameter <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="parameter_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>値 =「新しい値」/&gt;<br>                                     
+&lt;Parameter <br>
+<span class="indent2"></span>description="Will not trigger because of override set to true" <br>
+<span class="indent2"></span>name="parameter_2"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>値 = "123 " /&gt;<br>
+</span>
+</div>
+<p>
+このファイルに関連して、アプリケーションには以下の <span class="FilePath">web.xml</span> ファイルがあります。</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; コンテキスト・パラメーター&gt;<br>
+<span class="indent2"></span>&lt;description&gt;異なる値によるトリガー&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;oldValue&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;オーバーライドが true に設定されているため、トリガーされません&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br>
+</span>
+</div>
+<p>
+クイック・フィックスが適用されると、<span class="FilePath">web.xml</span> は、以下を含むように更新されます。</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; コンテキスト・パラメーター&gt;<br>
+<span class="indent2"></span>&lt;description&gt;存在しないためトリガー&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;newEntry&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;abc123&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;異なる値によるトリガー&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;新規値&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;オーバーライドが true に設定されているため、トリガーされません&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+</span>
+</div>
+
+<p>
+Tomcat でのコンテキスト・パラメーターについて詳しくは、以下を参照してください。
+</p>
+
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters" 
+	title="新しいウィンドウを開く" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters'); return false;">
+	Apache Tomcat Configuration Reference - Context Parameters</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

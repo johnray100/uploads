@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Apache Tomcat 패키지 및 API 사용 안함</span>
+<p>
+이 규칙은 Java 파일을 스캔하여 다음 Apache Tomcat 독점 패키지의 사용을 발견합니다.
+</p> 
+<ul>
+<li>org.apache.tomcat</li>
+<li>org.apache.catalina</li>
+<li>org.apache.coyote</li>
+<li>org.apache.el</li>
+<li>org.apache.jasper</li>
+<li>org.apache.jk</li>
+<li>org.apache.juli</li>
+<li>org.apache.naming</li>
+</ul>
+<p>
+애플리케이션에 이러한 패키지의 클래스가 사용되는 경우 JDK(Java Development Kit)에서
+제공하는 API, WebSphere Application Server에서 제공하는 API 또는
+오픈 소스 API를 사용하도록 코드를 변경해야 합니다.
+</p>
+<p>
+Tomcat 고유 API를 사용하여 코드를 평가하고 비독점 API 또는 WebSphere Application Server API를 사용하도록 변경하십시오.
+</p>
+<p>
+추가 정보는 다음을 참조하십시오.
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/api/index.html" 
+	title="새 창이 열림" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/api/index.html'); return false;">
+	Apache Tomcat 8.0 API</a> Java 문서   
+</li>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/api/index.html" 
+	title="새 창이 열림" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/api/index.html'); return false;">
+	Apache Tomcat 9.0 API</a> Java 문서   
+</li>
+</ul>
+</div>
+</body>
+</html>

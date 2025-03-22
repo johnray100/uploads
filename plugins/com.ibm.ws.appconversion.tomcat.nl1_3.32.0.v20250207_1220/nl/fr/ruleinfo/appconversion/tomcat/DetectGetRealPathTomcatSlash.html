@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Valider le résultat de la concaténation avec getRealPath("/")</span>
+<p>
+Cette règle marque le code Java ayant des références aux méthodes et paramètres suivants :
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("/")</code></li>
+</ul>
+<p>
+Dans Tomcat, ces appels de méthode renvoient une chaîne se terminant par une barre oblique. Dans WebSphere Liberty et Traditional, la valeur de retour ne se termine pas par une barre oblique. Par conséquent, la concaténation de chaînes à l'aide de cette méthode risque de pointer vers
+un fichier valide dans Tomcat, mais pas dans WebSphere. Pour chaque appel de méthode marqué, vérifiez qu'un code qui utilise
+le résultat prend en compte le manque d'une barre oblique de fin dans WebSphere.
+</p>
+<p>
+Supposons par exemple que vous ayez installé un fichier d'archive Web explosé dans <code>/path/app.war</code>. L'appel
+de <code>getRealPath("/")</code> génère alors les résultats suivants :
+</p>
+<ul>
+<li>Tomcat : <code>/path/app.war/</code></li>
+<li>WebSphere : <code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Validaţi rezultatul concatenării cu getRealPath("")</span>
+<p>
+Această regulă semnalează codul Java care are referinţe la următoarele metode şi parametri:
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("")</code></li>
+</ul>
+<p>
+În Tomcat, aceste apeluri la metodă vor returna un şir care se termină cu un slash înainte. În Liberty,
+valoarea de returnare nu se va termina cu un slash înainte. Ca urmare, concatenarea Şirului cu această metodă poate indica
+către un fişier valid în Tomcat, dar nu în Liberty. Pentru fiecare apel la metodă semnalat, verificaţi că orice cod
+care utilizează rezultatul declară lipsa unui slash la sfârşit în Liberty.
+</p>
+<p>
+De exemplu, să presupunem că aţi instalat un war explodat la <code>/path/app.war</code>. Ca urmare, apelarea
+<code>getRealPath("")</code> are următoarele rezultate:
+</p>
+<ul>
+<li>Tomcat: <code>/path/app.war/</code></li>
+<li>Liberty: <code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

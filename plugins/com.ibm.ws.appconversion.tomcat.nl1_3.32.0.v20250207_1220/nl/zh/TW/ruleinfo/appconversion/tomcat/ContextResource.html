@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">使用 Java EE 部署描述子和 WebSphere 連結來定義資源參照</span>
+<p>
+此規則會標示 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> 在 <span class="FilePath">META-INF/context.xml</span> 檔中找到可能需要移轉的元素。</p>
+<p>
+Apache Tomcat 容許 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> 要在下列位置中定義的元素:<ul>
+<li><span class="FilePath">META-INF/context.xml</span> 檔</li>
+<li>Tomcat <span class="FilePath">conf</span> 目錄中的應用程式 XML 配置檔</li>
+<li>該 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 中的元素</li>
+</ul>
+<p>
+由於移轉工具可能沒有 Tomcat 配置目錄的存取權，移轉工具只會移轉 <span class="FilePath">META-INF/context.xml</span> 檔。
+定義在其他位置中的 Resource 資訊可以複製到
+<span class="FilePath">META-INF/context.xml</span> 檔，以便處理它。
+</p>
+
+<p>
+原始檔掃描器提供了快速修正程式。 快速修正程式會從 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 元素，並視需要建立資源參照或資源環境參照，以及對應的 JNDI 名稱。
+Tomcat 建議 (但不需要) 下列項目的對應資源參照: <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE -->
+元素定義在 <span class="FilePath">WEB-INF/web.xml</span>中。 
+快速修正程式會搜尋下列項目的清單: <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE -->
+和 <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> 元素，以查看符合名稱的項目是否已存在。  
+若無，則會建立一個。  如果
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 元素具有 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> 屬性， a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 已建立。
+如果 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 元素沒有 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> 屬性， a 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> 已建立。 在這兩種情況下， <!-- START NON-TRANSLATABLE -->
+<span class="Code">name</span>
+<!-- END NON-TRANSLATABLE --> 值也會作為 JNDI 名稱，並定義在連結中。
+
+</p>
+
+例如，假設下列 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">META-INF/context.xml</span> 檔中的元素:
+<div class="container">
+<span class="Code">
+&lt;Resource name="jdbc/exampleDB"<br> 
+<span class="indent2"></span>auth="Container"<br>
+<span class="indent2"></span>type="javax.sql.DataSource"<br>
+<span class="indent2"></span>description="Example Database " /&gt;<br>
+</span>
+</div>
+<br><br>
+快速修正程式會建立此對應 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;resource-ref&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+元素:
+<div class="container">
+<span class="Code">
+&lt;resource-ref&gt;<br>
+<span class="indent2"></span>&lt;description&gt;<br>
+<span class="indent2"></span>資料庫範例&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;儲存器&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;可共用&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+依預設，資源在 Tomcat 中可以共用。  如果未在上設定範圍， <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 元素，當為快速修正程式建立新的資源參照時，它會設為可共用。 如果 WEB-INF/web.xml 已存在相符的資源參照，則不會進行任何變更。
+</p>
+<p>
+如果 Web 專案是 Java EE 5 或更新的版本，且 <span class="FilePath">WEB-INF/web.xml</span> 不存在，則會建立 <span class="FilePath">WEB-INF/web.xml</span>，並新增資源參照元素。
+如果 Web 專案是 J2EE 1.4 或更舊的版本，快速修正程式將會報告錯誤。
+</p>
+<p>
+您也必須在 WebSphere 配置中配置資源。
+</p>
+<p>
+如需 Tomcat 中之環境定義資源定義的相關資訊，請參閱：
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions" 
+	title="開啟新視窗" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions'); return false;">
+	Apache Tomcat 配置參照 - 資源定義</a>。 
+</li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">자원 참조에서 공유 범위 설정</span>
+<p>
+이 규칙은 다음을 플래그 지정합니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">WEB-INF/web.xml</span> 파일에서 찾은 요소에 누락된 <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> 요소.  
+Apache Tomcat 서버의 기본 자원 공유 범위는 다음과 같습니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.  
+자원 공유 범위는 Java EE에서 선택적 속성으로 정의됩니다.
+소스 스캐너에서 이 규칙에 대한 빠른 수정사항을 사용할 수 있습니다. WebSphere traditional 및 Liberty에서
+Tomcat의 경우와 동일한 공유 가능 범위를 가져오기 위해 빠른 수정사항을 사용할 수 있습니다.
+</p>
+<p>
+빠른 수정사항은 다음을 추가합니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> 요소가 아직 설정되지 않은 경우 연결을 다음으로 정의합니다.  <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+다음은 플래그 지정되는 자원 참조의 예제입니다.
+<div class="container">
+&lt; span class = "Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; 설명&gt;<br>
+<span class="indent4"></span>예제 데이터베이스&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;컨테이너&lt;/res-auth&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<br><br>
+빠른 수정사항이 res-sharing-scope 요소를 추가합니다.
+<div class="container">
+&lt; span class = "Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; 설명&gt;<br>
+<span class="indent4"></span>예제 데이터베이스&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;컨테이너&lt;/res-auth&gt;<br>
+<span class="indent4"></span>&lt;res-sharing-scope&gt;공유 가능&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+WebSphere Application Server에서 공유 자원 연결에 관한 자세한 정보는
+<a href="https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html" 
+title="새 창이 열림" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html'); return false;">공유 불가능 및 공유 가능한 연결</a>을 참조하십시오.
+</p>
+</div>
+</body>
+</html>

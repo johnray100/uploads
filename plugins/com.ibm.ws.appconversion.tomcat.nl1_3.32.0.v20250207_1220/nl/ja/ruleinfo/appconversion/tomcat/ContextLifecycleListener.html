@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">コンテキスト・ライフサイクル・リスナーの定義に Java EE デプロイメント記述子を使用する</span>
+
+<p>
+この規則により、すべての <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+<span class="FilePath">META-INF/context.xml</span> ファイル内のエレメント。
+</p>
+<p>
+Apache Tomcatでは、コンテキストがいつ開始または停止されたかを認識する必要がある Java オブジェクトは、以下を組み込むことによって宣言されます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> コンテキスト内のエレメント。 
+以下に指定されているクラス名 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> 要素は、 <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE --> インターフェース。  
+このクラスは、対応するライフサイクル・イベントの発生を通知されます。  次の点に注意してください。 
+<a href="DetectTomcatPackages.html" > Apache Tomcat パッケージおよび API を使用しない</a> 規則は、以下の使用のオカレンスにフラグを立てます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+類似の Java EE 機能は、以下を使用して使用できます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> および 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ServletContextEvent</span>
+<!-- END NON-TRANSLATABLE --> および対応する <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">web.xml</span> ファイル内のエントリー。
+</p>
+<p>
+Tomcat で許可される <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE --> 以下の場所で定義されるエレメント: 
+<ul>
+<li><span class="FilePath">META-INF/context.xml</span> ファイル</li>
+<li>Tomcat の <span class="FilePath">conf</span> ディレクトリー内のアプリケーション XML 構成ファイル</li>
+<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 内のエレメント</li>
+</ul>
+<p>
+マイグレーション・ツールのみのフラグ <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">META-INF/context.xml</span> ファイル内のエレメント。
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> 他の場所で定義された情報は、処理するために <span class="FilePath">META-INF/context.xml</span> ファイルにコピーすることができます。
+</p>
+<p>
+推奨処置は、以下を使用して Java ファイルを変換することです。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->  使用する
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> また、適切なリスナー項目をアプリケーションの <span class="FilePath">web.xml</span> ファイルに追加します。
+</p>
+<p>
+サーブレットのライフサイクル・リスナーについて詳しくは、以下を参照してください。
+</p>
+<ul>
+<li>
+    <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html" 
+	title="新しいウィンドウを開く" onclick="javascript:helpWindow('https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html'); return false;">
+	Servlet Life Cycle in the Java EE 6 tutorial</a>
+</li>
+</ul>
+<p>
+Tomcat でのライフサイクル・リスナーについて詳しくは、以下を参照してください。
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners" 
+	title="新しいウィンドウを開く" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners'); return false;">
+	Apache Tomcat Configuration Reference - Lifecycle Listeners</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

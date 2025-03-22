@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Nepoužívat Apache Tomcat BasicDataSource</span>
+<p>
+Toto pravidlo zjistí použití 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE --> 
+třídy v souborech Java . Tato třída implementuje rozhraní zdroje dat průmyslového standardu 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE -->. 
+Zdroj dat Apache Tomcat poskytuje proprietární metody, které může vaše aplikace používat.
+<p>
+Pokud nepoužíváte proprietární metody, můžete změnit svůj kód tak, aby používal <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.sql.DataSource</span>
+<!-- END NON-TRANSLATABLE --> spíše než aby se vrhali do 
+Verze Tomcat . 
+</p>
+<p>
+Používáte-li proprietární metody a chcete je i nadále používat v aplikaci, můžete prostředek migrovat tak, aby používal zdroj dat Apache Commons.
+Chcete-li použít produkt Apache Commons, stáhněte soubor common-dbcp jar a nakonfigurujte svůj prostředek pro použití tohoto zdroje dat. 
+V kódu Java změňte odkazy na <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.tomcat.dbcp.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->
+do <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.commons.dbcp.BasicDataSource</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+Volitelně můžete znovu konfigurovat prostředek tak, aby používal fondy připojení WebSphere ke zvýšení výkonu a zmírnění problémů s podprocesy a rozšiřitelností.
+Pomocí tohoto řešení jsou pro vaši aplikaci k dispozici vaše statistiky a informace o zdrojích dat pomocí
+<a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html" 
+title="Otevře se v novém okně" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/mbeanDocs/ConnectionFactory.html'); return false;">Objektu typu MBean továrny připojení</a>.
+</p> 
+<p>
+Další informace viz:
+</p>
+<ul>
+<li>
+
+<a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html" 
+title="Otevře nové okno" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/container_data_concepts.html'); return false;">Datové koncepty</a>
+WebSphere v dokumentaci  
+</li>
+<li>
+<a href="http://commons.apache.org/dbcp/" 
+title="Otevře se v novém okně" onclick="javascript:helpWindow('http://commons.apache.org/dbcp/'); return false;">Apache Commons - Komponenta DBCP</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

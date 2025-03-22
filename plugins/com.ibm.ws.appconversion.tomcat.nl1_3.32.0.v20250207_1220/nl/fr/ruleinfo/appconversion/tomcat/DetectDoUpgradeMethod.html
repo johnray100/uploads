@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2015, 2016.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script> 
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Ne pas utiliser la méthode doUpgrade d'Apache Tomcat WsServerContainer</span>
+<p>
+Liberty version 8.5.5.7 et WebSphere Application Server traditionnel version 9.0 introduisent la méthode
+WebSocket <code>com.ibm.websphere.wsoc.WsWsocServerContainer doUpgrade</code>, laquelle permet à un servlet ou à un filtre de demander que la demande
+HTTP actuelle soit mise à niveau vers une session WebSocket.
+Apache Tomcat fournit une fonction similaire par le biais de la méthode <code>org.apache.tomcat.websocket.server.WsServerContainer doUpgrade</code>. 
+</p>
+<p>
+Cette règle marque la méthode Tomcat <code>WsServerContainer doUpgrade</code> afin que vous puissiez la migrer vers la méthode
+<code>WsWsocServerContainer doUpgrade</code>.
+</p>
+<p>
+La méthode WebSphere Application Server est définie comme suit :
+</p>
+<div class="container">
+<pre class="JavaType">
+
+com.ibm.websphere.wsoc.WsWsocServerContainer
+
+<span class="JavaKeyword">public void</span> doUpgrade(HttpServletDemande, HttpServletRéponse, ServerEndpointConfig sec, java.util.Map&lt;java.lang.String, java.lang.String&gt; pathParams) <span class="JavaKeyword">émet une exception</span> ServletException, java.io.IOException }
+</pre>
+</div>
+<p>
+Pour plus d'informations et un lien vers la documentation Java, voir
+</p>
+<ul>
+<li><a href="https://www.ibm.com/docs/en/was-liberty/nd?topic=environment-developing-websocket-applications-in-liberty" 
+	title="Ouverture dans une nouvelle fenêtre" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-liberty/nd?topic=environment-developing-websocket-applications-in-liberty'); return false;">
+	Développement d'applications WebSocket dans Liberty</a>.</li>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/tweb_websocket_apps.html" 
+	title="Ouverture dans une nouvelle fenêtre" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/tweb_websocket_apps.html'); return false;">
+	Développement d'applications WebSocket dans</a> WebSphere traditionnel.</li>	
+</ul> 
+</div>
+</body>
+</html>

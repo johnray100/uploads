@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utilizar los descriptores de despliegue Java EE para definir las escuchas de ciclo de vida de contexto</span>
+
+<p>
+Esta regla marca todo <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+en el archivo <span class="FilePath">META-INF/context.xml</span> .
+</p>
+<p>
+En Apache Tomcat, los objetos Java que necesitan saber cuándo se inicia o se detiene su contexto se declaran incluyendo un <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> dentro del contexto. 
+El nombre de clase especificado en el <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> implementa el elemento <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE --> CredentialGenerator.  
+Se notificará a la clase la aparición de los sucesos de ciclo de vida correspondientes.  Tenga en cuenta que el 
+<a href="DetectTomcatPackages.html" >No utilizar Apache Tomcat paquetes y API</a> marca las apariciones del uso de <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+La funcionalidad Java EE análoga está disponible utilizando <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> y 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ServletContextEvent</span>
+<!-- END NON-TRANSLATABLE --> y el correspondiente <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> en el archivo <span class="FilePath">web.xml</span> .
+</p>
+<p>
+Tomcat permite <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE --> elementos que deben definirse en estas ubicaciones: 
+<ul>
+<li>El archivo <span class="FilePath">META-INF/context.xml</span></li>
+<li>El archivo de configuración XML de aplicación en el directorio <span class="FilePath">conf</span> de Tomcat</li>
+<li>Los 2 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> en <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Sólo distintivos de la herramienta de migración <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> en el archivo <span class="FilePath">META-INF/context.xml</span> .
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> La información definida en las otras ubicaciones se puede copiar en el archivo <span class="FilePath">META-INF/context.xml</span> para que se procese.
+</p>
+<p>
+La acción recomendada es convertir los archivos Java utilizando <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->  utilizar
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> y para añadir las entradas de escucha adecuadas al archivo <span class="FilePath">web.xml</span> para la aplicación.
+</p>
+<p>
+Para obtener información adicional sobre las escuchas de ciclo de vida de servlet:
+</p>
+<ul>
+<li>
+    <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html" 
+	title="Abre una ventana nueva" onclick="javascript:helpWindow('https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html'); return false;">
+	Ciclo de vida de servlet en la guía de aprendizaje de Java EE 6</a>.
+</li>
+</ul>
+<p>
+Para obtener información adicional sobre las escuchas de ciclo de vida en Tomcat, consulte:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners" 
+	title="Abre una ventana nueva" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners'); return false;">
+	Referencia de configuración de Apache Tomcat - Escuchas del ciclo de vida</a>.
+</li>
+</ul>
+</div>
+</body>
+</html>

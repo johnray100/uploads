@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">欠落しているセキュリティー・ロールの定義に Java EE デプロイメント記述子を使用する</span>
+<p>
+この規則により、以下のものにフラグを立てます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">auth-constraint</span>
+<!-- END NON-TRANSLATABLE -->, <!-- START NON-TRANSLATABLE -->
+<span class="Code">role-name</span>
+<!-- END NON-TRANSLATABLE --> で検出された要素 
+対応するファイルが欠落している <span class="FilePath">WEB-INF/web.xml</span> ファイル <!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE --> エレメント。  
+Apache Tomcat サーバーでは、以下のことを必要としません。  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE --> エレメントは定義されていますが、
+Java EE 仕様は、定義する必要があることを示しています。
+</p>	
+以下に例を示します。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">auth-constraint</span>
+<!-- END NON-TRANSLATABLE -->,
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">role-name</span>
+<!-- END NON-TRANSLATABLE --> フラグが立てられるエレメント:
+<div class="container">
+&lt; span class="Code"&gt; &lt; web-app&gt;<br>
+<span class="indent"></span>...<br>
+&lt; span class="indent"&gt; &lt; /span&gt; &lt; security-constraint&gt;<br>
+<span class="indent2"></span>&lt;display-name&gt;ThisConstraint&lt;/display-name&gt;<br>
+&lt; span class= "indent2"&gt; &lt; /span&gt; &lt; web-resource-collection&gt;<br>
+<span class="indent4"></span>&lt;web-resource-name&gt;adminResources&lt;/web-resource-name&gt;<br>
+<span class="indent4"></span>&lt;url-pattern&gt;/*&lt;/url-pattern&gt;<br>
+<span class="indent4"></span>&lt;http-method&gt;取得&lt;/http-method&gt;<br>
+<span class="indent2"></span>&lt;/web-resource-collection&gt;<br>
+&lt; span class= "indent2"&gt; &lt; /span&gt; &lt; auth-constraint&gt;<br>
+<span class="indent4"></span>&lt;description&gt;管理者&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;role-name&gt;管理者&lt;/role-name&gt;<br>
+<span class="indent4"></span>&lt;role-name&gt;スーパーユーザー&lt;/role-name&gt;<br>
+<span class="indent2"></span>&lt;/auth-constraint&gt;<br>
+<span class="indent"></span>&lt;/security-constraint&gt;<br>
+&lt;/web-app&gt;<br>
+</span>
+</div>
+<p>
+両方とも <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;role-name&gt;admin&lt;/role-name&gt;</span>
+<!-- END NON-TRANSLATABLE --> および 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;role-name&gt;superuser&lt;/role-name&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+行にフラグが立てられます。
+</p>
+<p>
+ソース・スキャナーに、欠落しているものを追加するクイック・フィックスが含まれています <!-- START NON-TRANSLATABLE -->
+<span class="Code">security-role</span>
+<!-- END NON-TRANSLATABLE -->
+エレメント。
+</p>
+この例では、クイック・フィックスが以下のエレメントを <span class="FilePath">web.xml</span> ファイルに追加します。
+<div class="container">
+&lt; span class="Code"&gt; &lt; span class="indent"&gt; &lt; /span&gt; &lt; セキュリティー・ロール&gt;<br>
+<span class="indent2"></span>&lt;role-name&gt;管理者&lt;/role-name&gt;<br>
+<span class="indent"></span>&lt;/security-role&gt;<br>
+&lt; span class="indent"&gt; &lt; /span&gt; &lt; セキュリティー・ロール&gt;<br>
+<span class="indent2"></span>&lt;role-name&gt;スーパーユーザー&lt;/role-name&gt;<br>
+<span class="indent"></span>&lt;/security-role&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

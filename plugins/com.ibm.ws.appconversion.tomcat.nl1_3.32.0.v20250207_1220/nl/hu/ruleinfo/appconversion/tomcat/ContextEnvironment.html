@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Java EE telepítésleírók használata a környezeti hivatkozások megadásához</span>
+<p>
+Ez a szabály a következőket jelöli meg: <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> A <span class="FilePath">META-INF/context.xml</span> fájlban található elemek, amelyeket át kell alakítani <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elemek a termékben 
+<span class="FilePath">WEB-INF/web.xml</span> fájl.
+</p>
+<p>
+Apache Tomcat <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> Az alábbi helyeken meghatározott elemek: 
+<ul>
+<li>A <span class="FilePath">META-INF/context.xml</span> fájlban</li>
+<li>Az alkalmazás XML konfigurációs fájljában a Tomcat <span class="FilePath">conf</span> könyvtárában</li>
+<li>A <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elem a <span class="FilePath">conf/server.xml</span> elemben</li>
+</ul>
+<p>
+Mivel az átállítási eszköz nem rendelkezik hozzáféréssel a Tomcat konfigurációs könyvtárhoz, csak a <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> A ban 
+<span class="FilePath">META-INF/context.xml</span> fájl.
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> A többi helyen megadott információk átmásolhatók a <span class="FilePath">META-INF/context.xml</span> fájlba annak érdekében, hogy az eszköz feldolgozhassa.
+</p>
+<p>
+Ha a világhálós törekvésben van létező <span class="FilePath">WEB-INF/web.xml</span>:
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+Az elemek a következő feltételek bármelyikében kerülnek megjelölésre:
+</p>
+<ul>
+<li>Nincs a bejegyzésnek megfelelő bejegyzés a
+<span class="FilePath">web.xml</span> fájlban.</li>
+<li>A bejegyzés típusa más, mint az egyező bejegyzésé a
+<span class="FilePath">web.xml</span> fájlban.</li>
+<li>A bejegyzés értéke más, mint az egyező bejegyzésé a
+<span class="FilePath">web.xml</span> fájlban és felülbírálási kapcsolója hamis
+értékre van beállítva.</li>
+</ul>
+<p class="indent2">
+A
+forráselemzőben rendelkezésre áll egy gyorsjavítás ehhez a szabályhoz. A gyorsjavítás egy új <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+Elem a <span class="FilePath">web.xml</span> fájlban, amely a <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elem, ha még nem létezik a termékben 
+<span class="FilePath">web.xml</span> fájl. 
+Ha a
+bejegyzés létezik, akkor frissítésre kerül. 
+</p>
+<p>
+Ha a <span class="FilePath">WEB-INF/web.xml</span> fájl nem létezik:</p>
+<p class="indent2">
+Mind <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> Az elemek megjelölésre kerülnek.
+</p>
+<p class="indent2">
+A gyorsjavítás létrehoz egy <span class="FilePath">WEB-INF/web.xml</span> fájlt, amely a megfelelő <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elemek, ha a webprojekt Java EE 5 vagy újabb. A gyorsjavítás hibajelentést küld, ha a világhálós
+törekvés J2EE 1.4 vagy kisebb szintű.
+</p>
+Tegyük fel például, hogy a <span class="FilePath">META-INF/context.xml</span>
+fájl tartalma a következő:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Környezet <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type= "java.lang.String" value= "abc123" /&gt;<br>	
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="contextEnvString_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.String"<br> 
+<span class="indent2"></span>érték = "új érték " /&gt;<br>                                     
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different type" <br>
+<span class="indent2"></span>name="contextEnvString_2"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.Integer"<br> 
+<span class="indent2"></span>value="123 " /&gt;<br>
+&lt;Environment <br>
+<span class="indent2"></span>description="will not Trigger because of override set to true." <br>
+<span class="indent2"></span>name="contextEnvString_3"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>type="java.lang.Integer" <br>
+<span class="indent2"></span>value="123 " /&gt;<br>
+</span>
+</div>
+<p>
+és az alkalmazás a következő <span class="FilePath">web.xml</span> fájlt
+tartalmazza: </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger eltérő érték miatt&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;oldValue&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Trigger különböző típusú&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;A felülbírálat true értékre állítása miatt nem fog Trigger lenni.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+<p>
+A gyorsjavítás alkalmazása után a frissített
+<span class="FilePath">web.xml</span> a következőket fogja tartalmazni:</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger eltérő érték miatt&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;új érték&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger különböző típusú&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;A felülbírálat true értékre állítása miatt nem fog Trigger lenni.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger bekasue nem létezik&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;newEntry&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;abc123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

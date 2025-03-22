@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utilizaţi descriptori de implementare Java EE şi legări WebSphere pentru a defini referinţe de legări de resurse</span>
+<p>
+Această regulă semnalează <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente găsite în fișierul <span class="FilePath">META-INF/context.xml</span> care ar putea avea nevoie de migrație.
+</p>
+<p>
+Apache Tomcat permite <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente care trebuie definite în aceste locații:<ul>
+<li>Fişierul <span class="FilePath">META-INF/context.xml</span></li>
+<li>Fişierul de configuraţie XML al aplicaţiei din directorul Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> element în <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+De vreme ce este posibil ca unealta de migrare să nu aibă acces la directorul de configurare Tomcat,
+aceasta migrează numai fişierul <span class="FilePath">META-INF/context.xml</span>.
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> informații definite în celelalte locații pot fi copiate în fișierul <span class="FilePath">META-INF/context.xml</span> pentru ca acesta să fie procesat.
+</p>
+
+<p>
+În scanerul de sursă este disponibilă o corecţie rapidă. Remedierea rapidă ia informațiile de la 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> elemente și creează o referință de resurse și un nume JNDI corespunzător, după cum urmează:
+</p>
+<ul>
+	<li>Corecţia rapidă caută lista de elemente resource-ref pentru a vedea dacă intrarea care se potriveşte cu numele există deja.  
+Dacă nu există, este creată una.</li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Numele atributului este folosit pentru <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-ref-name</span>
+<!-- END NON-TRANSLATABLE --> în web.xml </li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> atributul de tip este utilizat pentru <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-type</span>
+<!-- END NON-TRANSLATABLE --> în web.xml</li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> atributul global este folosit pentru <!-- START NON-TRANSLATABLE -->
+<span class="Code">binding-name</span>
+<!-- END NON-TRANSLATABLE --> în dosarul IBM obligatoriu</li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-auth</span>
+<!-- END NON-TRANSLATABLE --> este setat la <!-- START NON-TRANSLATABLE -->
+<span class="Code">Container</span>
+<!-- END NON-TRANSLATABLE --></li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> este setat la Shareable</li>
+</ul> 
+<p>
+Notează că celălalt <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->
+atributele (fabrica, numele de utilizator și parola) nu sunt migrate automat.  
+În cazul în care aplicația utilizează aceste atribut într-o <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->, atunci va trebui să creați o resursă unică în configurația serverului, să furnizați resursa cu un nume unic JNDI și să actualizați 
+IBM nume JNDI.
+</p>
+<p>
+Dacă proiectul web este Java EE 5 sau o versiune ulterioară şi
+<span class="FilePath">WEB-INF/web.xml</span> nu există,
+este creat fişierul <span class="FilePath">WEB-INF/web.xml</span> şi
+sunt adăugate noile elemente de referinţe la legături de resurse.
+Dacă proiectul web este la versiunea J2EE 1.4 sau una anterioară, corecţia rapidă va raporta o eroare.
+</p>
+<p>
+De exemplu, având în vedere un <span class="FilePath">META-INF/Context.xml</span> care conține următoarele: <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->:</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+	&lt;ResourceLink global="jdbc/SampleWebGlobal" name="jdbc/SampleWeb" type="javax.sql.DataSource"/&gt;
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Remedierea rapidă va actualiza sau crea un nou <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 
+în fișierul <span class="FilePath">web.xml</span> similar cu acest exemplu:  
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref id= "ResourceRef_1313785392722" &gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/SampleWeb&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Container&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Shareable&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Numele JNDI este adăugat la fişierul de legări IBM. 
+Se face referire la referinţa existentă definită în fişierul <span class="FilePath">web.xml</span>.
+Dacă fişierul de legări nu există, este creat unul.
+</p> 
+<p>
+De asemenea, va trebui să configuraţi resursa în configuraţia WebSphere Application Server.
+</p>
+<p>
+Pentru informaţii suplimentare privind definiţia resurselor de context în Tomcat, vedeţi:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links" 
+	title="Deschide o fereastră nouă" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links'); return false;">
+	Apache Tomcat Configuration Reference - Resource Links</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

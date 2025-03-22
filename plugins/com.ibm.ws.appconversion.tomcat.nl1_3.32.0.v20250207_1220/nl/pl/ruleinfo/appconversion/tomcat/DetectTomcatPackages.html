@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Nie używaj pakietów i interfejsów API produktu Apache Tomcat</span>
+<p>
+Ta reguła skanuje pliki Java, aby wykryć użycie następujących prawnie
+zastrzeżonych pakietów produktu Apache Tomcat:
+</p> 
+<ul>
+<li>org.apache.tomcat</li>
+<li>org.apache.catalina</li>
+<li>org.apache.coyote</li>
+<li>org.apache.el</li>
+<li>org.apache.jasper</li>
+<li>org.apache.jk</li>
+<li>org.apache.juli</li>
+<li>org.apache.naming</li>
+</ul>
+<p>
+Jeśli aplikacja używa klas w tych pakietach, należy zmienić kod w taki sposób,
+aby używał interfejsów API z pakietu Java Development Kit (JDK), interfejsów
+API udostępnianych przez serwer WebSphere Application Server lub interfejsów
+API Open Source.
+</p>
+<p>
+Należy ocenić kod korzystający z interfejsu API specyficznego dla produktu
+Tomcat i zmienić go w taki sposób, aby użyć niezastrzeżonego prawnie interfejsu
+API lub interfejsu API serwera WebSphere Application Server.
+</p>
+<p>
+Dodatkowe informacje na ten temat:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/api/index.html" 
+	title="Otwiera nowe okno" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/api/index.html'); return false;">
+	Interfejs API Apache Tomcat 8.0</a>, dokumentacja języka Java.   
+</li>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/api/index.html" 
+	title="Otwiera nowe okno" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/api/index.html'); return false;">
+	Interfejs API Apache Tomcat 9.0</a>, dokumentacja języka Java.   
+</li>
+</ul>
+</div>
+</body>
+</html>

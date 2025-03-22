@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Verwendung des ungültigen Ausgangskontextes java:/comp vermeiden</span>
+<p>
+Diese Regel markiert alle Zeichenfolgeliterale, die mit <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:/comp</span>
+<!-- END NON-TRANSLATABLE --> in Java -Dateien oder XML-Dateien.
+Diese Zeichenfolge stellt gewöhnlich eine Namenskontextsuche dar.  
+Die Java EE -Spezifikation definiert die Suchzeichenfolge als <!-- START NON-TRANSLATABLE -->
+<span class="Code">java:comp</span>
+<!-- END NON-TRANSLATABLE --> ohne Schrägstrich (/) vor <!-- START NON-TRANSLATABLE -->
+<span class="Code">comp</span>
+<!-- END NON-TRANSLATABLE -->.
+Apache Tomcat lässt jedoch die nicht konforme Zeichenfolge zu.
+</p>
+<p>
+Es ist eine Java-Schnellkorrektur für diese Regel im Quellenscanner verfügbar. Die Schnellkorrektur für die Regel entfernt den Schrägstrich (/) aus der Zeichenfolge.
+</p>
+<p>
+Sehen Sie sich als Beispiel das folgende Code-Snippet an, das den zusätzlichen Schrägstrich enthält.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:/comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --><br> 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:/comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Die Schnellkorrektur entfernt den Schrägstrich und aktualisiert den Code wie folgt:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">private static String final SOME_LOOKUP_NAME = "java:comp/env/someValue";</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">String anEnvValue = (String) initialContext.lookup("java:comp/myEnvString");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+
+<p>
+Die XML-Regel markiert nur die erste Instanz der Zeichenfolge in der Datei, falls mehrere vorhanden sind. Es ist eine XML-Schnellkorrektur im Quellenscanner verfügbar. Die XML-Schnellkorrektur ändert alle Instanzen der problematischen Zeichenfolge in der Datei.</p>
+<p>
+Sehen Sie sich als Beispiel folgendes XML-Code-Snippet an.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:/comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Die Schnellkorrektur entfernt den Schrägstrich und aktualisiert den Code wie folgt:
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;PROPERTY key="LookupName" value="java:comp/env/someValue"/&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

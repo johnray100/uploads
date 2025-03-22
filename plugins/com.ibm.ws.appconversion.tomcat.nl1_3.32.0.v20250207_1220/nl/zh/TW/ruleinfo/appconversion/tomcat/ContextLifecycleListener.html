@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">使用 Java EE 部署描述子來定義環境定義生命週期接聽器</span>
+
+<p>
+此規則會標示所有 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+<span class="FilePath">META-INF/context.xml</span> 檔中的元素。
+</p>
+<p>
+在 Apache Tomcat中，包含下列項目來宣告需要知道其環境定義何時啟動或停止的 Java 物件: <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> 環境定義內的元素。 
+中指定的類別名稱 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> 元素會實作 <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE --> 介面。  
+當發生對應的生命週期事件時，就會通知該類別。  請注意， 
+<a href="DetectTomcatPackages.html" >不要使用 Apache Tomcat 套件和 API</a> 規則會標示是否出現使用 <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+類似的 Java EE 功能可使用 <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> 和 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ServletContextEvent</span>
+<!-- END NON-TRANSLATABLE --> 和相應的 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">web.xml</span> 檔中的項目。
+</p>
+<p>
+Tomcat 容許 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE --> 要在下列位置中定義的元素: 
+<ul>
+<li><span class="FilePath">META-INF/context.xml</span> 檔</li>
+<li>Tomcat <span class="FilePath">conf</span> 目錄中的應用程式 XML 配置檔</li>
+<li>該 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 中的元素</li>
+</ul>
+<p>
+僅移轉工具旗標 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">META-INF/context.xml</span> 檔中的元素。
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> 其他位置中定義的資訊可以複製到 <span class="FilePath">META-INF/context.xml</span> 檔，以便處理它。
+</p>
+<p>
+建議動作是使用下列方式來轉換 Java 檔案: <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->  使用
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> 以及將適當的接聽器項目新增至應用程式的 <span class="FilePath">web.xml</span> 檔。
+</p>
+<p>
+如需 Servlet 生命週期接聽器的相關資訊，請參閱：
+</p>
+<ul>
+<li>
+    <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html" 
+	title="開啟新視窗" onclick="javascript:helpWindow('https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html'); return false;">
+	Java EE 6 指導教學中的 Servlet 生命週期</a>。
+</li>
+</ul>
+<p>
+如需 Tomcat 中之生命週期接聽器的相關資訊，請參閱：
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners" 
+	title="開啟新視窗" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners'); return false;">
+	Apache Tomcat 配置參照 - 生命週期接聽器</a>。
+</li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">在資源參照中設定共用範圍</span>
+<p>
+此規則會標示 <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 在 <span class="FilePath">WEB-INF/web.xml</span> 檔中找到遺漏下列項目的元素: <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> 元素。  
+Apache Tomcat 伺服器將資源共用範圍預設為 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->-我知道  
+資源共用範圍在 Java EE中定義為選用屬性。
+在原始檔掃描器中提供了此規則的快速修正程式。 您可以使用快速修正程式，在 WebSphere Traditional 及  Liberty 中取得與 Tomcat 中相同的可共用範圍。
+</p>
+<p>
+快速修正程式會新增 <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> 元素 (如果尚未設定的話) ，並將連線定義為  <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+以下是會標示的資源參照範例：
+<div class="container">
+<span class="Code">
+&lt;resource-ref&gt;<br>
+<span class="indent4"></span>&lt;description&gt;<br>
+<span class="indent4"></span>資料庫範例&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;儲存器&lt;/res-auth&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<br><br>
+快速修正程式會新增 res-sharing-scope 元素：
+<div class="container">
+<span class="Code">
+&lt;resource-ref&gt;<br>
+<span class="indent4"></span>&lt;description&gt;<br>
+<span class="indent4"></span>資料庫範例&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;儲存器&lt;/res-auth&gt;<br>
+<span class="indent4"></span>&lt;res-sharing-scope&gt;可共用&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+如需在 WebSphere Application Server 中共用資源連線的相關資訊，請參閱<a href="https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html" 
+title="開啟新視窗" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html'); return false;">不能共用和可共用的連線</a>。
+</p>
+</div>
+</body>
+</html>

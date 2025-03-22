@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Web モジュールのウェルカム・ファイル名で / を使用しない</span>
+<p>
+この規則は、任意の Web モジュールにフラグを立てます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;welcome-file&gt;</span>
+<!-- END NON-TRANSLATABLE --> これは、 <span class="FilePath">web.xml</span> ファイル内のスラッシュ文字 (/) または円記号 (¥) で始まります。
+</p>
+<p>
+ソース・スキャナーで、この規則のクイック・フィックスが使用可能です。クイック・フィックスは、名前から / または \ を除去します。
+</p>
+<p></p>
+以下のウェルカム・ファイル・リストがあるとします。
+<div class="container">
+&lt; span class="Code"&gt; &lt; ようこそ-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;<br>
+</span> 
+<br>
+</div>
+<p></p>
+クイック・フィックスは、コードの 4 つのエントリーを以下のように更新します。
+<div class="container">
+&lt; span class="Code"&gt; &lt; ようこそ-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;
+</span> 
+<br>
+</div>
+</div>
+</body>
+</html>

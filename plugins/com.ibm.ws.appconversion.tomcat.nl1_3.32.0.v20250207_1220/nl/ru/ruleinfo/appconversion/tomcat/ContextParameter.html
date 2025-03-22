@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Использовать файлы описания Java EE для определения параметров контекста</span>
+<p>
+Это правило помечает <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> в файле <span class="FilePath">META-INF/context.xml</span> .
+</p>
+<p>
+Apache Tomcat allows <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> элементы, которые должны быть определены в следующих положениях: 
+<ul>
+<li>Файл <span class="FilePath">META-INF/context.xml</span></li>
+<li>Файл конфигурации XML приложения в каталоге Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> в файле <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Инструмент миграции переносит только элементы параметров в файле <span class="FilePath">META-INF/context.xml</span>.
+Информация о параметре, определенная в других расположениях, может быть скопирована в файл <span class="FilePath">META-INF/context.xml</span> для обработки.
+</p>
+
+<p>
+Если файл <span class="FilePath">WEB-INF/web.xml</span> существует в веб-проекте:
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+элементы будут помечены в одном из следующих условий:
+</p>
+<ul>
+<li>Для записи нет совпадающих записей в файле <span class="FilePath">web.xml</span>.</li>
+<li>Значение записи отличается от значения соответствующей записи в файле <span class="FilePath">web.xml</span>, и флагу переопределения записи присвоено значение false.</li>
+</ul>
+<p class="indent2">
+В сканере исходного кода доступно быстрое исправление для этого правила. Быстрое исправление добавит новый 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> в файле web.xml , который представляет <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> элемент, если он еще не существует в 
+Файл<span class="FilePath">web.xml</span> . 
+Если запись существует, она будет обновлена. 
+</p>
+<p>
+Если файл <span class="FilePath">WEB-INF/web.xml</span> не существует:</p>
+<p class="indent2">
+Все <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> Элементы будут помечены.
+</p>
+<p class="indent2">
+Быстрое исправление создаст файл <span class="FilePath">WEB-INF/web.xml</span> , содержащий соответствующие <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> , если веб-проект находится на Java EE 5 или выше. или выведет сообщение об ошибке (если веб-проект создан в J2EE 1.4 или ниже).
+</p>
+<p>
+Пример: существует файл <span class="FilePath">META-INF/context.xml</span> со следующим содержимым:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Параметр <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>value= "abc123" /&gt;<br>	
+&lt;Parameter <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="parameter_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>value = "новое Значение " /&gt;<br>                                     
+&lt;Parameter <br>
+<span class="indent2"></span>description="Will not trigger because of override set to true" <br>
+<span class="indent2"></span>name="parameter_2"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>value="123 " /&gt;<br>
+</span>
+</div>
+<p>
+со следующим файлом <span class="FilePath">web.xml</span> в приложении: </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Триггер из-за другого значения&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;oldValue&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt; контекст-контекст&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Не будет триггером, поскольку для переопределения задано значение true&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br>
+</span>
+</div>
+<p>
+После применения быстрого исправления файл <span class="FilePath">web.xml</span> будет изменен следующим образом:</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Триггер, поскольку он не существует&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;newEntry&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;abc123&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt; контекст-контекст&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Триггер из-за другого значения&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;новое Значение&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt; контекст-контекст&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Не будет триггером, поскольку для переопределения задано значение true&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+</span>
+</div>
+
+<p>
+Дополнительная информация о параметре контекста в Tomcat приведена в следующем разделе:
+</p>
+
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters" 
+	title="Открывается в новом окне" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters'); return false;">
+	Справочник по конфигурации Apache Tomcat - параметры контекста</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

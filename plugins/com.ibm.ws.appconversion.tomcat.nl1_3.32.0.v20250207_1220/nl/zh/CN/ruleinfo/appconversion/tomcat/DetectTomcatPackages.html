@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">请勿使用 Apache Tomcat 包和 API</span>
+<p>
+此规则会扫描 Java 文件以检测是否使用了下列 Apache Tomcat 专有包：
+</p> 
+<ul>
+<li>org.apache.tomcat</li>
+<li>org.apache.catalina</li>
+<li>org.apache.coyote</li>
+<li>org.apache.el</li>
+<li>org.apache.jasper</li>
+<li>org.apache.jk</li>
+<li>org.apache.juli</li>
+<li>org.apache.naming</li>
+</ul>
+<p>
+如果应用程序使用这些包中的类，那么必须更改代码以使用 Java Development Kit (JDK) 提供的 API、WebSphere Application Server 提供的 API 或者开放式源代码 API。
+</p>
+<p>
+评估使用特定于 Tomcat 的 API 的代码，并更改它以使用非专有 API 或使用 WebSphere Application Server API。
+</p>
+<p>
+有关更多信息，请参阅：
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/api/index.html" 
+	title="Opens a new window" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/api/index.html'); return false;">
+	Apache Tomcat 8.0 API</a> Java 文档。
+</li>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/api/index.html" 
+	title="Opens a new window" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/api/index.html'); return false;">
+	Apache Tomcat 9.0 API</a> Java 文档。
+</li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Java EE 배치 디스크립터와 WebSphere 바인딩을 사용하여 자원 참조 정의</span>
+<p>
+이 규칙은 다음을 플래그 지정합니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> 요소를 <span class="FilePath">META-INF/context.xml</span> 파일에서 찾을 수 있습니다.</p>
+<p>
+Apache Tomcat 은 다음을 허용합니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Resource&gt;</span>
+<!-- END NON-TRANSLATABLE --> 다음 위치에 정의될 요소:<ul>
+<li><span class="FilePath">META-INF/context.xml</span> 파일</li>
+<li>Tomcat <span class="FilePath">conf</span> 디렉토리의 애플리케이션 XML 구성 파일</li>
+<li>다음 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 의 요소</li>
+</ul>
+<p>
+마이그레이션 도구는 Tomcat 구성 디렉토리에 액세스할 수 없기 때문에 <span class="FilePath">META-INF/context.xml</span> 파일만 마이그레이션합니다.
+기타 위치에 정의되어 있는 자원 정보는 <span class="FilePath">META-INF/context.xml</span> 파일에 복사하여 마이그레이션 도구로 처리할 수 있습니다.
+</p>
+
+<p>
+소스 스캐너에서 빠른 수정사항을 사용할 수 있습니다. 빠른 수정사항은 다음에서 정보를 가져옵니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 필요에 따라 자원 참조 또는 자원 환경 참조 및 해당 JNDI 이름을 작성합니다.
+Tomcat 은 다음에 대한 해당 자원 참조를 권장하지만 필요하지는 않습니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE -->
+<span class="FilePath">WEB-INF/web.xml</span>에 정의되어 있어야 합니다. 
+빠른 수정사항은 다음 목록을 검색합니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE -->
+및 <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> 요소를 사용하여 이름과 일치하는 항목이 이미 있는지 확인하십시오.  
+일치하는 항목이 없으면 항목을 작성합니다.  만약
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 요소에 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> 속성, 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 로 작성됩니다.
+만약 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 요소에 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">auth</span>
+<!-- END NON-TRANSLATABLE --> 속성, 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-ref</span>
+<!-- END NON-TRANSLATABLE --> 로 작성됩니다. 두 경우 모두, <!-- START NON-TRANSLATABLE -->
+<span class="Code">name</span>
+<!-- END NON-TRANSLATABLE --> 값은 JNDI 이름으로도 사용되며 바인딩에서 정의됩니다.
+
+</p>
+
+예를 들어, 다음과 같은 경우 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">META-INF/context.xml</span> 파일의 요소:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Resource name="jdbc/exampleDB"<br> 
+<span class="indent2"></span>auth="Container"<br>
+<span class="indent2"></span>type="javax.sql.DataSource"<br>
+<span class="indent2"></span>description="예제 데이터베이스 " /&gt;<br>
+</span>
+</div>
+<br><br>
+빠른 수정사항은 다음과 같이 작성됩니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;resource-ref&gt;</span>
+<!-- END NON-TRANSLATABLE --> 
+요소:
+<div class="container">
+&lt; span class = "Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent2"&gt; &lt; /span&gt; &lt; 설명&gt;<br>
+<span class="indent2"></span>예제 데이터베이스&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;컨테이너&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;공유 가능&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+기본적으로 Tomcat에서는 자원을 공유할 수 있습니다.  범위가 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Resource</span>
+<!-- END NON-TRANSLATABLE --> 요소의 경우, 빠른 수정사항에 대해 새 자원 참조가 작성될 때 공유 가능으로 설정됩니다. WEB-INF/web.xml 파일에 일치하는 자원 참조가 이미 존재하는 경우에는 아무것도 변경되지 않습니다.
+</p>
+<p>
+웹 프로젝트가 Java EE 5 이상이고 <span class="FilePath">WEB-INF/web.xml</span>이 존재하지 않는 경우에는 <span class="FilePath">WEB-INF/web.xml</span>이 작성되고 새 자원 참조 요소가 추가됩니다.
+웹 프로젝트가 J2EE 1.4 이하이면 빠른 수정사항이 오류를 보고합니다.
+</p>
+<p>
+또한, WebSphere 구성에서 자원을 구성해야 합니다.
+</p>
+<p>
+Tomcat의 컨텍스트 자원 정의에 관한 추가 정보는 다음을 참조하십시오.
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions" 
+	title="새 창이 열림" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Definitions'); return false;">
+	Apache Tomcat 구성 참조 - 자원 정의</a> 
+</li>
+</ul>
+</div>
+</body>
+</html>

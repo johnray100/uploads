@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/* ***************************************************************** */
+/* Licensed Materials - Property of IBM                              */
+/* (C) Copyright IBM Corp. 2016, 2019. All Rights Reserved.          */
+/*                                                                   */
+/* US Government Users Restricted Rights - Use, duplication or       */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */
+/* ***************************************************************** */
+-->
+
+<?eclipse version="3.0"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts>
+  <!-- ######################################### -->
+  <!-- This section contains category level help -->
+  
+  
+  <!-- ######################################## -->
+  <!-- This section contains rule specific help -->
+
+  <context id="jsp-conversion" title="Migrare Apache Tomcat la WebSphere JSP">
+     <description>Utilizaţi această categorie de reguli pentru a identifica problemele cu fişierele JSP când migraţi de la Apache Tomcat. </description>
+  </context>
+  <context id="xml-conversion" title="Migrare descriptor de implementare Apache Tomcat la WebSphere">
+     <description>Utilizaţi această categorie de reguli pentru a identifica problemele cu descriptorul de implementare când migraţi de la Apache Tomcat. </description>
+  </context>
+  <context id="java-conversion" title="Migrare cod Apache Tomcat la WebSphere">
+     <description>Utilizaţi această categorie de reguli pentru a identifica problemele cu codul Java când migraţi de la Apache Tomcat. </description>
+  </context>
+  <context id="java-conversion-liberty" title="Migrare cod Apache Tomcat la Liberty">
+     <description>Această categorie include regulile Apache Tomcat care sunt relevante doar pentru serverele Liberty.</description>
+  </context>
+  <context id="java-conversion-general" title="Apache Tomcat la WebSphere tradiţional şi Liberty">
+    <description>Această categorie include regulile Apache Tomcat care sunt relevante la migrarea la servere WebSphere Application Server tradiţional sau Liberty.</description>
+  </context>
+  <context id="contextResource" title="Utilizaţi descriptori de implementare Java EE şi legări WebSphere pentru a defini referinţe de resurse">
+    <description>Informaţiile de resurse din META-INF/context.xml pot fi migrate la web.xml şi la legări WebSphere. Această regulă migrează elementul Resource Context.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResource.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="invalidInitialContext" title="Evitaţi utilizarea contextului invalid iniţial java:/comp">
+     <description>Această regulă detectează un şir de context iniţial care începe cu java:/comp în loc de java:comp (fără "/").</description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidInitialContext.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="invalidWelcomeFileName" title="Evitaţi utilizarea unui / într-un nume de fişier de întâmpinare pentru un modul web">
+     <description>Această regulă detectează numele fişierelor de întâmpinare care încep cu / sau \ </description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidWelcomeFileName.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="detectDoUpgradeMethod" title="Nu utilizaţi metoda Apache Tomcat WsServerContainer doUpgrade">
+     <description>Migraţi metoda Apache Tomcat WsServerContainer doUpgrade la noua metodă IBM WebSocket API WsWsocServerContainer doUpgrade.</description>
+     <topic href="ruleinfo/appconversion/tomcat/DetectDoUpgradeMethod.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="detectTomcatPackages" title="Nu utilizaţi pachete şi API-uri Apache Tomcat">
+    <description>Această regulă semnalează instanţele pachetelor şi API-urile specifice Apache Tomcat care trebuie să fie migrate.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatPackages.html" label="Ajutor detaliat"/>
+  </context>
+    <context id="detectInitialContextLookup" title="Asiguraţi-vă pentru căutările de context că au intrările corespunzătoare descriptorului de implementare">
+    <description>Această regulă semnalează căutările iniţiale de context.  Asigură o oportunitate de a căuta intrările variabilelor de mediu corespunzătoare în fişierul web.xml.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectInitialContextLookup.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="contextEnvironment" title="Utilizaţi descriptori de implementare Java EE pentru a defini referinţe de resurse">
+     <description>Informaţiile de mediu din META-INF/context.xml pot fi migrate la web.xml. Această regulă migrează elementul Environment Context.</description>
+     <topic href="ruleinfo/appconversion/tomcat/ContextEnvironment.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="contextResourceLink" title="Utilizaţi descriptori de implementare Java EE şi legări WebSphere pentru a defini referinţe de legări de resurse">
+    <description>Informaţiile de ResourceLink din META-INF/context.xml pot fi migrate la web.xml şi la legările WebSphere. Această regulă migrează elementul ResourceLink Context.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResourceLink.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="resourceSharingScope" title="Setaţi domeniul de partajare pe referinţele de resurse">
+    <description>Această regulă semnalează toate referinţele de resurse care nu au setat domeniul de partajare pe resurse. Domeniul de partajare resurse este implicit Shareable pe Apache Tomcat.  Setaţi la fel domeniul de partajare pe WebSphere.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingResourceSharingScope.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="contextParameter" title="Utilizaţi descriptori de implementare Java EE pentru a defini parametri de context">
+    <description>Informaţiile de parametri din META-INF/context.xml pot fi migrate la web.xml. Această regulă migrează elementele Context Parameter.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextParameter.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="contextLifecycleListener" title="Utilizaţi descriptori de implementare Java EE pentru a defini ascultători de cicluri de viaţă de context">
+    <description>Informaţiile de ascultători de cicluri de viaţă din META-INF/context.xml pot fi migrate la web.xml. Această regulă semnalează elementele Context Listener.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextLifecycleListener.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="contextValve" title="Nu utilizaţi componenta Context Valve">
+    <description>Componenta Context Valve nu poate fi folosită. Această regulă semnalează componenta Context Valve în fişierul context.xml.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextValve.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="detectTomcatBasicDataSource" title="Nu utilizaţi Apache Tomcat BasicDataSource">
+    <description>Această regulă semnalează instanţele clasei org.apache.tomcat.dbcp.dbcp.BasicDataSource care nu este disponibilă în WebSphere.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatBasicDataSource.html" label="Ajutor detaliat"/>
+  </context>  
+  <context id="missingSecurityRole" title="Utilizaţi descriptori de implementare Java EE pentru a defini rolurile de securitate care lipsesc">
+    <description>Această regulă semnalează elementele auth-contraint, role-name din web.xml care nu au elemente security-role asociate.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingSecurityRole.html" label="Ajutor detaliat"/>
+  </context>  
+  <context id="migrateJuliLogging" title="Nu utilizaţi Apache Tomcat org.apache.juli.logging">
+    <description>Această regulă semnalează metodele de jurnalizare din pachetul org.apache.juli.logging şi vor ajuta la migrarea aplicaţiei dumneavoastră pentru a utiliza clasa java.util.logging.Logger.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MigrateJuliLogging.html" label="Ajutor detaliat"/>
+  </context>
+  <context id="detectGetRealPathTomcatSlash" title='Validaţi rezultatul concatenării cu getRealPath("/")'>
+    <description>În WebSphere, getRealPath("/") returnează un şir care nu se termină cu un slash. Verificaţi că adaugă un slash la sfârşit concatenarea cu această metodă, dacă este necesar.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatSlash.html" label="Ajutor detaliat"/>
+  </context>
+   <context id="detectGetRealPathTomcatEmpty" title='Validaţi rezultatul concatenării cu getRealPath("")'>
+    <description>În Liberty, getRealPath("") returnează un şir care nu se termină cu un slash. Verificaţi că adaugă un slash la sfârşit concatenarea cu această metodă, dacă este necesar.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatEmpty.html" label="Ajutor detaliat"/>
+  </context>
+</contexts>

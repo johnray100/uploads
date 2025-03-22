@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/* ***************************************************************** */
+/* Licensed Materials - Property of IBM                              */
+/* (C) Copyright IBM Corp. 2016, 2019. All Rights Reserved.          */
+/*                                                                   */
+/* US Government Users Restricted Rights - Use, duplication or       */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */
+/* ***************************************************************** */
+-->
+
+<?eclipse version="3.0"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts>
+  <!-- ######################################### -->
+  <!-- This section contains category level help -->
+  
+  
+  <!-- ######################################## -->
+  <!-- This section contains rule specific help -->
+
+  <context id="jsp-conversion" title="Apache Tomcat -&gt; WebSphere JSP átállítás">
+     <description>Ennek a szabálykategóriának a segítségével azonosíthatja a JSP fájl problémákat Apache Tomcat kiszolgálóról történő áttéréskor.</description>
+  </context>
+  <context id="xml-conversion" title="Apache Tomcat -&gt; WebSphere telepítésleíró átállítás">
+     <description>Ennek a szabálykategóriának a segítségével azonosíthatja a telepítési leíró problémákat Apache Tomcat kiszolgálóról történő áttéréskor.</description>
+  </context>
+  <context id="java-conversion" title="Apache Tomcat -&gt; WebSphere kódátállítás">
+     <description>Ennek a szabálykategóriának a segítségével azonosíthatja a Java kód problémákat Apache Tomcat kiszolgálóról történő áttéréskor.</description>
+  </context>
+  <context id="java-conversion-liberty" title="Apache Tomcat - Liberty kódátállítás">
+     <description>Ez a kategória azokat az Apache Tomcat szabályokat tartalmazza, amelyek csak Liberty kiszolgálókra vonatkoznak.</description>
+  </context>
+  <context id="java-conversion-general" title="Apache Tomcat -&gt; hagyományos WebSphere és Liberty">
+    <description>Ez a kategória olyan Apache Tomcat szabályokat tartalmaz, amelyek hagyományos WebSphere Application Server vagy Liberty kiszolgálók átállításával kapcsolatosak.</description>
+  </context>
+  <context id="contextResource" title="Java EE telepítésleírók és WebSphere kötések használata az erőforrás-hivatkozások megadásához">
+    <description>A META-INF/context.xml fájlban található erőforrás információk
+átállíthatók a web.xml fájlba és WebSphere kötésekbe. Ez a szabály a Resource
+Context elemet állítja át.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResource.html" label="Részletes súgó"/>
+  </context>
+  <context id="invalidInitialContext" title="Az érvénytelen java:/comp kontextus használatának kerülése">
+     <description>Ez a szabály azokat az érvénytelen kontextus
+karaktersorozatokat ismeri fel, amelyek java:/comp kifejezéssel kezdődnek
+java:comp helyett (a "/" nélkül).</description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidInitialContext.html" label="Részletes súgó"/>
+  </context>
+  <context id="invalidWelcomeFileName" title="Kerülje a / használatát a világhálós modulok üdvözlő fájljának nevében">
+     <description>Ez a szabály a / vagy \ kerekterrel kezdődő üdvözlőfájl-neveket ismeri fel </description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidWelcomeFileName.html" label="Részletes súgó"/>
+  </context>
+  <context id="detectDoUpgradeMethod" title="Ne használja az Apache Tomcat WsServerContainer doUpgrade metódusát">
+     <description>Az Apache Tomcat WsServerContainer doUpgrade metódusának
+átállítása az új IBM WebSocket API WsWsocServerContainer doUpgrade metódusára.</description>
+     <topic href="ruleinfo/appconversion/tomcat/DetectDoUpgradeMethod.html" label="Részletes súgó"/>
+  </context>
+  <context id="detectTomcatPackages" title="Ne használjon Apache Tomcat csomagokat és API-kat">
+    <description>Ez a szabály azokat az Apache Tomcat kiszolgálóra jellemző
+csomagokat és alkalmazásprogramozási felületeket jelöli meg, amelyeket át
+kell állítani.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatPackages.html" label="Részletes súgó"/>
+  </context>
+    <context id="detectInitialContextLookup" title="Gondoskodjék róla, hogy a kontextus kikeresések tartalmazzák a megfelelő telepítésleíró bejegyzéseket">
+    <description>Ez a szabály a kezdeti kontextus kikereséseket látja el
+jelzővel.  Lehetőséget ad a megfelelő környezeti változó bejegyzések
+ellenőrzésére a web.xml fájlban.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectInitialContextLookup.html" label="Részletes súgó"/>
+  </context>
+  <context id="contextEnvironment" title="Java EE telepítésleírók használata a környezeti hivatkozások megadásához">
+     <description>A META-INF/context.xml fájlból a környezeti információk
+átvehetők a web.xml fájlba. Ez a szabály az Environment Context elemet állítja át.</description>
+     <topic href="ruleinfo/appconversion/tomcat/ContextEnvironment.html" label="Részletes súgó"/>
+  </context>
+  <context id="contextResourceLink" title="Java EE telepítésleírók és WebSphere kötések használata az erőforrás-hivatkozás leírások megadásához">
+    <description>A META-INF/context.xml fájlban található ResourceLink
+információk átállíthatók a web.xml fájlba és WebSphere kötésekbe. Ez a szabály
+a ResourceLink Context elemet állítja át.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResourceLink.html" label="Részletes súgó"/>
+  </context>
+  <context id="resourceSharingScope" title="A megosztási hatókör beállítása erőforrás-hivatkozásokon">
+    <description>Ez a szabály azokat az erőforrás-hivatkozásokat jelöli meg,
+amelyek erőforrás megosztási hatóköre nincs beállítva. Az erőforrás megosztási
+hatókör alapértelmezésben Shareable értékre van beálltva Apache Tomcat
+kiszolgálókon.  Állítsa be ugyanezt a megosztási hatókört a WebSphere kiszolgálón is.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingResourceSharingScope.html" label="Részletes súgó"/>
+  </context>
+  <context id="contextParameter" title="Java EE telepítésleírók használata a kontextus paraméterek megadásához">
+    <description>A META-INF/context.xml fájlból a paraméter információk
+átvehetők a web.xml fájlba. Ez a szabály a Context Parameter elemeket állítja át.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextParameter.html" label="Részletes súgó"/>
+  </context>
+  <context id="contextLifecycleListener" title="Java EE telepítésleírók használata a kontextus életciklus figyelők megadásához">
+    <description>A META-INF/context.xml fájlból az életciklus figyelő
+információk átvehetők a web.xml fájlba. Ez a szabály a Context Listener elemeket látja el jelzővel.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextLifecycleListener.html" label="Részletes súgó"/>
+  </context>
+  <context id="contextValve" title="Ne használja a Context Valve komponenst">
+    <description>A Context Valve komponens nem használható. Ez a szabály
+megjelel a Context Valve komponenst a context.xml fájlban.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextValve.html" label="Részletes súgó"/>
+  </context>
+  <context id="detectTomcatBasicDataSource" title="Ne használja az Apache Tomcat BasicDataSource osztályát">
+    <description>Ez a szabály az org.apache.tomcat.dbcp.dbcp.BasicDataSource
+osztály azon példányait jelöli meg, amelyek nem érhetők el a WebSphere
+kiszolgálón.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatBasicDataSource.html" label="Részletes súgó"/>
+  </context>  
+  <context id="missingSecurityRole" title="Java EE telepítésleírók használata a hiányzó biztonsági szerepek megadásához">
+    <description>EZ a szabály azokat az auth-constraint és role-name elemeket
+jelöli meg a web.xml fájlban, amelyeknek hoiányzik a társított security-role
+eleme.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingSecurityRole.html" label="Részletes súgó"/>
+  </context>  
+  <context id="migrateJuliLogging" title="Ne használja az Apache Tomcat org.apache.juli.logging csomagját">
+    <description>Ez a szabály az org.apache.juli.logging csomagból származó
+naplózásmódszer metódusmetódusokat jelöli meg és segít átállítani alkalmazását
+a java.util.logging.Logger osztály használatára.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MigrateJuliLogging.html" label="Részletes súgó"/>
+  </context>
+  <context id="detectGetRealPathTomcatSlash" title='Összefűzés eredményének érvényesítése a getRealPath("/") metódussal'>
+    <description>A WebSphere rendszerben a getRealPath("/") olyan
+karaktersorozatot ad vissza, amely nem osztásjelre végződik. Ellenőrizze, hogy
+az összefűzés ezzel a metódussal szükség esetén hozzáadja-e a lezáró osztásjelet.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatSlash.html" label="Részletes súgó"/>
+  </context>
+   <context id="detectGetRealPathTomcatEmpty" title='Összefűzés eredményének érvényesítése a getRealPath("") metódussal'>
+    <description>A Liberty rendszerben a getRealPath("") olyan
+karaktersorozatot ad vissza, amely nem osztásjelre végződik. Ellenőrizze, hogy
+az összefűzés ezzel a metódussal szükség esetén hozzáadja-e a lezáró osztásjelet.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatEmpty.html" label="Részletes súgó"/>
+  </context>
+</contexts>

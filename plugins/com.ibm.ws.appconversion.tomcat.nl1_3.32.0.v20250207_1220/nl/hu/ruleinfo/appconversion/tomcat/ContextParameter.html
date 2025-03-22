@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Java EE telepítésleírók használata a kontextus paraméterek megadásához</span>
+<p>
+Ez a szabály a következőket jelöli meg: <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> A <span class="FilePath">META-INF/context.xml</span> fájlban található elemek.
+</p>
+<p>
+Apache Tomcat <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> Az alábbi helyeken meghatározott elemek: 
+<ul>
+<li>A <span class="FilePath">META-INF/context.xml</span> fájlban</li>
+<li>Az alkalmazás XML konfigurációs fájljában a Tomcat <span class="FilePath">conf</span> könyvtárában</li>
+<li>A <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elem a <span class="FilePath">conf/server.xml</span> elemben</li>
+</ul>
+<p>
+Az áttérési eszköz csak a <span class="FilePath">META-INF/context.xml</span>
+fájlban található elemeket állítja át.
+A más helyeken definiált paraméter
+információk átmásolhatók a <span class="FilePath">META-INF/context.xml</span>
+fájlba, hogy az eszköz feldolgozhassa azokat.
+</p>
+
+<p>
+Ha a világhálós törekvésben van létező <span class="FilePath">WEB-INF/web.xml</span>:
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+Az elemek a következő feltételek valamelyikével lesznek megjelölve:
+</p>
+<ul>
+<li>Nincs a bejegyzésnek megfelelő bejegyzés a
+<span class="FilePath">web.xml</span> fájlban.</li>
+<li>A bejegyzés értéke más, mint az egyező bejegyzésé a
+<span class="FilePath">web.xml</span> fájlban és felülbírálási kapcsolója hamis
+értékre van beállítva.</li>
+</ul>
+<p class="indent2">
+A
+forráselemzőben rendelkezésre áll egy gyorsjavítás ehhez a szabályhoz. A gyorsjavítás egy új 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elem a web.xml fájlban, amely a <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elem, ha még nem létezik a termékben 
+<span class="FilePath">web.xml</span> fájl. 
+Ha a
+bejegyzés létezik, akkor frissítésre kerül. 
+</p>
+<p>
+Ha a <span class="FilePath">WEB-INF/web.xml</span> fájl nem létezik:</p>
+<p class="indent2">
+Mind <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> Az elemek megjelölésre kerülnek.
+</p>
+<p class="indent2">
+A gyorsjavítás létrehoz egy <span class="FilePath">WEB-INF/web.xml</span> fájlt, amely a megfelelő <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> Elemek, ha a webprojekt Java EE 5 vagy újabb. A gyorsjavítás hibajelentést küld, ha a világhálós
+törekvés J2EE 1.4 vagy kisebb szintű.
+</p>
+<p>
+Tegyük fel például, hogy a <span class="FilePath">META-INF/context.xml</span>
+fájl tartalma a következő:
+<div class="container">
+&lt; span class="Code"&gt; &lt; paraméter <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>value= "abc123" /&gt;<br>	
+&lt;Parameter <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="parameter_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>érték = "új érték " /&gt;<br>                                     
+&lt;Parameter <br>
+<span class="indent2"></span>description="Will not trigger because of override set to true" <br>
+<span class="indent2"></span>name="parameter_2"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>value="123 " /&gt;<br>
+</span>
+</div>
+<p>
+és az alkalmazás a következő <span class="FilePath">web.xml</span> fájlt
+tartalmazza: </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger eltérő érték miatt&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;oldValue&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+\t context-param&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Nem fog aktiválni, mert felülbírálja a true értéket&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br>
+</span>
+</div>
+<p>
+A gyorsjavítás alkalmazása után a frissített
+<span class="FilePath">web.xml</span> a következőket fogja tartalmazni:</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger, mert nem létezik&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;newEntry&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;abc123&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+\t context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Trigger eltérő érték miatt&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;új érték&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+\t context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Nem fog aktiválni, mert felülbírálja a true értéket&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+</span>
+</div>
+
+<p>
+A Tomcat kontextus paraméterrel kapcsolatos további információkért lásd:
+</p>
+
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters" 
+	title="Új ablakban nyílik meg" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters'); return false;">
+	Apache Tomcat konfigurációs referencia - Kontextus paraméterek</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

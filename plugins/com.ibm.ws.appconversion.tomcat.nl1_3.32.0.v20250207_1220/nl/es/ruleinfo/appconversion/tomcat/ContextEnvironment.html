@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utilizar los descriptores de despliegue Java EE para definir referencias de entorno</span>
+<p>
+Esta regla marca <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> elementos encontrados en el archivo <span class="FilePath">META-INF/context.xml</span> que se deben transformar en <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> elementos en el 
+Archivo <span class="FilePath">WEB-INF/web.xml</span> .
+</p>
+<p>
+Apache Tomcat permite <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> elementos que deben definirse en estas ubicaciones: 
+<ul>
+<li>El archivo <span class="FilePath">META-INF/context.xml</span></li>
+<li>El archivo de configuración XML de aplicación en el directorio <span class="FilePath">conf</span> de Tomcat</li>
+<li>Los 2 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> en <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Puesto que es posible que la herramienta de migración no tenga acceso al directorio de configuración de Tomcat , sólo señala el <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> en el 
+Archivo <span class="FilePath">META-INF/context.xml</span> .
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> La información definida en las otras ubicaciones se puede copiar en el archivo <span class="FilePath">META-INF/context.xml</span> para que la herramienta la procese.
+</p>
+<p>
+Si existe un archivo <span class="FilePath">WEB-INF/web.xml</span> en el proyecto web:
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+los elementos se marcarán en cualquiera de las condiciones siguientes:
+</p>
+<ul>
+<li>La entrada no tiene una entrada coincidente en el archivo <span class="FilePath">web.xml</span>.</li>
+<li>La entrada tiene un tipo diferente que la entrada coincidente en el archivo <span class="FilePath">web.xml</span>.</li>
+<li>La entrada tiene un valor diferente que la entrada coincidente en el archivo <span class="FilePath">web.xml</span> y el distintivo de alteración temporal establecido en false.</li>
+</ul>
+<p class="indent2">
+Un arreglo rápido para esta regla está disponible en el explorador de orígenes. El arreglo rápido añadirá un nuevo <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+en el archivo <span class="FilePath">web.xml</span> que representa el <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> si todavía no existe en el elemento 
+<span class="FilePath">web.xml</span> . 
+Si la entrada existe, se actualizará. 
+</p>
+<p>
+Si el archivo <span class="FilePath">WEB-INF/web.xml</span> no existe:</p>
+<p class="indent2">
+Todos <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Environment&gt;</span>
+<!-- END NON-TRANSLATABLE --> se marcarán los elementos.
+</p>
+<p class="indent2">
+El arreglo rápido creará un archivo <span class="FilePath">WEB-INF/web.xml</span> que incluye el archivo <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;env-entry&gt;</span>
+<!-- END NON-TRANSLATABLE --> si el proyecto web está en Java EE 5 o superior. Si el proyecto web tiene la versión en J2EE 1.4 o inferior, el arreglo rápido informará de un error.
+</p>
+Por ejemplo, supongamos un archivo <span class="FilePath">META-INF/context.xml</span> con el siguiente contenido:
+<div class="container">
+&lt; span class="Code"&gt; &lt; Entorno <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type= "java.lang.String" value= "abc123" /&gt;<br>	
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="contextEnvString_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.String"<br> 
+<span class="indent2"></span>value = "nuevo valor " /&gt;<br>                                     
+&lt;Environment <br>
+<span class="indent2"></span>description="Trigger because of different type" <br>
+<span class="indent2"></span>name="contextEnvString_2"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>type="java.lang.Integer"<br> 
+<span class="indent2"></span>value="123 " /&gt;<br>
+&lt;Environment <br>
+<span class="indent2"></span>description="will not Trigger because of override set to true." <br>
+<span class="indent2"></span>name="contextEnvString_3"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>type="java.lang.Integer" <br>
+<span class="indent2"></span>value="123 " /&gt;<br>
+</span>
+</div>
+<p>
+con el siguiente archivo <span class="FilePath">web.xml</span> en la aplicación: </p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; entrada-env&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Desencadenante debido a un valor diferente&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;oldValue&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;Desencadenante debido a un tipo diferente&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;no se activará debido a que la alteración temporal se ha establecido en true.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+<p>
+Cuando se aplica el arreglo rápido, el archivo <span class="FilePath">web.xml</span> se actualizará para contener:</p>
+<div class="container">
+&lt; span class="Code"&gt; &lt; entrada-env&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Desencadenante debido a un valor diferente&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_1&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;nuevo valor&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Desencadenante debido a un tipo diferente&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_2&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;no se activará debido a que la alteración temporal se ha establecido en true.&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;contextEnvString_3&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;123456789&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br><br>
+
+&lt;env-entry&gt;<br>
+<span class="indent2"></span>&lt;description&gt;Desencadenante porque no existe&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;env-entry-name&gt;newEntry&lt;/env-entry-name&gt;<br>
+<span class="indent2"></span>&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;<br>
+<span class="indent2"></span>&lt;env-entry-value&gt;abc123&lt;/env-entry-value&gt;<br>
+&lt;/env-entry&gt;<br>
+</span>
+</div>
+</div>
+</body>
+</html>

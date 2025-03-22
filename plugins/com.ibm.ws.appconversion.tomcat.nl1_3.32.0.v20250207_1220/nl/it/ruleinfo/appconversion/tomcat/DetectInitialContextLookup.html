@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Accertarsi che le ricerche di contesto dispongano di corrispondenti voci del descrittore di distribuzione</span>
+<p>
+Questa regola contrassegna le istanze del contesto <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> metodo.  
+L'argomento per il <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> deve essere definito nel file <span class="FilePath">web.xml</span> . 
+</p>
+<p> 
+L'azione suggerita è che, per ogni ricerca di contesto trovata, l'utente deve controllare che sia presente un 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-reference</span>
+<!-- END NON-TRANSLATABLE -->,  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-env-reference</span>
+<!-- END NON-TRANSLATABLE -->oppure <!-- START NON-TRANSLATABLE -->
+<span class="Code">env-entry</span>
+<!-- END NON-TRANSLATABLE --> nell'elemento 
+<span class="FilePath">web.xml</span> .</p>
+ 
+<p>
+Ad esempio, nel seguente frammento di codice, <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> il metodo verrà contrassegnato.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context initCtx = new InitialContext();</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context envCtx = (Context) initCtx.lookup("java:comp/env/myIntialParam");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<b></b>
+<p>
+Se l'argomento per il <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> il metodo è 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">"java:comp/env"</span>
+<!-- END NON-TRANSLATABLE --> oppure  
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">"java:comp/UserTransaction"</span>
+<!-- END NON-TRANSLATABLE --> il contesto 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> non viene contrassegnato perché non corrispondono a risorse specifiche.
+</p>
+<p>			
+Nel seguente esempio, le due istanze del <!-- START NON-TRANSLATABLE -->
+<span class="Code">lookup</span>
+<!-- END NON-TRANSLATABLE --> non verrà contrassegnato.
+</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context initCtx = new InitialContext();</span>
+<!-- END NON-TRANSLATABLE --> 
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Context envCtx = (Context) initCtx.lookup("java:comp/env");</span>
+<!-- END NON-TRANSLATABLE -->
+<br>
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">UserTransaction tran = (UserTransaction)initCtx.lookup("java:comp/UserTransaction");</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+</div>
+</body>
+</html>

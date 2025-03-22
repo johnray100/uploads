@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Megosztási hatókör beállítás Erőforrás-hivatkozásokon</span>
+<p>
+Ez a szabály a következőket jelöli meg: <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> A <span class="FilePath">WEB-INF/web.xml</span> fájlban található elemek, amelyek hiányoznak <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> Elem.  
+Apache Tomcat kiszolgáló alapértelmezett erőforrás-megosztási hatóköre <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.  
+Az erőforrás-megosztási hatókör a Java EEválasztható attribútumként van meghatározva.
+A
+forráselemzőben rendelkezésre áll egy gyorsjavítás ehhez a szabályhoz. A
+gyorsjavítás használatával ugyanazt a megosztható hatókört fogja kapni a
+hagyományos WebSphere és Liberty kiszolgálón, mint amivel a Tomcat kiszolgálón
+rendelkezett.
+</p>
+<p>
+A gyorsjavítás hozzáadja a <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> Elem, ha még nincs beállítva és meghatározza a kapcsolatot  <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+Az alábbi példában olyan erőforrás hivatkozás látható, amely megjelölésre kerülne:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; átívelő osztály= "indent4"&gt; &lt; /span&gt; &lt; leíró &gt;<br>
+<span class="indent4"></span>Példa adatbázis&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Tároló&lt;/res-auth&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<br><br>
+A gyorsjavítás hozzáadja a res-sharing-scope elemet:
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; átívelő osztály= "indent4"&gt; &lt; /span&gt; &lt; leíró &gt;<br>
+<span class="indent4"></span>Példa adatbázis&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Tároló&lt;/res-auth&gt;<br>
+<span class="indent4"></span>&lt;res-sharing-scope&gt;Shareable&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+A kapcsolatok WebSphere Application Server környezetben történő megosztásával
+kapcsolatos további információkat a következő helyen talál:
+<a href="https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html" 
+title="Új ablakban nyílik meg" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html'); return false;">Megoszthatatlan
+és megosztható kapcsolatok</a>.
+</p>
+</div>
+</body>
+</html>

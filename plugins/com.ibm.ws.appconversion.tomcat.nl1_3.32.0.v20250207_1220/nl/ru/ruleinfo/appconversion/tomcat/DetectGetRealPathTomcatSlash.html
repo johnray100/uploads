@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Проверить результат конкатенации с помощью getRealPath("/")</span>
+<p>
+Это правило отмечает код Java, ссылающийся на следующие методы и параметры:
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("/")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("/")</code></li>
+</ul>
+<p>
+В Tomcat вызовы этих методов возвращают строку, заканчивающуюся косой чертой. В WebSphere Liberty и traditional возвращается значение без косой черты. В результате конкатенация
+строки с этим методом может образовывать верный путь к файлу в Tomcat, но
+неверный в WebSphere. Необходимо проверить каждый отмеченный вызов метода и
+убедиться в том, что его результат используется с учетом добавления завершающей косой
+черты в WebSphere.
+</p>
+<p>
+Для примера предположим, что компонент war был установлен в <code>/path/app.war</code>. В этом случае вызов <code>getRealPath("/")</code> даст следующие результаты:
+</p>
+<ul>
+<li>Tomcat: <code>/path/app.war/</code></li>
+<li>WebSphere: <code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

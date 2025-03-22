@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">リソース・リンク参照の定義に Java EE デプロイメント記述子および WebSphere バインディングを使用する</span>
+<p>
+この規則により、以下のものにフラグを立てます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> マイグレーションが必要になる可能性がある <span class="FilePath">META-INF/context.xml</span> ファイル内にあるエレメント。
+</p>
+<p>
+Apache Tomcat で許可される <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> 以下の場所で定義されるエレメント:<ul>
+<li><span class="FilePath">META-INF/context.xml</span> ファイル</li>
+<li>Tomcat の <span class="FilePath">conf</span> ディレクトリー内のアプリケーション XML 構成ファイル</li>
+<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 内のエレメント</li>
+</ul>
+<p>
+マイグレーション・ツールは、Tomcat 構成ディレクトリーにアクセスできない場合もあるため、マイグレーション・ツールがマイグレーションするのは <span class="FilePath">META-INF/context.xml</span> ファイルのみです。
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> 他の場所で定義された情報は、処理するために <span class="FilePath">META-INF/context.xml</span> ファイルにコピーすることができます。
+</p>
+
+<p>
+ソース・スキャナーでクイック・フィックスが使用可能です。 クイック・フィックスは、以下から情報を取得します。 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> エレメントを作成し、以下のようにリソース参照および対応する JNDI 名を作成します。
+</p>
+<ul>
+	<li>クイック・フィックスは、resource-ref のリストを検索し、一致する名前のエントリーが既に存在しているかどうかを確認します。
+存在しなければ、作成されます。</li>
+	<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> 名前属性が使用されます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-ref-name</span>
+<!-- END NON-TRANSLATABLE --> web.xml 内 </li>
+	<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> type 属性は、以下に使用されます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-type</span>
+<!-- END NON-TRANSLATABLE --> web.xml 内</li>
+	<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> グローバル属性が使用されます。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">binding-name</span>
+<!-- END NON-TRANSLATABLE --> IBM バインディング・ファイル内</li>
+	<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-auth</span>
+<!-- END NON-TRANSLATABLE --> 設定される値 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Container</span>
+<!-- END NON-TRANSLATABLE --></li>
+	<li>この <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> 「共有可能」に設定されている</li>
+</ul> 
+<p>
+もう 1 つは、 <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->
+属性 (ファクトリー、ユーザー名、およびパスワード) は自動的にマイグレーションされません。  
+アプリケーションがこれらの属性を <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->その後、サーバー構成内に固有のリソースを作成し、そのリソースに固有の JNDI 名を指定して、 
+新しい JNDI 名を持つ IBM バインディング・ファイル。
+</p>
+<p>
+Web プロジェクトが Java EE 5 以降で、<span class="FilePath">WEB-INF/web.xml</span> が存在しない場合、<span class="FilePath">WEB-INF/web.xml</span> が作成され、新規リソース・リンク参照エレメントが追加されます。
+Web プロジェクトが J2EE 1.4 以下である場合、クイック・フィックスはエラーを報告します。
+</p>
+<p>
+例えば、以下を含む <span class="FilePath">META-INF/Context.xml</span> があるとします。 <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->:</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+	&lt;ResourceLink global="jdbc/SampleWebGlobal" name="jdbc/SampleWeb" type="javax.sql.DataSource"/&gt;
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+クイック・フィックスは更新されるか、新規に作成されます <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 
+<span class="FilePath">web.xml</span> ファイル内で、以下の例のようにします。  
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref id= "ResourceRef_1313785392722"&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/SampleWeb&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;コンテナー&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;共有可能&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+JNDI 名が IBM バインディング・ファイルに追加されます。
+これは <span class="FilePath">web.xml</span> で定義されている既存の参照を参照します。
+バインディング・ファイルがまだ存在していなければ、作成されます。
+</p> 
+<p>
+WebSphere Application Server 構成にリソースを構成する必要もあります。
+</p>
+<p>
+Tomcat でのコンテキスト・リソース定義について詳しくは、以下を参照してください。
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links" 
+	title="新しいウィンドウを開く" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links'); return false;">
+	Apache Tomcat Configuration Reference - Resource Links</a>
+</li>
+</ul>
+</div>
+</body>
+</html>

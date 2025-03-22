@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Použít deskriptory implementace Java EE a vazby WebSphere k definování odkazů na prostředky</span>
+<p>
+Toto pravidlo označí <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky nalezené v souboru <span class="FilePath">META-INF/context.xml</span> , které mohou vyžadovat migraci.
+</p>
+<p>
+Apache Tomcat umožňuje <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvky, které mají být definovány v těchto umístěních:<ul>
+<li>Soubor <span class="FilePath">META-INF/context.xml</span></li>
+<li>Konfigurační soubor XML aplikace v adresáři Tomcat <span class="FilePath">conf</span></li>
+<li>V případě <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> prvek v souboru <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Vzhledem k tomu, že nástroj migrace nemusí mít přístup ke konfiguračnímu adresáři Tomcat, migruje nástroj migrace pouze soubor <span class="FilePath">META-INF/context.xml</span>.
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> informace definované v jiných umístěních lze zkopírovat do souboru <span class="FilePath">META-INF/context.xml</span> , aby bylo možné je zpracovat.
+</p>
+
+<p>
+Ve zdrojovém skeneru je k dispozici rychlá oprava. Rychlá oprava vezme informace z 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> a následujícím způsobem vytvoří odkaz na prostředek a odpovídající název rozhraní JNDI:
+</p>
+<ul>
+	<li>Rychlá oprava prohledá seznam značek resource-ref, abyste viděli, zda položka odpovídající názvu již existuje.  
+Není-li tomu tak, vytvoří se.</li>
+	<li>V případě <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> atribut name se používá pro <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-ref-name</span>
+<!-- END NON-TRANSLATABLE --> v souboru web.xml </li>
+	<li>V případě <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> atribut typu se používá pro <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-type</span>
+<!-- END NON-TRANSLATABLE --> v souboru web.xml</li>
+	<li>V případě <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> globální atribut se používá pro <!-- START NON-TRANSLATABLE -->
+<span class="Code">binding-name</span>
+<!-- END NON-TRANSLATABLE --> v vázacím souboru IBM</li>
+	<li>V případě <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-auth</span>
+<!-- END NON-TRANSLATABLE --> je nastaveno na <!-- START NON-TRANSLATABLE -->
+<span class="Code">Container</span>
+<!-- END NON-TRANSLATABLE --></li>
+	<li>V případě <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> je nastaveno na Sdílitelný</li>
+</ul> 
+<p>
+Všimněte si, že druhý <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->
+atributy (továrna, jméno uživatele a heslo) nejsou automaticky migrovány.  
+Pokud vaše aplikace používá tento atribut v <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->, pak budete muset vytvořit jedinečný prostředek v konfiguraci serveru, poskytnout prostředku jedinečný název rozhraní JNDI a aktualizovat 
+Soubor vazby IBM s novým názvem rozhraní JNDI.
+</p>
+<p>
+Pokud je webový projekt Java EE 5 nebo vyšší a soubor <span class="FilePath">WEB-INF/web.xml</span> neexistuje, je vytvořen soubor <span class="FilePath">WEB-INF/web.xml</span> a jsou přidány nové prvky odkazu na prostředek.
+Je-li webový projekt nastaven na J2EE 1.4 nebo nižší, rychlá oprava ohlásí chybu.
+</p>
+<p>
+Je-li například uveden soubor <span class="FilePath">META-INF/Context.xml</span> obsahující následující údaje: <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->:</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+	&lt;ResourceLink global="jdbc/SampleWebGlobal" name="jdbc/SampleWeb" type="javax.sql.DataSource"/&gt;
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Rychlá oprava aktualizuje nebo vytvoří novou <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 
+v souboru <span class="FilePath">web.xml</span> podobně jako v tomto příkladu:  
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref id= "ResourceRef_1313785392722"&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/SampleWeb&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Kontejner&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Sdílitelné&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Název rozhraní JNDI je přidán do vázacího souboru IBM. 
+Odkazuje na existující odkaz definovaný v souboru <span class="FilePath">web.xml</span>.
+Pokud vázací soubor dosud neexistuje, bude vytvořen.
+</p> 
+<p>
+Dále budete muset nakonfigurovat prostředek v konfiguraci produktu WebSphere Application Server.
+</p>
+<p>
+Další informace o definici prostředku kontextu na serveru Tomcat viz:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links" 
+	title="Otevře se v novém okně" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links'); return false;">
+	Odkaz na konfiguraci Apache Tomcat - Odkazy na prostředek</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

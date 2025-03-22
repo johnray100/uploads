@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">웹 모듈 환영 파일 이름에서 / 사용 안함</span>
+<p>
+이 규칙은 웹 모듈을 플래그 지정합니다. <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;welcome-file&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">web.xml</span> 파일에서 슬래시 문자 (/) 또는 백슬래시 문자 (\) 로 시작합니다.
+</p>
+<p>
+소스 스캐너에서 이 규칙에 대한 빠른 수정사항을 사용할 수 있습니다. 빠른 수정사항은 이름에서 / 또는 \를 제거합니다.
+</p>
+<p></p>
+환영 파일 목록이 다음과 같다고 가정하면, 
+<div class="container">
+&lt; span class = "Code"&gt; &lt; welcome-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;/default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;\default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;<br>
+</span> 
+<br>
+</div>
+<p></p>
+빠른 수정사항은 이 코드의 네 개 항목을 다음 코드로 업그레이드합니다.
+<div class="container">
+&lt; span class = "Code"&gt; &lt; welcome-file-list&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.html&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.htm&lt;/welcome-file&gt;<br>
+<span class="indent2"></span><span class="indent"></span>&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;<br>
+&lt;/welcome-file-list&gt;
+</span> 
+<br>
+</div>
+</div>
+</body>
+</html>

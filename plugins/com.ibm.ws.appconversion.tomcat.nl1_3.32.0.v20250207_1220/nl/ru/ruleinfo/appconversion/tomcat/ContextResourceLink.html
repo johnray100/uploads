@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Файлы описания Java EE и привязки WebSphere следует использовать для определения ссылок на ресурсы</span>
+<p>
+Это правило помечает <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> Элементы, найденные в файле <span class="FilePath">META-INF/context.xml</span> , которые могут нуждаться в миграции.
+</p>
+<p>
+Apache Tomcat allows <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;ResourceLink&gt;</span>
+<!-- END NON-TRANSLATABLE --> элементы, которые должны быть определены в следующих положениях:<ul>
+<li>Файл <span class="FilePath">META-INF/context.xml</span></li>
+<li>Файл конфигурации XML приложения в каталоге Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> в файле <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Так как инструмент миграции может не иметь доступа к каталогу конфигурации Tomcat,
+то выполняет миграцию только файла <span class="FilePath">META-INF/context.xml</span>.
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> Информация, определенная в других положениях, может быть скопирована в файл <span class="FilePath">META-INF/context.xml</span> для обработки.
+</p>
+
+<p>
+В сканере исходного кода доступно быстрое исправление. Быстрое исправление принимает информацию из 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> и создает ссылку на ресурс и соответствующее имя JNDI следующим образом:
+</p>
+<ul>
+	<li>Процедура быстрого исправления выполняет поиск в списке resource-ref для проверки на совпадение с уже существующим именем.  
+Если такого имени нет, оно будет создано.</li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> атрибут имени используется для <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-ref-name</span>
+<!-- END NON-TRANSLATABLE --> в файле web.xml </li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> атрибут type используется для <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-type</span>
+<!-- END NON-TRANSLATABLE --> в файле web.xml</li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE --> глобальный атрибут используется для <!-- START NON-TRANSLATABLE -->
+<span class="Code">binding-name</span>
+<!-- END NON-TRANSLATABLE --> в файле привязки IBM</li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-auth</span>
+<!-- END NON-TRANSLATABLE --> задается в <!-- START NON-TRANSLATABLE -->
+<span class="Code">Container</span>
+<!-- END NON-TRANSLATABLE --></li>
+	<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> устанавливается в Shareable</li>
+</ul> 
+<p>
+Обратите внимание, что другой <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->
+атрибуты (фабрика, имя пользователя и пароль) не переносятся автоматически.  
+Если приложение использует этот атрибут в <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->, тогда вам по требуется создать уникальный ресурс в конфигурации сервера, предоставить ресурс с уникальным именем JNDI, и обновить 
+Файл привязкиIBM с новым именем JNDI.
+</p>
+<p>
+Если веб-проект использует Java EE 5 или выше, а файл
+<span class="FilePath">WEB-INF/web.xml</span> не существует,
+то файл <span class="FilePath">WEB-INF/web.xml</span> будет создан,
+и в него будут добавлены элементы ссылок на ресурсы.
+Если веб-проект использует J2EE 1.4 или ниже, то процедура быстрого исправления выведет сообщение об ошибке.
+</p>
+<p>
+Например, с помощью <span class="FilePath">META-INF/Context.xml</span> , содержащего следующее: <!-- START NON-TRANSLATABLE -->
+<span class="Code">ResourceLink</span>
+<!-- END NON-TRANSLATABLE -->:</p>
+<div class="container">
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">
+	&lt;ResourceLink global="jdbc/SampleWebGlobal" name="jdbc/SampleWeb" type="javax.sql.DataSource"/&gt;
+</span>
+<!-- END NON-TRANSLATABLE -->
+</div>
+<p>
+Быстрое исправление обновит или создаст новый <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> 
+в файле <span class="FilePath">web.xml</span> , аналогично этому примеру:  
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref id= "ResourceRef_1313785392722"&gt;<br>
+<span class="indent2"></span>&lt;res-ref-name&gt;jdbc/SampleWeb&lt;/res-ref-name&gt;<br>
+<span class="indent2"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent2"></span>&lt;res-auth&gt;Контейнер&lt;/res-auth&gt;<br>
+<span class="indent2"></span>&lt;res-sharing-scope&gt;Общий доступ&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Имя JNDI добавляется в файл привязок IBM. 
+Оно связывается с существующей ссылкой, определенной в <span class="FilePath">web.xml</span>.
+Если файл привязок еще не существует, он будет создан.
+</p> 
+<p>
+Также потребуется настроить ресурс в конфигурации WebSphere Application Server.
+</p>
+<p>
+Дополнительная информация об определении ресурса контекста в Tomcat приведена в следующем разделе:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links" 
+	title="Открывается в новом окне" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Resource_Links'); return false;">
+	Справочник по конфигурации Apache Tomcat - Ссылки на ресурсы</a>. 
+</li>
+</ul>
+</div>
+</body>
+</html>

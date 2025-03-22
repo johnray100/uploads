@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Définir la portée de partage des références de ressource</span>
+<p>
+Cette règle marque <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> éléments trouvés dans le fichier <span class="FilePath">WEB-INF/web.xml</span> qui ne comportent pas <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> .  
+Le serveur Apache Tomcat définit par défaut la portée de partage des ressources sur <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.  
+La portée de partage des ressources est définie en tant qu'attribut facultatif dans Java EE.
+Un correctif rapide pour cette règle est disponible dans le scanner de source. Vous
+pouvez utiliser le correctif rapide pour obtenir dans WebSphere Traditional et Liberty
+la portée de partage qui était définie dans Tomcat.
+</p>
+<p>
+Le correctif rapide ajoute le <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> s'il n'est pas déjà défini et définit la connexion comme  <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+Exemple de référence de ressource qui serait marquée :
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; description&gt;<br>
+<span class="indent4"></span>Exemple de base de données&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc /exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Conteneur&lt;/res-auth&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<br><br>
+Le correctif rapide ajoute l'élément res-sharing-scope :
+<div class="container">
+&lt; span class="Code"&gt; &lt; resource-ref&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; description&gt;<br>
+<span class="indent4"></span>Exemple de base de données&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc /exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Conteneur&lt;/res-auth&gt;<br>
+<span class="indent4"></span>&lt;res-sharing-scope&gt;Partagable&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Pour plus d'informations sur le partage des connexions de ressources dans WebSphere Application Server, voir <a href="https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html" 
+title="Ouverture dans une nouvelle fenêtre" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html'); return false;">Connexions partageables et non partageables</a>.
+</p>
+</div>
+</body>
+</html>

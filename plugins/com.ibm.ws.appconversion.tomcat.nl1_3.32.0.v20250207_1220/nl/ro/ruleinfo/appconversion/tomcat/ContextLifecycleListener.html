@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Utilizaţi descriptori de implementare Java EE pentru a defini ascultători de cicluri de viaţă de context</span>
+
+<p>
+Această regulă steaguri toate <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+elemente în <span class="FilePath">META-INF/context.xml</span> .
+</p>
+<p>
+In Apache Tomcat, Java objects that need to know when their context is started or stopped
+are declared by including a <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> element în cadrul contextului. 
+Denumirea clasei specificată în <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> element implementează <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE --> Interfață.  
+Această clasă va fi notificată asupra
+apariţiei evenimentelor ciclului de viaţă corespunzător.  Rețineți că 
+<a href="DetectTomcatPackages.html" >Nu utilizați Apache Tomcat  și APIs</a> steaguri de reguli de utilizare a utilizării de <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+<p>
+Funcționalitatea analogous Java EE utilizând <!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> și 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">ServletContextEvent</span>
+<!-- END NON-TRANSLATABLE --> și corespondentul <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> intrări în fișierul <span class="FilePath">web.xml</span> .
+</p>
+<p>
+Tomcat permite <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Listener&gt;</span>
+<!-- END NON-TRANSLATABLE --> elemente care trebuie definite în aceste locații: 
+<ul>
+<li>Fişierul <span class="FilePath">META-INF/context.xml</span></li>
+<li>Fişierul de configuraţie XML al aplicaţiei din directorul Tomcat <span class="FilePath">conf</span></li>
+<li>The <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> element în <span class="FilePath">conf/server.xml</span></li>
+</ul>
+<p>
+Instrumentul de migrare numai steaguri <!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> elemente în <span class="FilePath">META-INF/context.xml</span> .
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">Listener</span>
+<!-- END NON-TRANSLATABLE --> informații definite în celelalte locații pot fi copiate în fișierul <span class="FilePath">META-INF/context.xml</span> pentru ca acesta să fie procesat.
+</p>
+<p>
+Acțiunea recomandată este de a converti fișierele Java folosind <!-- START NON-TRANSLATABLE -->
+<span class="Code">org.apache.catalina.LifecycleListener</span>
+<!-- END NON-TRANSLATABLE -->  pentru utilizare
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">javax.servlet.ServletContextListener</span>
+<!-- END NON-TRANSLATABLE --> și pentru a adăuga intrările corespunzătoare ascultătorului la fișierul <span class="FilePath">web.xml</span> pentru aplicație.
+</p>
+<p>
+Pentru informaţii suplimentare privind ascultătorii de ciclu de viaţă servlet:
+</p>
+<ul>
+<li>
+    <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html" 
+	title="Deschide o fereastră nouă" onclick="javascript:helpWindow('https://docs.oracle.com/javaee/6/tutorial/doc/bnafi.html'); return false;">
+	Îndrumarul Servlet Life Cycle în Java EE 6</a>.
+</li>
+</ul>
+<p>
+Pentru informaţii suplimentare privind ascultătorii de ciclu de viaţă în Tomcat, vedeţi:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners" 
+	title="Deschide o fereastră nouă" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Lifecycle_Listeners'); return false;">
+	Apache Tomcat Configuration Reference - Lifecycle Listeners</a>.
+</li>
+</ul>
+</div>
+</body>
+</html>

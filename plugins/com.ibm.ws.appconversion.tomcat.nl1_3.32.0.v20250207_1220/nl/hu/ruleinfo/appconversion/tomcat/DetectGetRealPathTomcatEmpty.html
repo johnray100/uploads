@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2018.  All Rights Reserved.                          *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Érvényesítse a getRealPath("") metódussal való összefűzés eredményét</span>
+<p>
+Ez a szabály a következő metódusokra és paraméterekre hivatkozó Java kódot jelzi:
+</p>
+<ul>
+<li><code>javax.servlet.http.HttpServletRequest.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletContext.getRealPath("")</code></li>
+<li><code>javax.servlet.ServletRequest.getRealPath("")</code></li>
+</ul>
+<p>
+Tomcat kiszolgálón ezek a metódushívások osztásjelre végződő karaktersorozatot
+adnak vissza. Liberty rendszerben a visszatérési érték nem osztásjelre
+végződik. Ennek eredményeként a karaktersorozatok összefűzése ezzel a
+metódussal érvényes fájlra mutathat a Tomcat kiszolgálón, de a Liberty
+kiszolgálón nem. Mindegyik megjelölt metódushívás esetében ellenőrizze, hogy az
+eredményt használó bármely kód magyarázatot ad-e a lezáró osztásjel hiányára a
+Liberty rendszerben.
+</p>
+<p>
+Tegyük fel például, hogy közzétett fájlt telepített a
+<code>/path/app.war</code> útvonalra. Ezután a <code>getRealPath("")</code>
+hívás eredménye a következő:
+</p>
+<ul>
+<li>Tomcat: <code>/path/app.war/</code></li>
+<li>Liberty: <code>/path/app.war</code></li>
+</ul>
+</div>
+</body>
+</html>

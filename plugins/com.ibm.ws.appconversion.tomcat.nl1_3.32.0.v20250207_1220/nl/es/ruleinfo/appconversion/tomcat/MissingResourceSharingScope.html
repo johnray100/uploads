@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2019.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Establecer el ámbito de compartimiento en las referencias de recursos</span>
+<p>
+Esta regla marca <!-- START NON-TRANSLATABLE -->
+<span class="Code">resource-ref</span>
+<!-- END NON-TRANSLATABLE --> elementos encontrados en el archivo <span class="FilePath">WEB-INF/web.xml</span> a los que les falta el <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> .  
+El servidor Apache Tomcat toma de forma predeterminada el ámbito de compartición de recursos <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.  
+El ámbito de compartición de recursos se define como un atributo opcional en Java EE.
+Un arreglo rápido para esta regla está disponible en el explorador de orígenes. Puede
+utilizar el arreglo rápido para obtener el mismo ámbito compartible en WebSphere
+tradicional y Liberty que el que tenía en Tomcat.
+</p>
+<p>
+El arreglo rápido añade el <!-- START NON-TRANSLATABLE -->
+<span class="Code">res-sharing-scope</span>
+<!-- END NON-TRANSLATABLE --> si todavía no se ha establecido y define la conexión como  <!-- START NON-TRANSLATABLE -->
+<span class="Code">Shareable</span>
+<!-- END NON-TRANSLATABLE -->.
+</p>
+Este es un ejemplo de una referencia de recurso que se señalará:
+<div class="container">
+&lt; span class="Code"&gt; &lt; ref-recurso&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; descripción&gt;<br>
+<span class="indent4"></span>Base de datos de ejemplo&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Contenedor&lt;/res-auth&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<br><br>
+El arreglo rápido añade el elemento res-sharing-scope:
+<div class="container">
+&lt; span class="Code"&gt; &lt; ref-recurso&gt;<br>
+&lt; span class= "indent4"&gt; &lt; /span&gt; &lt; descripción&gt;<br>
+<span class="indent4"></span>Base de datos de ejemplo&lt;/description&gt;<br>
+<span class="indent4"></span>&lt;res-ref-name&gt;jdbc/exampleDB&lt;/res-ref-name&gt;<br>
+<span class="indent4"></span>&lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;<br>
+<span class="indent4"></span>&lt;res-auth&gt;Contenedor&lt;/res-auth&gt;<br>
+<span class="indent4"></span>&lt;res-sharing-scope&gt;Compartible&lt;/res-sharing-scope&gt;<br>
+&lt;/resource-ref&gt;<br>
+</span>
+</div>
+<p>
+Para obtener más información sobre cómo compartir conexiones de recursos en WebSphere Application Server, consulte <a href="https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html" 
+title="Abre una ventana nueva" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/cdat_conshrnon.html'); return false;">Conexiones compartibles y no compartibles</a>.
+</p>
+</div>
+</body>
+</html>

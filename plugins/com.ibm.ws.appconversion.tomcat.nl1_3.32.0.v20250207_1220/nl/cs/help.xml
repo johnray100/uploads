@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/* ***************************************************************** */
+/* Licensed Materials - Property of IBM                              */
+/* (C) Copyright IBM Corp. 2016, 2019. All Rights Reserved.          */
+/*                                                                   */
+/* US Government Users Restricted Rights - Use, duplication or       */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */
+/* ***************************************************************** */
+-->
+
+<?eclipse version="3.0"?>
+<?NLS type="org.eclipse.help.contexts"?>
+<contexts>
+  <!-- ######################################### -->
+  <!-- This section contains category level help -->
+  
+  
+  <!-- ######################################## -->
+  <!-- This section contains rule specific help -->
+
+  <context id="jsp-conversion" title="Migrace Apache Tomcat na WebSphere JSP">
+     <description>Pomocí této kategorie pravidel identifikujte problémy se soubory JSP při migraci ze serveru Apache Tomcat.</description>
+  </context>
+  <context id="xml-conversion" title="Migrace deskriptoru implementace Apache Tomcat na WebSphere">
+     <description>Pomocí této kategorie pravidel identifikujte problémy s deskriptorem implementace při migraci ze serveru Apache Tomcat.</description>
+  </context>
+  <context id="java-conversion" title="Migrace kódu Apache Tomcat na WebSphere">
+     <description>Pomocí této kategorie pravidel identifikujte problémy s kódem Java při migraci ze serveru Apache Tomcat.</description>
+  </context>
+  <context id="java-conversion-liberty" title="Migrace kódu Apache Tomcat na Liberty">
+     <description>Tato kategorie zahrnuje pravidla Apache Tomcat, která jsou relevantní pouze pro servery Liberty.</description>
+  </context>
+  <context id="java-conversion-general" title="Apache Tomcat na WebSphere traditional a Liberty">
+    <description>Tato kategorie zahrnuje pravidla Apache Tomcat, která jsou relevantní při migraci na servery WebSphere Application Server traditional nebo Liberty.</description>
+  </context>
+  <context id="contextResource" title="Použít deskriptory implementace Java EE a vazby WebSphere k definování odkazů na prostředky">
+    <description>Informace o prostředku v souboru META-INF/context.xml lze migrovat na vazby web.xml a WebSphere. Toto pravidlo migruje prvek kontextu prostředku.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResource.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="invalidInitialContext" title="Vyvarovat se použití neplatného počátečního kontextu java:/comp">
+     <description>Toto pravidlo zjistí neplatný řetězec počátečního kontextu, který začíná na java:/comp, namísto java:comp (bez "/").</description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidInitialContext.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="invalidWelcomeFileName" title="Vyvarovat se použití / v názvu úvodního souboru webového modulu">
+     <description>Toto pravidlo zjistí názvy úvodních souborů, které začínají znakem / nebo \ </description>
+     <topic href="ruleinfo/appconversion/tomcat/InvalidWelcomeFileName.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="detectDoUpgradeMethod" title="Nepoužívat metodu Apache Tomcat WsServerContainer doUpgrade">
+     <description>Proveďte migraci metody Apache Tomcat WsServerContainer doUpgrade na novou metodu IBM WebSocket API WsWsocServerContainer doUpgrade.</description>
+     <topic href="ruleinfo/appconversion/tomcat/DetectDoUpgradeMethod.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="detectTomcatPackages" title="Nepoužívat balíky Apache Tomcat a rozhraní API">
+    <description>Toto pravidlo označí instance specifických balíků Apache Tomcat a rozhraní API, které mají být migrovány.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatPackages.html" label="Podrobná nápověda"/>
+  </context>
+    <context id="detectInitialContextLookup" title="Ověřte, že vyhledávání kontextu mají odpovídající položky deskriptoru implementace">
+    <description>Toto pravidlo označí vyhledávání počátečního kontextu. Poskytuje příležitost ke kontrole odpovídajících položek proměnných prostředí v souboru web.xml.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectInitialContextLookup.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="contextEnvironment" title="Použít deskriptory implementace Java EE k definování odkazů na prostředí">
+     <description>Informace o prostředí v souboru META-INF/context.xml lze migrovat do souboru web.xml. Toto pravidlo migruje prvek kontextu prostředí.</description>
+     <topic href="ruleinfo/appconversion/tomcat/ContextEnvironment.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="contextResourceLink" title="Použít deskriptory implementace Java EE a vazby WebSphere k definování odkazů na prostředky">
+    <description>Informace o odkazu na prostředek v souboru META-INF/context.xml lze migrovat na vazby web.xml a WebSphere. Toto pravidlo migruje prvek ResourceLink Context.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextResourceLink.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="resourceSharingScope" title="Nastavit rozsah sdílení u odkazů na prostředek">
+    <description>Toto pravidlo označí všechny odkazy na prostředek, které nemají nastavený rozsah sdílení prostředků. Výchozí hodnota rozsahu sdílení prostředků na Apache Tomcat je Shareable. Nastavte stejný rozsah sdílení na WebSphere.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingResourceSharingScope.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="contextParameter" title="Použít deskriptory implementace Java EE k definování parametrů kontextu">
+    <description>Informace o parametru v souboru META-INF/context.xml lze migrovat do souboru web.xml. Toto pravidlo migruje prvky Context Parameter.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextParameter.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="contextLifecycleListener" title="Použít deskriptory implementace Java EE k definování modulů listener životního cyklu kontextu">
+    <description>Informace o modulu listener životního cyklu v souboru META-INF/context.xml lze migrovat do souboru web.xml. Toto pravidlo označí prvky Context Listener.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextLifecycleListener.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="contextValve" title="Nepoužívat komponentu Context Valve">
+    <description>Nelze použít komponentu Context Valve. Toto pravidlo označí komponentu Context Valve v souboru context.xml.</description>
+    <topic href="ruleinfo/appconversion/tomcat/ContextValve.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="detectTomcatBasicDataSource" title="Nepoužívat Apache Tomcat BasicDataSource">
+    <description>Toto pravidlo označí instance třídy org.apache.tomcat.dbcp.dbcp.BasicDataSource, které nejsou k dispozici na serveru WebSphere.</description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectTomcatBasicDataSource.html" label="Podrobná nápověda"/>
+  </context>  
+  <context id="missingSecurityRole" title="Použít deskriptory implementace Java EE k definování chybějících rolí zabezpečení">
+    <description>Toto pravidlo označí prvky auth-constraint, role-name v souboru web.xml, kterým chybí přidružené prvky security-role.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MissingSecurityRole.html" label="Podrobná nápověda"/>
+  </context>  
+  <context id="migrateJuliLogging" title="Nepoužívat Apache Tomcat org.apache.juli.logging">
+    <description>Toto pravidlo označí metody protokolování z balíku org.apache.juli.logging a pomůže s migrací vaší aplikace pro použití třídy java.util.logging.Logger.</description>
+    <topic href="ruleinfo/appconversion/tomcat/MigrateJuliLogging.html" label="Podrobná nápověda"/>
+  </context>
+  <context id="detectGetRealPathTomcatSlash" title='Ověřit výsledek zřetězení pomocí volání getRealPath("/")'>
+    <description>V produktu WebSphere vrací volání getRealPath("/") řetězec, který nekončí koncovým lomítkem. Je-li to nutné, ověřte, že zřetězení s použitím této metody přidává koncové lomítko. </description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatSlash.html" label="Podrobná nápověda"/>
+  </context>
+   <context id="detectGetRealPathTomcatEmpty" title='Ověřit výsledek zřetězení pomocí volání getRealPath("")'>
+    <description>V produktu Liberty vrací volání getRealPath("") řetězec, který nekončí koncovým lomítkem. Je-li to nutné, ověřte, že zřetězení s použitím této metody přidává koncové lomítko. </description>
+    <topic href="ruleinfo/appconversion/tomcat/DetectGetRealPathTomcatEmpty.html" label="Podrobná nápověda"/>
+  </context>
+</contexts>

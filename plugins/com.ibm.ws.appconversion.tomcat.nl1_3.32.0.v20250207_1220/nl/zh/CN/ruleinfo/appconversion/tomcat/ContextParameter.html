@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2018.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">使用 Java EE 部署描述符来定义上下文参数</span>
+<p>
+此规则将标记 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 在 <span class="FilePath">META-INF/context.xml</span> 文件中找到的元素。
+</p>
+<p>
+Apache Tomcat 允许 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 要在这些位置中定义的元素: 
+<ul>
+<li><span class="FilePath">META-INF/context.xml</span> 文件</li>
+<li>Tomcat <span class="FilePath">conf</span> 目录中的应用程序 XML 配置文件</li>
+<li>该 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;Host&gt;</span>
+<!-- END NON-TRANSLATABLE --> <span class="FilePath">conf/server.xml</span> 中的元素</li>
+</ul>
+<p>
+该迁移工具仅迁移 <span class="FilePath">META-INF/context.xml</span> 文件中的参数元素。
+其他位置中定义的参数信息必须复制到 <span class="FilePath">META-INF/context.xml</span> 文件，才能进行处理。
+</p>
+
+<p>
+如果 <span class="FilePath">WEB-INF/web.xml</span> 存在于 Web 项目中：
+</p>
+<p class="indent2"><!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+将在以下任一条件下标记元素:
+</p>
+<ul>
+<li>条目在 <span class="FilePath">web.xml</span> 文件中没有匹配的条目。</li>
+<li>条目的值和 <span class="FilePath">web.xml</span> 文件中匹配条目的值不同，并且条目覆盖标志设为 false。</li>
+</ul>
+<p class="indent2">
+在源扫描程序中，为此规则提供了快速修订。 快速修订将添加新的 
+<!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> web.xml 文件中表示 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 如果元素尚不存在于 
+<span class="FilePath">web.xml</span> 文件。 
+如果该条目已存在，那么会更新该条目。 
+</p>
+<p>
+如果 <span class="FilePath">WEB-INF/web.xml</span> 不存在：</p>
+<p class="indent2">
+全部 <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Parameter&gt;</span>
+<!-- END NON-TRANSLATABLE --> 将标记元素。
+</p>
+<p class="indent2">
+快速修订将创建包含相应内容的 <span class="FilePath">WEB-INF/web.xml</span> 文件 <!-- START NON-TRANSLATABLE -->
+<span class="Code">&lt;context-param&gt;</span>
+<!-- END NON-TRANSLATABLE --> 元素 (如果 Web 项目位于 Java EE 5 或更高版本)。 如果 Web 项目是 J2EE 1.4 或更低版本，那么该快速修订将报告错误。
+</p>
+<p>
+例如，考虑具有以下内容的 <span class="FilePath">META-INF/context.xml</span> 文件：
+<div class="container">
+<span class="Code">
+&lt;Parameter <br>
+<span class="indent2"></span>description="Trigger because it does not exist"<br> 
+<span class="indent2"></span>name="newEntry" <br>
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>值 = "abc123" /&gt;<br>	
+&lt;Parameter <br>
+<span class="indent2"></span>description="Trigger because of different value"<br> 
+<span class="indent2"></span>name="parameter_1"<br> 
+<span class="indent2"></span>override="false" <br>
+<span class="indent2"></span>值 = "新值" /&gt;<br>                                     
+&lt;Parameter <br>
+<span class="indent2"></span>description="Will not trigger because of override set to true" <br>
+<span class="indent2"></span>name="parameter_2"<br> 
+<span class="indent2"></span>override="true" <br>
+<span class="indent2"></span>值 = "123 " /&gt;<br>
+</span>
+</div>
+<p>
+在应用程序中具有以下 <span class="FilePath">web.xml</span> 文件： </p>
+<div class="container">
+<span class="Code">
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;由于值不同而触发&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;oldValue&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>		
+<span class="indent2"></span>&lt;description&gt;由于覆盖设置为 true 而不会触发&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br>
+</span>
+</div>
+<p>
+应用该快速修订后，将更新 <span class="FilePath">web.xml</span> 以包含：</p>
+<div class="container">
+<span class="Code">
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;触发器，因为它不存在&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;newEntry&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;abc123&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;由于值不同而触发&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_1&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;新值&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+&lt;context-param&gt;<br>
+<span class="indent2"></span>&lt;description&gt;由于覆盖设置为 true 而不会触发&lt;/description&gt;<br>
+<span class="indent2"></span>&lt;param-name&gt;parameter_2&lt;/param-name&gt;<br>
+<span class="indent2"></span>&lt;param-value&gt;123456789&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br><br>
+
+</span>
+</div>
+
+<p>
+有关 Tomcat 中上下文参数的更多信息，请参阅：
+</p>
+
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters" 
+	title="Opens a new window" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-9.0-doc/config/context.html#Context_Parameters'); return false;">
+	Apache Tomcat 配置参考 - 上下文参数</a>。 
+</li>
+</ul>
+</div>
+</body>
+</html>

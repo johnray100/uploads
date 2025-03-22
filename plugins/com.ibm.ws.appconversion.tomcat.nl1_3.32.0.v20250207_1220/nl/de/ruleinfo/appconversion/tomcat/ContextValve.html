@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<!-- 
+********************************************************************************
+* Licensed Materials - Property of IBM                                         *
+* (C) Copyright IBM Corp. 2011, 2023.  All Rights Reserved.                    *
+*                                                                              *
+* US Government Users Restricted Rights - Use, duplication or disclosure       *
+* restricted by GSA ADP Schedule Contract with IBM Corp.                       *
+********************************************************************************
+-->
+<html xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="../../ruleinfo.css" >
+<script type="text/javascript" src="../javascript/externalHelp.js"></script>
+</head>
+<body>
+<div class="Text">
+<span class="SubHeader">Kontextkomponente valve nicht verwenden</span>
+<p>
+Diese Regel markiert alle <!-- START NON-TRANSLATABLE -->
+<span class="Code">Context &lt;Valve&gt;</span>
+<!-- END NON-TRANSLATABLE -->
+Elemente in der Datei <span class="FilePath">META-INF/context.xml</span> .
+</p>
+<p>Die Funktionalität der <!-- START NON-TRANSLATABLE -->
+<span class="Code">Valve</span>
+<!-- END NON-TRANSLATABLE --> Komponente kann in Java EE mit Java -Servletfiltern erreicht werden. Es wird empfohlen, Java -Servletfilter anstelle von Apache Tomcat zu verwenden. <!-- START NON-TRANSLATABLE -->
+<span class="Code">Valve</span>
+<!-- END NON-TRANSLATABLE --> Komponente.
+</p>
+<p>
+Weitere Informationen zur Komponente "valve" in Tomcat finden Sie im folgenden Dokument:
+</p>
+<ul>
+<li>
+    <a href="http://tomcat.apache.org/tomcat-6.0-doc/config/valve.html"
+	title="Wird in neuem Fenster geöffnet" onclick="javascript:helpWindow('http://tomcat.apache.org/tomcat-6.0-doc/config/valve.html'); return false;">
+	Apache Tomcat Configuration Reference - The Valve Component</a>.   
+</li>
+</ul>
+<p>
+Weitere Informationen zu Java-Servletfiltern finden Sie im folgenden Dokument:
+</p>
+<ul>
+<li>
+    <a href="http://www.oracle.com/technetwork/java/filters-137243.html"
+	title="Wird in neuem Fenster geöffnet" onclick="javascript:helpWindow('http://www.oracle.com/technetwork/java/filters-137243.html'); return false;">
+	The Essentials of Filters</a>
+</li>
+</ul>
+</div>
+</body>
+</html>
